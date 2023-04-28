@@ -1,0 +1,1 @@
+{"type":"sap.web","builders":{"configs":{}},"runners":{"configs":{}},"attributes":{"sap.watt.common.setting":["{\"projectType\":[\"blank\"],\"hcpdeploy\":{\"account\":\"p935700trial\",\"name\":\"ui5lablibrarypdfviewer\",\"lastVersionWeTriedToDeploy\":\"1.0.0\"}}"]},"mixinTypes":[]}
