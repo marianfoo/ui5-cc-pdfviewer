@@ -10,7 +10,7 @@
   ],
   "main": "webapp/index.html",
   "dependencies": {
-    "ui5-cc-pdfviewer": "0.0.1"
+    "ui5-cc-pdfviewer": "0.1.1"
   },
   "devDependencies": {
     "@sap/ux-ui5-tooling": "1",
