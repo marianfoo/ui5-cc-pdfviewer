@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";function e(e){var n,t,i;var r=new Promise(function(e){t=e});if(typeof e!=="string"){f(e)}function a(){if(!n){return i}var e={};e.headerPinned=n.getHeaderContentPinned();return e}function o(e){i=e;r.then(function(){if(i&&i.headerPinned){n.setHeaderContentPinned(true)}else{n.setHeaderContentPinned(false)}})}function u(e){r.then(function(){n.attachHeaderContentPinnedStateChange(e)})}function f(e){n=e;t(n)}return{getState:a,setState:o,setControl:f,attachStateChanged:u}}return e});
+//# sourceMappingURL=ObjectPageLayoutWrapper.js.map

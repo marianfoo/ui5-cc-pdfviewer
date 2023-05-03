@@ -1,0 +1,1 @@
+{"version":3,"file":"TemplateViewController.js","names":["sap","ui","define","mvcController","extend","metadata","library"],"sources":["TemplateViewController-dbg.js"],"mappings":"AAAAA,IAAIC,GAAGC,OAAO,CAAC,8BAA+B,SAASC,GACtD,aAIA,OAAOA,EAAcC,OAAO,2DAA4D,CAEvFC,SAAU,CACTC,QAAS,kCAGZ,EAAiB"}

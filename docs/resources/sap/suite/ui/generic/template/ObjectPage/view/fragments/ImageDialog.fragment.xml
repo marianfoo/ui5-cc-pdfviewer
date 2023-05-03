@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="imageDialog"
+			showHeader="false"
+			horizontalScrolling="false"
+			verticalScrolling="false">
+		<content>
+			<Image src="{headerImage>/src}" densityAware="false" width="100%"/>
+		</content>
+		<endButton>
+			<Button text="{i18n>CLOSE}" press="onImageDialogClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

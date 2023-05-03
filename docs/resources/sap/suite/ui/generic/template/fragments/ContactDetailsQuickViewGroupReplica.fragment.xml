@@ -1,0 +1,145 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:build="sap.build"
+						 xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:fe="sap.suite.ui.generic.template.genericUtilities">
+
+
+	<VBox class="sapSmartTemplatesSmartLinkNavPopoverContentContactLabelBoxOuter" binding="{= ${ path: 'facet>Target/AnnotationPath'}.indexOf('/') > -1 ? '{' + ${path: 'facet>Target/AnnotationPath'}.slice(0, ${ path: 'facet>Target/AnnotationPath'}.indexOf('/')) + '}' : null}">
+		<!--replica of QuickViewPage header icon title description -->
+		<VBox class="sapSmartTemplatesSmartLinkNavPopoverContentContactLabelBoxInner">
+			<template:if test="{facet>Label}">
+				<!--<Label text="{path: 'facet>Label' , formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+					   class="sapUiFormContainerTitle sapUiRGLContainer sapUiFormTitle sapUiFormTitleH5 sapSmartTemplatesSmartLinkNavPopoverContentContactLabel"/>-->
+				<FormattedText class="sapUiFormContainerTitle sapUiRGLContainer sapUiFormTitle sapUiFormTitleH5 sapSmartTemplatesSmartLinkNavPopoverContentContactLabel"
+							   htmlText="&lt;h5&gt;{path: 'facet>Label' , formatter: 'sap.ui.model.odata.AnnotationHelper.format'}&lt;/h5&gt;"></FormattedText>
+			</template:if>
+		</VBox>
+			<template:if test="{= ${path: 'contact>photo'} || ${path: 'contact>fn'} || ${path: 'contact>role'}}">
+				<layout:HorizontalLayout
+						id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::contactTitleArea"
+						allowWrapping="false"
+						class="sapMQuickViewPage sapSmartTemplatesSmartLinkNavPopoverContentContactFieldGroup">
+					<core:Icon id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::contactTitleAreaIcon"
+							   visible="{= (${path: 'contact>photo'}) ? 'true' : 'false'}"
+							   src="{= ${contact>photo} ? ${path: 'contact>photo', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} : 'sap-icon://person-placeholder'}"
+							   class="sapMQuickViewThumbnail sapUiIcon sapUiIconMirrorInRTL sapSmartTemplatesSmartLinkNavPopoverContentIcon" />
+					<template:if test="{= ${path: 'contact>fn'} || ${path: 'contact>role'}}">
+						<layout:VerticalLayout class="sapUiHLayoutNoWrap sapSmartTemplatesSmartLinkNavPopoverContentTitleDecreaseFirstMargin">
+							<template:if test="{path: 'contact>fn'}">
+								<Text id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::contactTitleAreaTitle"
+									  text="{path: 'contact>fn', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+									  class="sapSmartTemplatesSmartLinkNavPopoverContentContactTitleIncrease"
+									  wrapping="false"/>
+							</template:if>
+							<template:if test="{path: 'contact>role'}">
+								<Text id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::contactTitleAreaDescription"
+									  text="{path: 'contact>role', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+									  wrapping="false" />
+							</template:if>
+						</layout:VerticalLayout>
+					</template:if>
+				</layout:HorizontalLayout>
+			</template:if>
+
+
+	<form:Form editable="false" class="sapSmartTemplatesSmartLinkNavPopoverContentContactContent">
+		<form:layout>
+			<form:ResponsiveGridLayout/>
+		</form:layout>
+		<form:FormContainer>
+			<!--replica of QuickViewGroup-QuickViewGroupElements title org email PhoneType/work PhoneType/cell PhoneType/fax -->
+			<template:if test="{= !!${contact>title}}">
+				<form:FormElement>
+					<form:label>
+						<Label text="{i18n>CONTACT_JOB_TITLE}"
+							   labelFor="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactJobTitle"/>
+					</form:label>
+					<Text id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactJobTitle"
+						  text="{path: 'contact>title', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+						  wrapping="true"/>
+				</form:FormElement>
+			</template:if>
+
+			<template:if test="{= !!${contact>org}}">
+				<form:FormElement>
+					<form:label>
+						<Label text="{i18n>CONTACT_DEPARTMENT}"
+							   labelFor="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactDepartment"/>
+					</form:label>
+					<Text id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactDepartment"
+						  text="{path: 'contact>org', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+						  wrapping="true"/>
+				</form:FormElement>
+			</template:if>
+
+			<template:if test="{= !!${path: 'contact>email/[${type/EnumMember}.indexOf(\'ContactInformationType/work\')>=0]/address', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} }">
+				<form:FormElement>
+					<form:label>
+						<Label text="{i18n>CONTACT_EMAIL}"
+							   labelFor="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactEmail"/>
+					</form:label>
+					<fe:Link id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactEmail"
+						  href="mailto:{path: 'contact>email/[${type/EnumMember}.indexOf(\'ContactInformationType/work\')>=0]/address', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+						  text="{path: 'contact>email/[${type/EnumMember}.indexOf(\'ContactInformationType/work\')>=0]/address', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+						  wrapping="true"/>
+				</form:FormElement>
+			</template:if>
+
+			<template:if test="{= !!${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/work\')>=0]/uri'} }">
+				<form:FormElement>
+					<form:label>
+						<Label text="{i18n>CONTACT_PHONE}"
+							   labelFor="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactPhone"/>
+					</form:label>
+					<fe:Link id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactPhone"
+						  href="tel:{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/work\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+						  text="{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/work\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+						  wrapping="true"/>
+				</form:FormElement>
+			</template:if>
+
+			<template:if test="{= !!${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/cell\')>=0]/uri'} }">
+				<form:FormElement>
+					<form:label>
+						<Label text="{i18n>CONTACT_MOBILE}"
+							   labelFor="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactMobile"/>
+					</form:label>
+					<fe:Link id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactMobile"
+						  href="tel:{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/cell\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+						  text="{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/cell\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+						  wrapping="true"/>
+				</form:FormElement>
+			</template:if>
+
+			<template:if test="{= !!${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/fax\')>=0]/uri'} }">
+				<form:FormElement>
+					<form:label>
+						<Label text="{i18n>CONTACT_FAX}"
+							   labelFor="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactFax"/>
+					</form:label>
+					<Text id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::idContactFax"
+						  text="{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/fax\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+						  wrapping="true"/>
+				</form:FormElement>
+			</template:if>
+
+			<template:if test="{= !!${contact>adr}}">
+				<form:FormElement>
+					<form:label>
+						<Label text="{i18n>CONTACT_ADDRESS}"/>
+					</form:label>
+					<template:if test="{= !!${path: 'contact>adr/[${type/EnumMember}.indexOf(\'ContactInformationType\')>=0]/label'} }">
+						<template:then>
+							<Text text="{path: 'contact>adr/[${type/EnumMember}.indexOf(\'ContactInformationType\')>=0]/label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+								wrapping="true"/>
+						</template:then>
+						<template:else>
+							<Text text="{path: 'contact>adr', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getFormattedAddress'}"
+								wrapping="true"/>
+						</template:else>
+					</template:if>
+				</form:FormElement>
+			</template:if>
+		</form:FormContainer>
+	</form:Form>
+	</VBox>
+</core:FragmentDefinition>

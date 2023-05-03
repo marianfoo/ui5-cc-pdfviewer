@@ -1,0 +1,1 @@
+{"version":3,"file":"ColumnMicroChartLabel.js","names":["sap","ui","define","ColumnMicroChartLabel","SuiteColumnMicroChartLabel","extend","metadata","deprecated","library"],"sources":["ColumnMicroChartLabel-dbg.js"],"mappings":";;;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAE,iDAAmD,SAASC,GAC3E,aAkBA,IAAIC,EAA6BD,EAAsBE,OAAO,6CAAiH,CAC9KC,SAAU,CACTC,WAAY,KACZC,QAAS,0BAIX,OAAOJ,CACR"}

@@ -1,0 +1,48 @@
+{
+    "_version": "1.39.0",
+    "sap.app": {
+        "id": "sap.ushell.components.contentFinderAppSearch",
+        "applicationVersion": {
+            "version": "1.108.12"
+        },
+        "i18n": "./resources/resources.properties",
+        "ach": "CA-FLP-FE-UI",
+        "type": "component",
+        "title": ""
+    },
+    "sap.ui": {
+        "fullWidth": false,
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": false
+        }
+    },
+    "sap.ui5": {
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "resources/resources.properties"
+            }
+        },
+        "componentName": "sap.ushell.components.contentFinderAppSearch",
+        "rootView": {
+            "viewName": "sap.ushell.components.contentFinderAppSearch.view.ContentFinderAppSearch",
+            "type": "XML",
+            "async": true
+        },
+        "dependencies": {
+            "minUI5Version": "1.99",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.f": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": false
+        }
+    }
+}

@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/base/util/ObjectPath","sap/ui/rta/util/hasStableId","sap/ui/core/mvc/View","sap/ui/core/Fragment","sap/ui/dt/OverlayUtil","sap/base/util/isPlainObject"],function(e,t,a,n,i,r){"use strict";function s(t){var a=t.getManifest();return e.get(["sap.ui.generic.app"],a)}function u(t){var a=t.getManifest();var n=e.get(["sap.ui5","extends","extensions","sap.ui.viewExtensions"],a);var i=[];if(r(n)){Object.keys(n).forEach(function(e){if(e.startsWith("sap.suite.ui.generic.template")){var t=n[e];Object.keys(t).forEach(function(e){i.push(t[e])})}})}return i}function f(t,r){var s=[];for(var u=0,f=r.length;u<f;u++){var c=r[u];var o=c.getElement();var l=t.some(function(t){var i=e.get(t.className);var r;var s;if(o instanceof a){s=o.getViewName();r=t.viewName}else if(o instanceof n){s=o.getFragmentName()}else{return false}return o instanceof i&&s===r});if(l){s.push(c);if(s.length===t.length){break}}}var v=[];s.forEach(function(e){i.iterateOverlayElementTree(e,function(e){v.push(e)})});return v}return function(e,a){var n=[];var i=e.slice(0);if(s(a)){var r=u(a);i=r.length?f(r,i):[]}n=i.filter(function(e){return!e.getDesignTimeMetadata().markedAsNotAdaptable()&&!t(e)});return n}});
+//# sourceMappingURL=validateStableIds.js.map

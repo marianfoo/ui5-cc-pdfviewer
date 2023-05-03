@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/services/Message","sap/ushell/resources"],function(e,s){"use strict";return{getLocalizedText:n,showLocalizedError:o,showLocalizedErrorHelper:r,showLocalizedMessage:i};function n(e,n){return s.i18n.getText(e,n)}function i(s,i,o){if(sap.ushell.Container){sap.ushell.Container.getServiceAsync("Message").then(function(r){r.show(o||e.Type.INFO,n(s,i),i)})}}function o(s,n){i(s,n,e.Type.ERROR)}function r(e,s){return function(){o(e,s)}}});
+//# sourceMappingURL=MessagingHelper.js.map

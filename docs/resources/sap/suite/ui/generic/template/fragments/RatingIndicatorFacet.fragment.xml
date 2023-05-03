@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m"
+						 xmlns:core="sap.ui.core" >
+	<!--TODO: on going discussions around UI.DataPoint and how the new property will look like, for now we'll call it 'Aggregated' -->
+	<template:with path="dataPoint>SampleSize" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="sampleSize">
+		<VBox id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::RatingIndicatorVBox"
+			  visible="{= ${path: 'facet>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}"
+			  binding="{parts: [{path: 'facet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+			  class="sapSmartTemplatesObjectPageHeaderForm sapUiSmallMarginBegin">
+			<items>
+				<Label id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::RatingIndicatorLabel"
+					   text="{path: 'dataPoint>Title', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+					   labelFor="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::RatingIndicator"/>
+				<HBox alignItems="Center">
+					<items>
+						<RatingIndicator id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::RatingIndicator"
+							enabled="true" editable="false"
+							maxValue="{path: 'dataPoint>TargetValue', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+							value="{path: 'dataPoint>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+							iconSize="1rem" />
+						<Text id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::RatingIndicatorTotalRatings"
+							  text="{path: 'dataPoint>SampleSize', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildRatingIndicatorAggregateCountExpression'}"
+							  visible="{= ${dataPoint>SampleSize} ? true : false }">
+							<customData>
+								<core:CustomData key="AggregateCount" value="{path: 'dataPoint>SampleSize', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+							</customData>
+						</Text>
+					</items>
+				</HBox>
+			</items>
+		</VBox>
+	</template:with>
+</core:FragmentDefinition>

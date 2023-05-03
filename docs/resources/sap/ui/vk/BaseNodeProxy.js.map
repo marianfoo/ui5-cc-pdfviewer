@@ -1,0 +1,1 @@
+{"version":3,"file":"BaseNodeProxy.js","names":["sap","ui","define","BaseObject","BaseNodeProxy","extend","metadata","library","abstract"],"sources":["BaseNodeProxy-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,CACb,sBACE,SACFC,GAEA,aA8BA,IAAIC,EAAgBD,EAAWE,OAAO,0BAA2E,CAChHC,SAAU,CACTC,QAAS,YACTC,SAAY,QAmFd,OAAOJ,CACR"}

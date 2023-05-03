@@ -1,0 +1,2 @@
+sap.ui.define(["sap/m/Link","sap/m/LinkRenderer","sap/base/strings/whitespaceReplacer"],function(e,n,i){"use strict";var t=e.extend("Link",{init:function(){var e=this.setText.bind(this);this.setText=function(n){e(i(n))}},renderer:function(e,i){n.render(e,i)}});return t});
+//# sourceMappingURL=Link.js.map

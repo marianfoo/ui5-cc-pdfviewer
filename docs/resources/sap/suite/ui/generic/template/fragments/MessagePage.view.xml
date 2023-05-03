@@ -1,0 +1,4 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" height="100%" controllerName="sap.suite.ui.generic.template.fragments.MessagePage">
+                <MessagePage id="messagePage" showNavButton="false" text="{_templPrivGlobal>/generic/messagePage/text}"
+                               description="{_templPrivGlobal>/generic/messagePage/description}" icon="{_templPrivGlobal>/generic/messagePage/icon}" showHeader="false" />
+</mvc:View>

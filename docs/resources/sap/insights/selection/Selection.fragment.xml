@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:w="sap.ui.integration.widgets">
+        <NavContainer id="selectionNavCon">
+            <core:Fragment fragmentName="sap.insights.selection.CardList" type="XML" />
+            <Page id="previewPage" showNavButton="true" navButtonPress="onNavBack" backgroundDesign="Transparent" title="{view>/selectedCardTitle}">
+                <headerContent>
+                    <VBox direction="Row">
+                        <Button
+                            class="sapUiTinyMarginEnd"
+                            text="{i18n>delete}"
+                            press=".handleCardDeleteConfirm"/>
+                        <Button
+                            text="{i18n>copy}"
+                            press=".navigateToCopyCard" visible="{= (${view>/showCopyButton} &amp;&amp; !${view>/selectionDialogOpen}) ? true : false}"/>
+                    </VBox>
+                </headerContent>
+                <core:Fragment fragmentName="sap.insights.selection.CardPreview" type="XML" />
+            </Page>
+            <mvc:XMLView viewName="sap.insights.copy.Copy" id="insightsCopyCardView" />
+        </NavContainer>
+</core:FragmentDefinition>

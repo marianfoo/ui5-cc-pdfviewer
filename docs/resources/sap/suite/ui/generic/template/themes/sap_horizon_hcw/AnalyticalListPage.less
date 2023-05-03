@@ -1,0 +1,19 @@
+/* ================================================================= */
+/* CSS for control sap.suite.ui.generic.template/AnalyticalListPage  */
+/* Horizon High Contrast White theme                                 */
+/* ================================================================= */
+
+/**************** OVERFLOW TOOLBAR START****************/
+.sapSmartTemplatesAnalyticalListPageVFOverflow {
+	background-color: @sapUiListBackground;
+	opacity: @_sap_suite_ui_generic_template_ALPConstants_VFOverflowOpacity;
+	border-color: fade(@sapUiListBorderColor, 25%);
+}
+/**************** OVERFLOW TOOLBAR END****************/
+
+/* Overwriting this class to resolve the issue 1880711716 */
+.sapSmartTemplatesAnalyticalListPageFilterDialogTitleToolbar {
+    border-bottom: none!important;
+    padding-left: 0rem!important;
+    margin-left: 1rem;
+}

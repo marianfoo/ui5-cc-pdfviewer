@@ -1,0 +1,1 @@
+{"version":3,"file":"AnimationRotateType.js","names":["sap","ui","define","AnimationRotateType","AngleAxis","Euler","Quaternion"],"sources":["AnimationRotateType-dbg.js"],"mappings":";;;;;;AAOAA,IAAIC,GAAGC,OAAO,GACX,WACF,aASA,IAAIC,EAAsB,CACzBC,UAAW,YACXC,MAAO,QACPC,WAAY,cAGb,OAAOH,CACR"}

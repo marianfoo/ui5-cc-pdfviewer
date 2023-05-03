@@ -1,0 +1,81 @@
+{
+	"_version": "1.0.0",
+	"sap.app": {
+		"_version": "1.0.0",
+		"id": "sap.suite.ui.generic.template.QuickCreate",
+		"type": "component",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.108.9"
+		},
+		"title": "{{TITLE}}",
+		"description": "{{DESCRIPTION}}",
+		"tags": {
+			"keywords": ["{{TITLE}}"]
+		},
+		"embeddedBy": "../",
+		"offline": false,
+		"resources": "resources.json"
+	},
+
+	"sap.ui": {
+		"_version": "1.0.0",
+
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
+	},
+
+	"sap.ui5": {
+		"_version": "1.0.0",
+
+		"dependencies": {
+			"minUI5Version": "1.36.1",
+			"libs": {
+				"sap.ui.core": {
+					"minVersion": "1.36.1"
+				},
+				"sap.m": {
+					"minVersion": "1.36.1"
+				},
+				"sap.ui.comp": {
+					"minVersion": "1.36.1"
+				},
+				"sap.ui.table": {
+					"minVersion": "1.36.1"
+				},
+				"sap.uxap": {
+					"minVersion": "1.36.1"
+				},
+				"sap.ui.generic.app": {
+					"minVersion": "1.36.1"
+				},
+				"sap.ui.generic.template": {
+					"minVersion": "1.36.1"
+				},
+				"sap.suite.ui.generic.template": {
+					"minVersion": "1.36.1"
+				}
+			}
+		},
+
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			}
+		},
+
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	}
+}

@@ -1,0 +1,123 @@
+<core:FragmentDefinition xmlns:sfi="sap.ui.comp.smartfield"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smartlink="sap.ui.comp.navpopover"
+	xmlns="sap.m" xmlns:sfo="sap.ui.comp.smartform" xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core" xmlns:build="sap.build" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:fe="sap.suite.ui.generic.template.genericUtilities">
+
+	<!-- NEW title area which is mainly based on source entity information (text arrangement...) will always be shown-->
+	<!--replica of QuickViewPage header icon title description -->
+	<layout:HorizontalLayout
+		id="ownTitleArea"
+		allowWrapping="false"
+		class="navigationPopover navigationPopoverHeader sapMQuickViewPage sapSmartTemplatesSmartLinkNavPopoverContentTitleAreaTrunc">
+		<!--the icon comes from the target entity type header,
+		the binding context is set relatively to the the target, and an expand is added if the picture is behind a nav property-->
+		<Avatar
+			id="{:= ${parameter>/stableId}.getStableId({type: 'QuickView', subType: 'Avatar'})}"
+			tooltip="{path: 'header>Title/Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+			visible="{= (${path: 'header>ImageUrl'} || ${path: 'header>TypeImageUrl'}) ? 'true' : 'false'}"
+			binding="{parts:[{path: 'entitySet>'}, {path: 'quickView>/navigationPath'}, {path: 'header>ImageUrl'}, {path: 'header>TypeImageUrl'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getPathWithExpandFromHeader'}"
+			src="{parts:[{path: 'header>ImageUrl'}, {path: 'header>TypeImageUrl'}, {path: 'parameter>/appComponentName'}, {value: true}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatImageOrTypeUrl'}"
+			initials="{path: 'header>Initials', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getAvatarInitials'}"
+			class="sapSmartTemplatesSmartLinkNavPopoverContentAvatar"
+			displaySize="M"
+			displayShape="Square">
+		</Avatar>
+		<!--the title comes only from source entity type text arrangement,
+		the binding context is set relatively to the the source, there already the expand was performed if necessary, therefore here not required-->
+		<layout:VerticalLayout class="sapUiHLayoutNoWrap sapSmartTemplatesSmartLinkNavPopoverContentTitleDecreaseFirstMargin">
+			<template:if test="{path: 'quickView>/mainNavigation'}">
+				<template:then>
+					<fe:Link id="title"
+					class="sapSmartTemplatesSmartLinkNavPopoverContentTitleIncrease"
+					text="{parts: [{path: 'quickView>/sourceEntityType'}, {path: 'quickView>/sourceClickedField'}, {path: 'quickView>/navigationPath'} ], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTitle'}"
+					target="{path: 'quickView>mainNavigation/Target'}"
+					press="._templateEventHandlers.onSemanticObjectLinkNavigationPressed"
+					wrapping="false">
+						<fe:customData>
+							<core:CustomData key="SemanticObject" value="{path: 'quickView>/mainNavigation/SemanticObject'}"/>
+							<core:CustomData key="Action" value="{path: 'quickView>/mainNavigation/Action'}"/>
+							<core:CustomData key="SemanticAttributes" value="{path: 'quickView>/mainNavigation/SemanticAttributes'}"/>
+						</fe:customData>
+					</fe:Link>
+				</template:then>
+				<template:else>
+					<Text id="title" text="{parts: [{path: 'quickView>/sourceEntityType'}, {path: 'quickView>/sourceClickedField'}, {path: 'quickView>/navigationPath'} ], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTitle'}"
+						renderWhitespace="true"
+						class="sapSmartTemplatesSmartLinkNavPopoverContentTitleIncrease"
+						wrapping="false"/>
+				</template:else>
+			</template:if>
+			<Text id="description" text="{parts: [{path: 'quickView>/sourceEntityType'}, {path: 'quickView>/sourceClickedField'}, {path: 'quickView>/navigationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDescription'}"
+				  renderWhitespace="true"
+				  wrapping="false"/>
+		</layout:VerticalLayout>
+	</layout:HorizontalLayout>
+
+	<template:if test="{= ${facetCollection>} }">
+
+		<template:if test="{= ${quickView>/showFieldGroup} || ${quickView>/showContact} }">
+			<!--the quickview content comes from the target entity type,
+				the binding context is set relatively to the the target, and an expand is added if the picture is behind a nav property-->
+			<template:if test="{facetCollection>}">
+				<template:repeat list="{facetCollection>}" var="facet">
+					<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="target">
+						<template:with path="facet>" var="groupFacet"> <!-- only needed in called fragments.SmartFormDataField -->
+							<template:if test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') >= 0}">
+								<template:then>
+									<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="contact">
+										<VBox binding="{parts: [{path: 'facet>Target'}, {path: 'entitySet>'}, {path: 'quickView>/navigationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getCurrentPathWithExpandForContact'}"
+											 visible="{= ${path: 'facet>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}">
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.ContactDetailsQuickViewGroupReplica" type="XML"/>
+										</VBox>
+									</template:with>
+								</template:then>
+								<template:else>
+									<VBox binding="{parts: [{path: 'facet>Target'}, {path: 'entitySet>'}, {path: 'quickView>/navigationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getCurrentPathWithExpand'}"
+										 visible="{= ${path: 'facet>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}">
+									<sfo:SmartForm 	class="sapSmartTemplatesSmartForm"
+													  flexEnabled="true">
+										<sfo:customData>
+											<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}' />
+										</sfo:customData>
+										<sfo:layout>
+											<sfo:Layout columnsM="2" columnsL="3" columnsXL="4" labelSpanS="12" labelSpanM="12" labelSpanL="12" labelSpanXL="12" singleGroupFullSize="false" />
+										</sfo:layout>
+										<sfo:groups>
+											<sfo:Group label="{path: 'facet>Label' , formatter: 'sap.ui.model.odata.AnnotationHelper.format'}">
+												<template:if test="{target>Data}">
+													<template:then>
+														<template:repeat list="{target>Data}" var="dataField">
+															<template:if test="{= ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForAction' &amp;&amp; ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation'}">
+																<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+																	<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.SmartFormDataField" type="XML"/>
+																</template:with>
+															</template:if>
+														</template:repeat>
+													</template:then>
+													<template:elseif test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') > -1 }">
+														<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.SmartFormDataField" type="XML"/>
+													</template:elseif>
+													<template:else>
+														<template:repeat list="{target>}" var="dataField">
+															<template:if test="{= ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForAction' &amp;&amp; ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation'}">
+																<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.SmartFormDataField" type="XML"/>
+															</template:if>
+														</template:repeat>
+													</template:else>
+												</template:if>
+											</sfo:Group>
+										</sfo:groups>
+									</sfo:SmartForm>
+									</VBox>
+								</template:else>
+							</template:if>
+						</template:with>
+					</template:with>
+					
+				</template:repeat>
+			</template:if>
+		</template:if>
+
+	</template:if>
+</core:FragmentDefinition>

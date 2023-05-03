@@ -1,0 +1,6 @@
+/*!
+ * SAPUI5
+ * (c) Copyright 2009-2022 SAP SE. All rights reserved.
+ */
+sap.ui.define(["sap/ui/model/odata/v2/ODataModel"],function(e){"use strict";var t={handleModelInit:function(t,a,n){var i=false,o;if(t&&!t._bMetaModelLoadAttached&&a){o=t.getModel();if(o){if(o.getMetadata()&&o instanceof e){i=true}else if(o.bLoadMetadataAsync||o.getServiceMetadata&&!o.getServiceMetadata()){i=true}t._bMetaModelLoadAttached=true;if(i&&o.getMetaModel()&&o.getMetaModel().loaded){var r=!!n;if(!r){return o.getMetaModel().loaded().then(a.bind(t))}else{return this._waitForFlexChanges(o,t,a,n)}}else{a.apply(t)}}}return Promise.resolve()},_waitForFlexChanges:function(e,t,a,n){return this._getFlexRuntimeInfoAPI().then(function(i){return this._flexRuntimeInfoAPIHandler(i,e,t,a,n)}.bind(this))},_getFlexRuntimeInfoAPI:function(){return sap.ui.getCore().loadLibrary("sap.ui.fl",{async:true}).then(function(){return new Promise(function(e){sap.ui.require(["sap/ui/fl/apply/api/FlexRuntimeInfoAPI"],function(t){e(t)})})})},_flexRuntimeInfoAPIHandler:function(e,t,a,n,i){var o;if(!e.isFlexSupported({element:a})){o=Promise.resolve()}else if(typeof i==="boolean"){o=e.waitForChanges({element:a})}else{o=e.waitForChanges({complexSelectors:i})}return Promise.all([t.getMetaModel().loaded(),o]).then(n.bind(a))}};return t},true);
+//# sourceMappingURL=ODataModelUtil.js.map

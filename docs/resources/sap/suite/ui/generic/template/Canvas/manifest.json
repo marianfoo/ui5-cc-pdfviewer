@@ -1,0 +1,103 @@
+{
+	"_version": "1.1.0",
+
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "sap.suite.ui.generic.template.Canvas",
+		"type": "component",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"__comment": "applicationVersion oder componentversion??",
+			"version": "1.108.9"
+		},
+		"title": "Canvas",
+		"description": "Canvas Page",
+		"tags": {
+			"keywords": []
+		},
+		"ach": "CA-UI5-ST",
+		"offline": false,
+		"embeddedBy": "../",
+		"resources": "resources.json"
+	},
+
+	"sap.ui": {
+		"_version": "1.1.0",
+
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+            "sap_hcb",
+            "sap_bluecrystal",
+			"sap_belize",
+			"sap_belize_plus",
+		  	"sap_belize_hcw"
+        ]
+	},
+
+	"sap.ui5": {
+		"_version": "1.1.0",
+
+		"services": {
+			"ShellUIService": {
+				"factoryName": "sap.ushell.ui5service.ShellUIService"
+			}
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.1",
+			"libs": {
+				"sap.ui.core": {
+					"minVersion": "1.30.1"
+				},
+				"sap.m": {
+					"minVersion": "1.30.1"
+				},
+				"sap.f": {
+					"minVersion": "1.41.0"
+				},
+				"sap.ui.comp": {
+					"minVersion": "1.30.1"
+				},
+				"sap.ui.table": {
+					"minVersion": "1.30.1"
+				},
+			  	"sap.ushell": {
+					"minVersion": "1.30.1"
+			  	},
+			  	"sap.ui.generic.app" : {
+					"minVersion": "1.30.1"
+			  	},
+				"sap.suite.ui.generic.template" : {
+					"minVersion": "1.30.1"
+			  	}
+			}
+		},
+		
+		"commands": {
+			"Save": {
+				"name": "Save",
+				"shortcut": "Ctrl+S"
+			}
+		},
+
+		"models": {
+			"i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+			"i18n||Parent": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "../detailTemplates/i18n/i18n.properties"
+            }
+		},
+
+		"contentDensities": {
+		  "compact": true,
+		  "cozy": true
+		}
+	}
+}

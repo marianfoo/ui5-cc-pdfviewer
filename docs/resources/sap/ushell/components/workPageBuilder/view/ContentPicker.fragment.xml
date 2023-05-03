@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog id="sapCepContentPickerDialog" verticalScrolling="true" contentHeight="40%" contentWidth="40%" showHeader="true" initialFocus="sapCepContentPickerSearchField">
+        <customHeader>
+            <OverflowToolbar>
+                <Title text="{i18n>ContentPicker.Dialog.TitleLabel}" level="H1"/>
+                <ToolbarSpacer/>
+                <SearchField id="sapCepContentPickerSearchField" liveChange=".onSearch" width="50%" />
+            </OverflowToolbar>
+        </customHeader>
+        <content>
+            <List id="sapCepContentPickerList"
+                mode="SingleSelectLeft"
+                noDataText="{i18n>ContentPicker.Dialog.NoDataTextLabel}"
+                includeItemInSelection="true"
+                sticky="HeaderToolbar"
+                items="{
+                    path: '',
+                    sorter: {
+                        path: 'Descriptor/sap.card/type',
+                        group: false
+                    }
+                }">
+                <StandardListItem title="{Descriptor/sap.app/title}"
+                    description="{Descriptor/sap.app/subTitle}"
+                    icon="{Descriptor/sap.ui/icons/icon}"
+                    iconDensityAware="false"
+                    iconInset="false"
+                    type="Active" />
+            </List>
+        </content>
+        <beginButton>
+            <Button press="onConfirm" text="{i18n>ContentPicker.Dialog.Button.Add}"  type="Emphasized"/>
+        </beginButton>
+        <endButton>
+            <Button press="onCancel" text="{i18n>ContentPicker.Dialog.Button.Cancel}"  />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

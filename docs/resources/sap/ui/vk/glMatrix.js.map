@@ -1,0 +1,1 @@
+{"version":3,"file":"glMatrix.js","names":["sap","ui","define","glMatrix","setMatrixArrayType","Float64Array"],"sources":["glMatrix-dbg.js"],"mappings":";;;;;;AASAA,IAAIC,GAAGC,OAAO,CACb,0BACE,SACFC,GAEA,aAEAA,EAASA,SAASC,mBAAmBC,cAErC,OAAOF,CACR"}

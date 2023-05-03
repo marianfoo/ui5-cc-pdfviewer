@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/EventHub","sap/ui/thirdparty/jquery"],function(e,jQuery){"use strict";function n(n){var r=new jQuery.Deferred,t,s,i=0,u=0,f=0,a=[],o=[],p,c={refresh:false};function l(e){if(e&&e.refresh===true){c.refresh=true}f++;r.notify()}function h(e){o.push({entry:p,message:e});u++;r.notify()}var d=e.last("UserSettingsOpened")||{};Object.keys(d).forEach(function(e){var r=parseInt(e,10);s=n[r].onSave();s.done(l);p=n[r].title;s.fail(h);a.push(s);i++});t=jQuery.when.apply(null,a);t.done(function(){e.emit("UserSettingsOpened",null);r.resolve(c)});r.progress(function(){if(u>0&&u+f===i){r.reject(o)}});return r.promise()}return{saveUserPreferenceEntries:n}});
+//# sourceMappingURL=utils.js.map

@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/base/ManagedObject","sap/base/Log","sap/ui/model/Model","sap/ui/integration/util/BindingHelper","sap/base/util/extend","sap/base/util/isPlainObject"],function(e,r,n,i,t,a){"use strict";var s=e.extend("sap.ui.integration.util.SimpleControl",{metadata:{library:"sap.ui.integration",properties:{resolved:{type:"any"}}}});var o=new s;var u={};function l(e,n,i,t,s){if(t===s){r.warning("BindingResolver maximum level processing reached. Please check for circular dependencies.");return e}if(Array.isArray(e)){return e.map(function(e){return l(e,n,i,t+1,s)})}if(e&&a(e)&&!u.isBindingInfo(e)){var o={};for(var d in e){o[d]=l(e[d],n,i,t+1,s)}return o}if(typeof e==="string"||typeof e==="object"&&u.isBindingInfo(e)){return p(e,n,i)}return e}function p(r,a,s){if(!r){return r}var u=typeof r==="string"?e.bindingParser(r):t({},r);if(!u){return r}if(!s){s="/"}o.unbindProperty("resolved");o.unbindObject();o.setModel(null);if(a instanceof n){o.setModel(a)}else{i.propagateModels(a,o)}o.bindObject(s);o.bindProperty("resolved",u);var l=o.getResolved();return l}u.resolveValue=function(e,r,n){var i=0,t=30;if(r){return l(e,r,n,i,t)}else{return e}};u.isBindingInfo=function(e){if(!e){return false}return e.hasOwnProperty("path")||e.hasOwnProperty("parts")&&(e.hasOwnProperty("formatter")||e.hasOwnProperty("binding"))};return u});
+//# sourceMappingURL=BindingResolver.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"AnimationTrackValueType.js","names":["sap","ui","define","AnimationTrackValueType","Scalar","Vector3","AngleAxis","Quaternion","Euler"],"sources":["AnimationTrackValueType-dbg.js"],"mappings":";;;;;;AAOAA,IAAIC,GAAGC,OAAO,GACX,WACF,aASA,IAAIC,EAA0B,CAK7BC,OAAQ,SAKRC,QAAS,UAKTC,UAAW,YAKXC,WAAY,aAKZC,MAAO,SAGR,OAAOL,CACR"}

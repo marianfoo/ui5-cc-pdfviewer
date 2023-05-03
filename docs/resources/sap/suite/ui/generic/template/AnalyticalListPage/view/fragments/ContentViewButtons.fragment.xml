@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build" xmlns:l="sap.ui.layout">
+
+	<SegmentedButton selectedKey="{_templPriv>/alp/contentView}" select="._templateEventHandlers.onContentViewSegmentButtonPressed">
+						<items>
+							<template:if test="{= !${device>/system/phone}}">
+							<SegmentedButtonItem
+									tooltip="{i18n>CONTAINER_VIEW_CHARTTABLE}"
+									key="charttable"
+									icon="{alpCustomModel>/icon/hybrid}"
+									enabled="{_templPriv>/alp/enableHybridMode}"/>
+							</template:if>
+							<SegmentedButtonItem
+								tooltip="{i18n>CONTAINER_VIEW_CHART}"
+								key="chart"
+								visible="{alpCustomModel>/required/master}"
+								icon="{alpCustomModel>/icon/master}"/>
+							<template:if test="{= ${parameter>/manifest/sap.ui5/extends/extensions/sap.ui.viewExtensions/sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage/AnalyticalListPageContentViewExtension} !== undefined }">
+							<SegmentedButtonItem
+								tooltip="{alpCustomModel>/tooltip/customview1}"
+								key="customview1"
+								icon="{alpCustomModel>/icon/customview1}"/>
+							</template:if>
+							<template:if test="{= ${parameter>/manifest/sap.ui5/extends/extensions/sap.ui.viewExtensions/sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage/AnalyticalListPageContentViewExtension2} !== undefined }">
+							<SegmentedButtonItem
+								tooltip="{alpCustomModel>/tooltip/customview2}"
+								key="customview2"
+								icon="{alpCustomModel>/icon/customview2}"/>
+							</template:if>
+						  <template:if test="{= ${parameter>/settings/dshQueryName} !== undefined }">
+							<SegmentedButtonItem
+								tooltip="{i18n>CONTAINER_VIEW_CROSSTAB}"
+								key="crosstable"
+								icon="sap-icon://grid" />
+							</template:if>
+							<SegmentedButtonItem
+								tooltip="{i18n>CONTAINER_VIEW_TABLE}"
+								key="table"
+								icon="sap-icon://table-view" />							
+						</items>
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+				</SegmentedButton>
+</core:FragmentDefinition>

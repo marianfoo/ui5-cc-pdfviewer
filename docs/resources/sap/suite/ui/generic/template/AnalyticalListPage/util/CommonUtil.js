@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/base/Object","sap/ui/model/Context"],function(e,i){"use strict";var t=e.extend("sap.suite.ui.generic.template.AnalyticalListPage.util.CommonUtil");t.nullify=function(e){if(e){for(var i in e){e[i]=null}}};return t},true);
+//# sourceMappingURL=CommonUtil.js.map

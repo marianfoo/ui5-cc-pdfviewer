@@ -1,0 +1,1 @@
+{"version":3,"file":"PerspectiveCamera.js","names":["sap","ui","define","Camera","PerspectiveCamera","extend","metadata","library","properties","fov","type"],"sources":["PerspectiveCamera-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,CACb,YACE,SACFC,GAEA,aAgBA,IAAIC,EAAoBD,EAAOE,OAAO,8BAAmF,CACxHC,SAAU,CACTC,QAAS,YACTC,WAAY,CAIXC,IAAO,CACNC,KAAM,aAMV,OAAON,CACR"}

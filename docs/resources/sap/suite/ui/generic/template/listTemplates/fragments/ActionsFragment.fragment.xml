@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core"
+    template:require="sap.suite.ui.generic.template.AnalyticalListPage.util.FilterUtil">
+    <!-- global breakout actions-->
+    <template:repeat list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage/sap.ui.generic.app}" var="tmpEntitySet">
+    	<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GlobalActions" type="XML"/>
+    </template:repeat>
+    <Button id="template::ClearButton" text="{i18n>CLEAR_FILTERS}" type="Default"
+		press="._templateEventHandlers.onClearPress" visible="false"/>
+	<template:if test="{= !${parameter>/settings/showGoButtonOnFilterBar} &amp;&amp; !${device>/system/phone}}">
+		<Button id="template::VisualFilterDialogButton" text="{path:'_templPriv>/alp/filtersLink', formatter: 'sap.suite.ui.generic.template.AnalyticalListPage.util.FilterUtil.formatFiltersLink'}" type="Default" tooltip="{path:'_templPriv>/alp/filtersLink', formatter: 'sap.suite.ui.generic.template.AnalyticalListPage.util.FilterUtil.formatFiltersLink'}"
+		ariaHasPopup="Dialog" press="._templateEventHandlers.onFilterPress">
+		</Button>
+	</template:if>
+</core:FragmentDefinition>

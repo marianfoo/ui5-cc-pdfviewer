@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns="sap.m" xmlns:core="sap.ui.core"
+						 xmlns:sf="sap.ui.comp.smartform" xmlns:smartmultiedit="sap.ui.comp.smartmultiedit">
+	<template:if test="{multiEdit>enabled}">
+		<Dialog 
+				id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportAction', subType: 'MultiEditDialog', sQuickVariantKey: ${tabItem>key}})}" 
+				title="{localModel>/title}" 
+				contentWidth="27rem" 
+				class="sapUiContentPadding" 
+				horizontalScrolling="false"
+				visible="false">
+			<content>
+				<template:if test="{multiEdit>annotationPath}">
+					<smartmultiedit:Container entitySet="{entitySetName>}" >
+						<smartmultiedit:layout>
+							<sf:SmartForm 
+									id="{:= ${parameter>/stableId}.getStableId({type: 'MultiEditDialog', subType: 'SmartForm', sQuickVariantKey: ${tabItem>key}})}" 
+									editable="true"
+									ignoredFields="{multiEdit>ignoredFields}" >
+								<sf:layout>
+									<sf:Layout labelSpanM="12" labelSpanL="12" labelSpanXL="12" />
+								</sf:layout>
+								<sf:groups>
+									<sf:Group 
+										id="{:= ${parameter>/stableId}.getStableId({type: 'MultiEditDialog', subType: 'GroupExtension', sQuickVariantKey: ${tabItem>key}})}">
+										<core:ExtensionPoint name="MultiEditFieldsExtension|{parameter>/entitySet}" />
+										<template:if test="{= ${tabItem>} }">
+											<core:ExtensionPoint
+												name="MultiEditFieldsExtension|{parameter>/entitySet}|{path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}" />
+										</template:if>
+									</sf:Group>
+									
+									<sf:Group 
+											id="{:= ${parameter>/stableId}.getStableId({type: 'MultiEditDialog', subType: 'Group', sQuickVariantKey: ${tabItem>key}})}">
+										<template:repeat list="{multiEdit>fields}" var="dataField">
+											<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="dataFieldId">
+												<template:if test="{= ${dataFieldId>}.buildStableId({type: 'MultiEditDialog', subType: 'DataField', sRecordType: ${dataField>RecordType}, sProperty: ${dataField>Value/Path}, sQuickVariantKey: ${tabItem>key}})}"/>
+												<sf:GroupElement 
+														id="{:= ${parameter>/stableId}.getStableId({type: 'MultiEditDialog', subType: 'GroupElement', sDataField: ${dataFieldId>id}})}">
+													<sf:elements>
+													<!-- id for Field itself seems not to be needed. However, it was introduced in 1.96 (when actually ids for Group and GroupElement should have be introduced) with this
+													definition (now provided as _id) - so if it should become necessary before 1.96 is out of maintenance, that defintion must be used -->
+														<smartmultiedit:Field 
+																_id="{dataFieldId>id}" 
+																propertyName="{dataField>Value/Path}"/>
+													</sf:elements>
+												</sf:GroupElement>
+											</template:with>
+										</template:repeat>
+									</sf:Group>
+								</sf:groups>
+							</sf:SmartForm>
+						</smartmultiedit:layout>
+					</smartmultiedit:Container>
+				</template:if>
+			</content>
+			<beginButton>
+				<Button text="{i18n>SAVE_MULTI_EDIT}" press="._templateEventHandlers.onSaveMultiEditDialog" type="Emphasized"/>
+			</beginButton>
+			<endButton>
+				<Button text="{i18n>CANCEL_MULTI_EDIT}" press="._templateEventHandlers.onCancelMultiEditDialog"/>
+			</endButton>
+		</Dialog>
+	</template:if>
+</core:FragmentDefinition>

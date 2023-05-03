@@ -1,0 +1,28 @@
+<core:FragmentDefinition
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap"
+    xmlns="sap.m">
+    <template:if test="{= ${parameter>/treeNode/fCLLevel} === 1 ||  ${parameter>/treeNode/fCLLevel} === 2 }">
+		<HBox id="template::FCLActionButtons" displayInline="true">	
+			<uxap:ObjectPageHeaderActionButton id="fullScreen" text="{i18n>ST_GENERIC_FCL_FULLSCREEN}" hideText="true"
+										   importance="High" tooltip="{i18n>ST_GENERIC_FCL_FULLSCREEN}"
+										   press="._templateEventHandlers.fclActionButtonHandlers.onFullscreenColumnPressed"
+										   visible="{= ${parameter>/treeNode/fCLLevel} === 1 ? '{_templPrivGlobal>/generic/FCL/midActionButtons/fullScreen}' : '{_templPrivGlobal>/generic/FCL/endActionButtons/fullScreen}' }" 
+										   icon="sap-icon://full-screen"
+										   type="Transparent"/>	
+			<uxap:ObjectPageHeaderActionButton id="exitFullScreen" text="{i18n>ST_GENERIC_FCL_EXIT_FULLSCREEN}" hideText="true"
+										   importance="High" tooltip="{i18n>ST_GENERIC_FCL_EXIT_FULLSCREEN}"
+										   press= "._templateEventHandlers.fclActionButtonHandlers.onExitFullscreenColumnPressed"
+										   visible="{= ${parameter>/treeNode/fCLLevel} === 1 ? '{_templPrivGlobal>/generic/FCL/midActionButtons/exitFullScreen}' : '{_templPrivGlobal>/generic/FCL/endActionButtons/exitFullScreen}' }" 
+										   icon="sap-icon://exit-full-screen"
+										   type="Transparent"/>	
+			<uxap:ObjectPageHeaderActionButton id="closeColumn" text="{i18n>ST_GENERIC_FCL_CLOSE_COLUMN}" hideText="true"
+										   importance="High" tooltip="{i18n>ST_GENERIC_FCL_CLOSE_COLUMN}"
+										   press="._templateEventHandlers.fclActionButtonHandlers.onCloseColumnPressed"
+										   visible="{= ${parameter>/treeNode/fCLLevel} === 1 ? '{_templPrivGlobal>/generic/FCL/midActionButtons/closeColumn}' : '{_templPrivGlobal>/generic/FCL/endActionButtons/closeColumn}' }" 
+										   icon="sap-icon://decline"
+										   type="Transparent"/>
+		</HBox>
+	</template:if>
+</core:FragmentDefinition>

@@ -1,0 +1,1 @@
+{"version":3,"file":"readCatalogs.js","names":["sap","ui","define","getCatalogId","oCatalog","identification","id","getCatalogTitle","title"],"sources":["readCatalogs-dbg.js"],"mappings":";AAOAA,IAAIC,GAAGC,OAAO,GACX,WACC,aAYA,SAASC,EAAcC,GACnB,OAAOA,EAASC,eAAeC,EACnC,CAUA,SAASC,EAAiBH,GACtB,OAAOA,EAASC,eAAeG,KACnC,CAEA,MAAO,CAEHL,aAAcA,EACdI,gBAAiBA,EAEzB,EAAmB"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"MessagePage.controller.js","names":["sap","ui","define","Controller","extend","navButtonPress","window","history","back"],"sources":["MessagePage-dbg.controller.js"],"mappings":"AAAAA,IAAIC,GAAGC,OAAO,CACb,8BACE,SAASC,GACX,aAGA,OAAOA,EAAWC,OAAO,sDAAuD,CAC/EC,eAAgB,WACfC,OAAOC,QAAQC,MAChB,GAEF"}

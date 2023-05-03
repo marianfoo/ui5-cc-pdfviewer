@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["sap","ui","define","Object","freeze","selection","receiver","controllerExtension","outline","action","property","supportTools"],"sources":["index-dbg.js"],"mappings":";;;;;AAMAA,IAAIC,GAAGC,OAAO,WACb,aAEA,OAAOC,OAAOC,OAAO,CACpBC,UAAW,+BACXC,SAAU,8BACVC,oBAAqB,yCACrBC,QAAS,6BACTC,OAAQ,4BACRC,SAAU,8BACVC,aAAc,mCAEhB"}

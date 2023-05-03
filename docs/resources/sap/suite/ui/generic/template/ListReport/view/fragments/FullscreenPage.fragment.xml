@@ -1,0 +1,99 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns="sap.m" xmlns:f="sap.f"
+	xmlns:uxap="sap.uxap" xmlns:core="sap.ui.core" xmlns:st="sap.suite.ui.generic.template" xmlns:variants="sap.ui.comp.smartvariants"
+	template:require="{
+		AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',
+		AHListReport: 'sap/suite/ui/generic/template/ListReport/AnnotationHelper'}"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<template:with path="parameter>/" helper="AHListReport.createWorkingContext" var="workingContext">
+		<template:with path="entitySet>dummy" var="chartItem">
+				<f:DynamicPage
+					id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportPage', subType: 'DynamicPage'})}"
+					stickySubheaderProvider="{:= ${parameter>/stableId}.getStableId({type: 'QuickVariantSelectionX', subType: 'IconTabBar'})}"
+					headerExpanded="{_templPriv>/listReport/isHeaderExpanded}"
+					toggleHeaderOnTitleClick="{= (${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+					preserveHeaderStateOnScroll="false"
+					showFooter="{parts: [{path: 'workingContext>lineItem'}, {path: 'parameter>/entitySet'}, {path: 'parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions'}], formatter: 'AH.hasDeterminingActions'}"
+					class="{= (${parameter>/settings/quickVariantSelectionX}) &amp;&amp; (${parameter>/settings/quickVariantSelectionX/variants}) ? 'sapUiNoContentPadding' : 'sapUiResponsiveContentPadding'}">
+
+              <f:dependents>
+                <core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.HeaderCommands" type="XML"/>
+              </f:dependents>
+					<f:title>
+						<f:DynamicPageTitle id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportPage', subType: 'DynamicPageTitle'})}" ariaDescribedBy="template::FilterText">
+							<template:if test="{= ${parameter>/settings/variantManagementHidden} || (${parameter>/settings/isWorklist} &amp;&amp; !${parameter>/settings/smartVariantManagement})}">
+								<template:then>
+									<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.TitleVariant" type="XML"/>
+								</template:then>
+								<template:else>
+									<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.DefaultVariant" type="XML"/>
+								</template:else>
+							</template:if>
+						</f:DynamicPageTitle>
+					</f:title>
+
+					<f:header visible="{= (!${parameter>/settings/isWorklist}) ? 'true' : 'false'}">
+						<f:DynamicPageHeader
+							id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportPage', subType: 'DynamicPageHeader'})}"
+							pinnable="{parameter>/templateSpecific/isResponsiveTable}"
+							visible="{= !${parameter>/settings/isWorklist}}">
+							<f:content>
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.SmartFilterBar" type="XML"/>
+							</f:content>
+						</f:DynamicPageHeader>
+					</f:header>
+
+					<f:content>
+						<template:if test="{parameter>/settings/quickVariantSelectionX}">
+							<template:then>
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.IconTabBarWithSmartTable" type="XML"/>
+							</template:then>
+						<template:else>
+							<template:with path="entitySet>dummy" var="tabItem">
+								<template:with path="workingContext>lineItemPath" helper="AHListReport.resolveMetaModelPath" var="tableAnnotationPath">
+									<template:with path="parameter>/templateSpecific/tableSettings" var="tableSettings">
+										<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.SmartTableOrList" type="XML"/>
+									</template:with>
+								</template:with>
+							</template:with>
+						</template:else>
+						</template:if>
+					</f:content>
+
+					<f:footer>
+						<OverflowToolbar id="template::FooterToolbar">
+							<ToolbarSpacer/>
+							<template:repeat
+								list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.ListReport.view.ListReport/sap.ui.generic.app}"
+								var="tmpEntitySet">
+								<template:if test="{= ${tmpEntitySet>EntitySet} === ${parameter>/entitySet} }">
+									<template:repeat list="{tmpEntitySet>Actions}" var="customaction">
+										<!-- check if determining action is not a global action-->
+										<template:if test="{=${customaction>determining} &amp;&amp; !(${customaction>global})}">
+											<Button id="{customaction>id}"
+												enabled="{path: 'customaction>', formatter: 'AH.getBreakoutActionEnabledKey'}"
+												text="{customaction>text}" press="{customaction>press}" type="Default">
+												<layoutData>
+													<OverflowToolbarLayoutData priority = "{customaction>importance}"/>
+												</layoutData>
+											</Button>
+										</template:if>
+									</template:repeat>
+								</template:if>
+							</template:repeat>
+							<template:with path="entitySet>dummy" var="facet">
+								<template:with path="workingContext>lineItemPath" helper="AHListReport.resolveMetaModelPath"
+									var="lineItem">
+									<template:repeat list="{lineItem>}" var="dataField">
+										<template:if
+											test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Determining/Bool} === 'true'}">
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.DeterminingButton" type="XML"/>
+										</template:if>
+									</template:repeat>
+								</template:with>
+							</template:with>
+						</OverflowToolbar>
+					</f:footer>
+				</f:DynamicPage>
+		</template:with>
+	</template:with>
+</core:FragmentDefinition>

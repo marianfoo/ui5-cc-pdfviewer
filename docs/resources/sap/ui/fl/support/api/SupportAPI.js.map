@@ -1,0 +1,1 @@
+{"version":3,"file":"SupportAPI.js","names":["sap","ui","define","getFlexSettings","getChangeDependencies","SupportAPI"],"sources":["SupportAPI-dbg.js"],"mappings":";;;;;AAMAA,IAAIC,GAAGC,OAAO,CACb,8CACA,qDACE,SACFC,EACAC,GAEA,aAWA,IAAIC,EAA2D,CAC9DD,sBAAuBA,EACvBD,gBAAiBA,GAGlB,OAAOE,CACR"}

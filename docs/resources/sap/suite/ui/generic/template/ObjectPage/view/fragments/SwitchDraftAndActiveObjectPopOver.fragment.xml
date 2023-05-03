@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<Popover
+		showHeader="false"
+		verticalScrolling="false"
+		placement="Bottom"
+		class="sapUiNoContentPadding">
+		<SelectList
+			selectedKey="{= ${HasDraftEntity} ? 'SwitchToActive' : 'SwitchToDraft'}"
+			itemPress="onEditAndActiveToggle($event, ${HasDraftEntity})">
+			<core:Item text="{i18n>SAVED_VERSION}" key="SwitchToActive"/>
+			<core:Item text="{i18n>DRAFT_VERSION}" key="SwitchToDraft"/>
+		</SelectList>
+	</Popover>
+</core:FragmentDefinition>

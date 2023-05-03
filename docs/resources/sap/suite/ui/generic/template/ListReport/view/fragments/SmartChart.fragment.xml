@@ -1,0 +1,60 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	template:require="sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews"
+	xmlns="sap.m"
+	xmlns:build="sap.build"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout"
+	xmlns:smartlink="sap.ui.comp.navpopover"
+	xmlns:smartChart="sap.ui.comp.smartchart">
+	<template:with path="entityType>com.sap.vocabularies.UI.v1.HeaderInfo" var="header">
+		<smartChart:SmartChart
+			id="listReport{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSuffixFromIconTabFilterKey'} : ''}" 
+			visible="{path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getVisibleForTableTabs'}"
+			smartFilterId=""
+			persistencyKey="listReportChart{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSuffixFromIconTabFilterKey'} : ''}"
+			header="{path: 'header>TypeNamePlural', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+			useVariantManagement="{= (!${parameter>/settings/isWorklist} &amp;&amp; ${parameter>/settings/smartVariantManagement} === false) ||
+							   (${parameter>/settings/isWorklist} &amp;&amp; (${parameter>/settings/variantManagementHidden} === false))}"
+			smartVariant="{= ${parameter>/settings/smartVariantManagement} ? 'template::PageVariant' : null }"
+			enableAutoBinding="false"
+			showSemanticNavigationButton="false"
+			useTooltip="true"
+			showFullScreenButton="true"
+			showDrillBreadcrumbs="true"
+			showDetailsButton="true"
+			showDrillButtons="false"
+			noData="{i18n>SMARTCHART_INITIAL_NODATA}"
+			entitySet="{entitySet>name}"
+			initialized="._templateEventHandlers.onChartInitialized"
+			selectionDetailsActionPress="._templateEventHandlers.onSelectionDetailsActionPress"
+			beforeRebindChart="._templateEventHandlers.onBeforeRebindChart">
+			<smartChart:customData>
+				<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}'/>
+				<core:CustomData key="presentationVariantQualifier" value="{parts:[{path: 'workingContext>'}, {path: 'tabItem>'}],  formatter: 'sap.suite.ui.generic.template.ListReport.AnnotationHelper.getPresentationVariantQualifier'}"/>
+				<template:if test="{parts:[{path: 'workingContext>'}, {path: 'tabItem>'}],  formatter: 'sap.suite.ui.generic.template.ListReport.AnnotationHelper.checkIfChartQualifier'}">
+					<template:then>
+						<core:CustomData key="chartQualifier" value="{parts:[{path: 'workingContext>'}, {path: 'tabItem>'}],  formatter: 'sap.suite.ui.generic.template.ListReport.AnnotationHelper.getChartQualifier'}"/>
+					</template:then>
+				</template:if>
+				<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'parameter>/settings/subPages/'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDisplayNavigationIntent'}">
+					<core:CustomData key="CrossNavigation" value="{parts: [{path: 'entitySet>name'}, {path: 'parameter>/settings/subPages/'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDisplayNavigationIntent'}"/>
+				</template:if>
+			</smartChart:customData>
+			<smartChart:semanticObjectController>
+					<smartlink:SemanticObjectController
+						beforePopoverOpens="._templateEventHandlers.onBeforeSemanticObjectLinkPopoverOpens"/>
+			</smartChart:semanticObjectController>
+			<!-- Custom tool bar -->
+			<smartChart:toolbar>
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.SmartChartToolbar" type="XML"/>
+			</smartChart:toolbar>
+				<template:if test="{parts: [{path: 'tabItem>'}, {path: 'parameter>/settings/subPages/'}, {path: 'parameter>/entitySet'}, {path: 'parameter>/settings/quickVariantSelectionX'}], formatter: 'sap.suite.ui.generic.template.ListReport.AnnotationHelper.checkIfChartNavigationIsEnabled'}">
+					<smartChart:selectionDetailsItemActions>
+						<core:Item text="{i18n>NAVIGATE_TO_DETAIL}"></core:Item>
+						<!-- see above selectionDetailsActionPress for the onPress handler -->
+					</smartChart:selectionDetailsItemActions>
+			</template:if>
+		</smartChart:SmartChart>
+	</template:with>
+</core:FragmentDefinition>

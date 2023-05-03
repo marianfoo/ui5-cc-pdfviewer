@@ -1,0 +1,46 @@
+<core:FragmentDefinition template:require="sap.suite.ui.generic.template.js.AnnotationHelper"
+						 xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core"
+						 xmlns:smartlink="sap.ui.comp.navpopover"
+						 xmlns:sfi="sap.ui.comp.smartfield">
+
+
+	<Title id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}::Label"
+	text="{path: 'dataPoint>Title', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatWithExpandSimple'}"
+		   class="sapSmartTemplatesObjectPageDataPointLabel sapUiTinyMarginEnd"/>
+	<template:with path="headerFacet>Target" helper="sap.ui.model.odata.AnnotationHelper.gotoEntitySet"
+				   var="annotation">
+		<sfi:SmartField
+				id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}::Value"
+				contextEditable="false" uomEditable="false" enabled="true" clientSideMandatoryCheck="false"
+				ariaLabelledBy="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}::Label"
+				class="sapSmartTemplatesObjectPageDataPointValue {= ${dataPoint>Value/EdmType} === 'Edm.Byte' || ${dataPoint>Value/EdmType} === 'Edm.Decimal' || ${dataPoint>Value/EdmType} === 'Edm.Double' ||  ${dataPoint>Value/EdmType} === 'Edm.Float' ||  ${dataPoint>Value/EdmType} === 'Edm.Int16' ||  ${dataPoint>Value/EdmType} === 'Edm.Int32' || ${dataPoint>Value/EdmType} === 'Edm.Int64' ||  ${dataPoint>Value/EdmType} === 'Edm.SByte' ? 'sapSmartTemplatesObjectPageDataPointNumericValue' : 'sapSmartTemplatesObjectPageDataPointTextualValue'}"
+				value="{parts: [{path: 'dataPoint>Value'}, {path: 'entitySet>'}, {path: 'dataPoint>ValueFormat'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatWithExpandSimplePath'}"
+				textInEditModeSource="{path: 'dataFieldValue>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.setValidationForValueList'}"
+				fetchValueListReadOnly="{parts:[{path: 'parameter>/entityType'},{path: 'dataPoint>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getValueListReadOnly'}">
+			<sfi:semanticObjectController>
+				<smartlink:SemanticObjectController replaceSmartLinkNavigationTargetsObtained="true"
+												    beforePopoverOpens="._templateEventHandlers.onBeforeSemanticObjectLinkPopoverOpens"
+													navigationTargetsObtained="._templateEventHandlers.onSemanticObjectLinkNavigationTargetObtained"
+					                                beforeNavigationCallback="._templateEventHandlers.onBeforeSemanticObjectLinkNavigationCallback"
+													forceLinkRendering="{parts: [{path: 'entitySet>'},{path: 'parameter>/templateSpecific/targetEntities'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.hasQuickViewFacet'}"/>
+			</sfi:semanticObjectController>
+			<sfi:configuration>
+				<sfi:Configuration
+						displayBehaviour="{parts: [{path: 'dataPoint>'}, {path: 'annotation>'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTextArrangementForSmartControl'}"/>
+			</sfi:configuration>
+			<template:if test="{= ${dataPoint>Criticality} }">
+				<sfi:controlProposal>
+					<sfi:ControlProposal>
+						<sfi:objectStatus>
+							<sfi:ObjectStatus
+									criticality="{path: 'dataPoint>Criticality', formatter: 'sap.ui.model.odata.AnnotationHelper.simplePath'}"
+									criticalityRepresentationType="WithoutIcon"/>
+						</sfi:objectStatus>
+					</sfi:ControlProposal>
+				</sfi:controlProposal>
+			</template:if>
+		</sfi:SmartField>
+	</template:with>
+
+</core:FragmentDefinition>

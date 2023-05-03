@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="unsavedChangesDialog" title="{i18n>WARNING}" class="sapUiContentPadding" state="Warning" type="Message">
+		<content>
+			<Text id="unsavedChangesQuestionText" text="{Dialog>/unsavedChangesQuestion}" />
+		</content>
+		<buttons>
+			<Button id="unsavedChangesEditButton" text="{i18n>EDIT}" press="onEdit" type="Emphasized"/>
+			<Button id="unsavedChangesCancelButton" text="{i18n>CANCEL}" press="onCancel" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

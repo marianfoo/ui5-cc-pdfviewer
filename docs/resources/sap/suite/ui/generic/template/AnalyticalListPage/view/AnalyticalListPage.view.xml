@@ -1,0 +1,165 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns="sap.m" xmlns:f="sap.f"
+	xmlns:core="sap.ui.core" xmlns:semantic="sap.m.semantic" xmlns:ushell="sap.ushell.ui" xmlns:build="sap.build"
+	xmlns:st="sap.suite.ui.generic.template"
+	template:require="{ AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',
+						AHALP: 'sap/suite/ui/generic/template/AnalyticalListPage/util/AnnotationHelper',
+						AHFilterUtil: 'sap/suite/ui/generic/template/AnalyticalListPage/util/FilterUtil',
+						AHStableId: 'sap/suite/ui/generic/template/js/StableIdHelper'}"
+	xmlns:l="sap.ui.layout" xmlns:smartVariantManagement="sap.ui.comp.smartvariants">
+	<!--
+		@classdesc
+		@name: Name: sap.ui.generic.template.fragments.AnalyticalListPage.view.xml
+		@description:
+			- This template creates a page containing a analytical or responsive table for entries of the given entity set
+			- The attribute parameter>aggregationBinding can be used to set filter and expand options for the table
+		@namespace {http://docs.oasis-open.org/odata/ns/edm} [edm]
+		@param {edm.EntitySet} [entitySet]
+		@param [parameter] {
+			"aggregationBinding",
+			"entitySet",
+			"entityType",
+			"sap-ui-debug"
+		}-->
+	<template:alias name=".ALPHelper" value="sap.suite.ui.generic.template.AnalyticalListPage.util.AnnotationHelper">
+		<template:with path="parameter>/" helper=".ALPHelper.createWorkingContext" var="workingContext">
+			<template:with path="entitySet>dummy" var="tabItem">
+				<template:with path="parameter>/variables" helper="AH.getNewVariable" var="tableSettings">
+				<template:if test="{:= ${tableSettings>}.set(${parameter>/templateSpecific/tableSettings})}"/>
+			
+			<!-- TODO simplify the showFooter determination by just passing "parameter>" and evaluate everything inside -->
+			<f:DynamicPage 
+					class="sapSmartTemplatesAnalyticalListPageDynamicPage" id="template::Page" headerExpanded="{= ${device>/system/phone} ? 'false' : '{_templPriv>/listReport/isHeaderExpanded}' }" showFooter="{= ${parts: [{path: 'workingContext>lineItem'},{path: 'workingContext>chart/Actions'},{path: 'parameter>/entitySet'}, {path: 'parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions'}], formatter: '.ALPHelper.hasDeterminingActionsForALP'} }">
+				<f:dependents>
+					<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.HeaderCommands" type="XML"/>
+				</f:dependents>
+				<f:title>
+					<f:DynamicPageTitle areaShrinkRatio="{= ${parts: [{path: 'workingContext>lineItem'},{path: 'workingContext>chart/Actions'},{path: 'parameter>/entitySet'}, {path: 'parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions'}], formatter: '.ALPHelper.getAreaShrinkRatio'} }" class="sapSmartTemplatesAnalyticalListPageDynamicPageTitle sapSmartTemplatesAnalyticalListPageDynamicPageTitleMargin">
+						<f:heading>
+							<l:VerticalLayout class="sapSmartTemplatesAnalyticalListPageFilterContainer">
+								<l:HorizontalLayout class="sapSmartTemplatesAnalyticalListPageAlignVariantTitle sapUIContentPadding">
+									<smartVariantManagement:SmartVariantManagement id="template::PageVariant"
+										persistencyKey="{= (${parameter>/settings/smartVariantManagement} || ${parameter>/settings/smartVariantManagement} === undefined) ? 'searchAnalyticalListPageVariant' : '_ST_SmartVariantManagement'}"
+										showShare="true" showExecuteOnSelection="{= ${parameter>/settings/showGoButtonOnFilterBar} }"
+										displayTextForExecuteOnSelectionForStandardVariant="{= (${parameter>/settings/dataLoadSettings/loadDataOnAppLaunch} === 'ifAnyFilterExist' || ${parameter>/settings/dataLoadSettings/loadDataOnAppLaunch} === undefined) ? '{i18n>ST_LIST_DISPLAY_TEXT_FOR_EXECUTE_ON_SELECTION}' : undefined}" />
+								</l:HorizontalLayout>
+							</l:VerticalLayout>
+						</f:heading>
+						<f:content>
+							<template:if
+								test="{= ${parameter>/settings/keyPerformanceIndicators} !== undefined &amp;&amp; Object.keys(${parameter>/settings/keyPerformanceIndicators}).length > 0 &amp;&amp; !${device>/system/phone} }">
+								<template:then>
+											<template:with path="parameter>/settings/keyPerformanceIndicators" helper=".ALPHelper.getFilterableKPIs"  var="kpiContext">
+													<template:with path="kpiContext>globalKPIs" var="kpis">
+														<template:if test="{= Object.keys(${kpis>}).length > 0}">
+															<OverflowToolbar class= "sapSmartTemplatesAnalyticalListPageKpiTagContainer sapSmartTemplatesAnalyticalListPageKpiTagOverflow" id="template::KPITagContainer::globalKPIs">
+																<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.KPITagList" type="XML"/>
+															</OverflowToolbar>
+														</template:if>
+													</template:with>
+												</template:with>
+								</template:then>
+							</template:if>
+						</f:content>
+						<f:actions class="sapSmartTemplatesAnalyticalListPageVisualFilterToolbar">
+								<ToolbarSpacer/>
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.listTemplates.fragments.ActionsFragment" type="XML"/>
+								<template:if test="{= !${parameter>/settings/hideVisualFilter} === true}">
+									<template:then>
+									<SegmentedButton
+										id = "template::FilterSwitchButton"
+										selectedKey="{_templPriv>/alp/filterMode}" width="inherit" visible="{_templPriv>/listReport/isHeaderExpanded}" select="._templateEventHandlers.onFilterModeSegmentedButtonChange">
+										<layoutData>
+										<OverflowToolbarLayoutData priority="NeverOverflow"/>
+										</layoutData>
+										<items>
+											<SegmentedButtonItem
+												icon="sap-icon://filter-fields" tooltip="{i18n>FILTER_COMPACT}" key="compact"/>
+											<SegmentedButtonItem
+												icon="sap-icon://filter-analytics" tooltip="{i18n>FILTER_VISUAL}" key="visual"/>
+										</items>
+									</SegmentedButton>
+								</template:then>
+								</template:if>
+								<MenuButton id="{:= ${parameter>/stableId}.getStableId({type: 'ALPAction', subType: 'Share'}) }"
+									icon="sap-icon://action"
+									tooltip="{i18n>SHARE} (Shift+Ctrl+S)"
+									text=""
+									visible="{parts: [{path: 'appSettings>/flexibleColumnLayout'}], formatter: 'AH.getShareOptionVisibility'}"
+									type="Transparent">
+									<layoutData>
+										<OverflowToolbarLayoutData closeOverflowOnInteraction="false"
+											priority = "{= ${device>/system/phone} ? 'AlwaysOverflow' : 'High'}"/>
+									</layoutData>
+								</MenuButton>
+						</f:actions>
+						<f:snappedContent>
+							<Text id="template::FilterText" class="sapSmartTemplatesAnalyticalListPageSnappedContentText"></Text>
+						</f:snappedContent>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:header>
+					<f:DynamicPageHeader
+						pinnable="{= ${tableSettings>value/type} === 'ResponsiveTable'}"
+						class="sapSmartTemplatesAnalyticalListPageHeaderContainerBorder">
+						<f:content>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.FilterContainer" type="XML"/>
+						</f:content>
+					</f:DynamicPageHeader>
+				</f:header>
+				<f:content>
+					<VBox fitContainer="true">
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.ContentContainer" type="XML"/>
+						<!-- Helper -->
+						<customData>
+							<core:CustomData key="entityTypeName" writeToDom="false"
+								value="{path: 'entityType>com.sap.vocabularies.UI.v1.HeaderInfo/TypeName', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+						</customData>
+					</VBox>
+				</f:content>
+				<f:footer>
+					<OverflowToolbar id="template::FooterToolbar">
+						<ToolbarSpacer/>
+						<template:repeat
+							list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage/sap.ui.generic.app}"
+							var="tmpEntitySet">
+							<template:repeat list="{tmpEntitySet>Actions}" var="customaction">
+								<template:if test="{= (!!${customaction>determining}) &amp;&amp; (!${customaction>global}) &amp;&amp; (${customaction>filter} === 'chart')}">
+										<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.DeterminingActions" type="XML"/>
+								</template:if>
+							</template:repeat>
+						</template:repeat>
+						<template:repeat
+							list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage/sap.ui.generic.app}"
+							var="tmpEntitySet">
+							<template:repeat list="{tmpEntitySet>Actions}" var="customaction">
+								<template:if test="{= (!!${customaction>determining}) &amp;&amp; (!${customaction>global}) &amp;&amp; (!${customaction>filter} || ${customaction>filter} === 'table')}">
+										<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.DeterminingActions" type="XML"/>
+								</template:if>
+							</template:repeat>
+						</template:repeat>
+						<template:with path="entitySet>dummy" var="facet">
+							<template:with path="workingContext>chartPath" helper=".ALPHelper.resolveMetaModelPath" var="chart">
+								<template:repeat list="{chart>Actions}" var="dataField">
+									<template:if
+										test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Determining/Bool} === 'true'}">
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.DeterminingButton" type="XML"/>
+									</template:if>
+								</template:repeat>
+							</template:with>
+							<template:with path="workingContext>lineItemPath" helper=".ALPHelper.resolveMetaModelPath" var="lineItem">
+								<template:repeat list="{lineItem>}" var="dataField">
+									<template:if
+										test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Determining/Bool} === 'true'}">
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.DeterminingButton" type="XML"/>
+									</template:if>
+								</template:repeat>
+							</template:with>
+						</template:with>
+					</OverflowToolbar>
+				</f:footer>
+			</f:DynamicPage>
+			</template:with>
+		</template:with>
+	</template:with>
+	</template:alias>
+</mvc:View>

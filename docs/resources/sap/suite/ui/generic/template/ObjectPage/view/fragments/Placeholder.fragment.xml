@@ -1,0 +1,472 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" >
+	<Page>
+		<html:style>
+
+body{
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    min-width: 20rem;
+}
+
+    .screen-overlay {
+            background-color: #ffffff;
+            visibility: visible;
+            position: absolute;
+            top: 0x;
+            z-index: 50000;
+            width: 100vw;
+            height: 100vh;
+        }
+        .animated {
+            margin: 0;
+            background: linear-gradient(to right, var(--empty-grey-color), var(--empty-grey-color), var(--strip-grey-color), var(--empty-grey-color), var(--empty-grey-color));
+            background-size: 200% 200%;
+            animation: thestripe 1.2s linear infinite;
+        }
+
+        .sapFePlaceholderContainer{
+            background-color: @sapUiBaseColor;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+.plResponsivePadding{
+    width: calc(100% - 6rem);
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.plCols2 > *{
+    width:calc(50% - 1rem);
+}
+
+.plPaddingTop{
+    padding-top: 1rem;
+}
+
+
+
+
+.plTextAlignStart{
+    text-align: start;
+}
+.plTextAlignCenter{
+    text-align: center;
+}
+.plTextAlignEnd{
+    text-align: end;
+}
+
+.plVerticalAlignTop{
+    vertical-align: top;
+}
+.plVerticalAlignMiddle{
+    vertical-align: middle;
+}
+.plVerticalAlignBottom{
+    vertical-align: bottom;
+}
+
+
+
+.plHorizontalContent > *{
+    display: inline-block;
+}
+
+.plHorizontalContent > *:not(:last-child){
+    margin-left: 0;
+}
+.plHorizontalContent > *:not(:last-child){
+    margin-right: 2rem;
+}
+.plHorizontalContent.plTextAlignEnd > *:not(:last-child){
+    margin-right: 0;
+}
+.plHorizontalContent.plTextAlignEnd > *:not(:first-child){
+    margin-left: 2rem;
+}
+
+
+
+.plVerticalContent > *{
+    display: block;
+}
+
+.plVerticalContent > *:not(:last-child){
+    margin-bottom: 1rem;
+}
+
+.plVerticalContent.plVerticalAlignBottom > *:not(:first-child){
+    margin-top: 1rem;
+}
+
+
+
+.plText{
+    background: #E3E3E3;
+    border-radius: 0.25rem;
+}
+.plTextWeightS{
+    height: 0.5rem;
+}
+.plTextWeightM{
+    height: 0.75rem;
+}
+.plTextWeightL{
+    height: 0.875rem;
+}
+.plTextWidthS{
+    width: 75px;
+}
+.plTextWidthM{
+    width: 120px;
+}
+.plTextWidthL{
+    width: 225px;
+}
+.plTextWidthXL{
+    width: 275px;
+}
+
+.plAction{
+    background: #E3E3E3;
+    width:1.5rem;
+    height:1.5rem;
+    border-radius: 50%;
+}
+
+.plAvatar{
+    background: #E3E3E3;
+}
+.plAvatarSizeS{
+    width:2rem;
+    height:2rem;
+}
+.plAvatarSizeM{
+    width:5rem;
+    height:5rem;
+}
+.plAvatarShapeCircle{
+    border-radius: 50%;
+}
+
+
+.plShellBar{
+    background: #334B5E;
+    height: 3rem;
+    line-height: 2.825rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.plShellBar .plText,
+.plShellBar .plAction,
+.plShellBar .plAvatar,
+.plShellBar .plLogo{
+    background: #697884;
+}
+.plShellBar > * > *{
+    vertical-align: middle;
+}
+
+
+.plLogo{
+    width: 3.5rem;
+    height: 1.75rem;
+    overflow: hidden;
+}
+.plLogo:after{
+    content: ".";
+    color: transparent;
+    background: #334b5e;
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    transform: rotate(45deg);
+    position: relative;
+    left: 2.25rem;
+    top: 0.5rem;
+}
+
+
+
+.plHeader{
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.plHeader .plText,
+.plHeader .plAction,
+.plHeader .plAvatar{
+    background: #ECECEC;
+}
+
+.plHeaderTitle{
+    height: 3rem;
+    line-height: 2.825rem;
+    display: flex;
+    justify-content: space-between;
+}
+.plHeaderTitle > * > *{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.plHeaderContent{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.plAnchorBar{
+    padding-top: 1rem;
+    padding-bottom: 1px;
+}
+
+.plObjectPageSection{
+    padding-top: 1rem;
+    position: relative;
+}
+
+.plVerticalContent > *:not(:last-child).plObjectPageSectionTitle{
+    margin-bottom: 3rem;
+}
+
+.plObjectPageSectionTitle:after{
+    content: ".";
+    color:transparent;
+    position: absolute;
+    top: 3rem;
+    left:-1rem;
+    right:-1rem;
+    height:1px;
+    background: #ECECEC;
+}
+
+
+
+
+.plTable{
+    padding: 2rem 0;
+}
+.plTableTitle{
+    background: #8A8A8A;
+}
+.plTableColmnHeaderRow{
+    background: #F2F2F2;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.plTableCell{
+    height: 2rem;
+    line-height: 2rem;
+}
+.plTableColmnHeaderCell{
+    height: 2.5rem;
+    line-height: 2.5rem;
+}
+.plTableText{
+    display: inline-block;
+}
+.plHorizontalContent > *:not(:last-child).plTableColmnHeaderCell,
+.plHorizontalContent > *:not(:last-child).plTableCell{
+    margin: 0
+}
+.plTable4Cols .plTableColmnHeaderCell,
+.plTable4Cols .plTableCell{
+    width:25%
+}
+
+
+@media (max-width: 1024px) {
+    .plResponsivePadding{
+        width: calc(100% - 4rem);
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .plTable4Cols .plTableColmnHeaderCell,
+    .plTable4Cols .plTableCell{
+        width:33%
+    }
+
+    .plTable4Cols .plTableColmnHeaderCell:last-child,
+    .plTable4Cols .plTableCell:last-child{
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .plResponsivePadding{
+        width: calc(100% - 2rem);
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .plShellBar .plLogo{
+        display: none;
+    }
+
+    .plShellBar .plAction{
+        display: none;
+    }
+
+    .plHeaderTitleActions{
+        display: none;
+    }
+
+    .plHeaderContent > * > *{
+        display: none;
+    }
+
+    .plHeaderContent > * > *:first-child,
+    .plHeaderContent > * > *:nth-child(2){
+        display: inline-block;
+    }
+
+    .plAnchorBar:not(:first-child){
+        display: none;
+    }
+
+    .plCols2 > *:not(:first-child){
+        display: none;
+    }
+
+    .plTable4Cols .plTableColmnHeaderCell,
+    .plTable4Cols .plTableCell{
+        width:100%
+    }
+
+    .plTable4Cols .plTableColmnHeaderCell:not(:first-child),
+    .plTable4Cols .plTableCell:not(:first-child){
+        display: none;
+    }
+}
+        body{
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .clLinkContainer{
+            padding: 1rem;
+        }
+
+        .clLinkContainerTitle{
+            font-weight: bold;
+            padding: 1rem 0.5rem;
+        }
+
+        .clLinkContainerLink{
+            display: block;
+            font-size: 0.85rem;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 0.25rem;
+            background: #eaeaea;
+            color: #0f5d94;
+            text-decoration: none;
+        }
+        .object-page{
+         background: rgba(247, 247, 247,1);
+        }
+         </html:style>
+          <html:div class="sapFePlaceholderContainer">
+         <html:div class="object-page" id="object-page-wrapper">
+        <html:div class="plHeader plResponsivePadding">
+            <html:div class="plHeaderTitle">
+                <html:div class="plHeaderTitleTextContainer"><html:div class="plHeaderTitleText plText plTextWeightL plTextWidthL"></html:div></html:div>
+                <html:div class="plHeaderTitleActions"><html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div></html:div>
+            </html:div>
+            <html:div class="plHeaderContent">
+                <html:div class="plHorizontalLayout plHorizontalContent plTextAlignStart plVerticalAlignTop">
+                    <html:div class="plAvatar plAvatarSizeM plAvatarShapeSquare"></html:div>
+                    <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop">
+                        <html:div class="plText plTextWeightS plTextWidthM plHeaderTitleAction"></html:div>
+                        <html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div>
+                    </html:div>
+                    <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop">
+                        <html:div class="plText plTextWeightS plTextWidthM plHeaderTitleAction"></html:div>
+                        <html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div>
+                    </html:div>
+                    <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop">
+                        <html:div class="plText plTextWeightS plTextWidthM plHeaderTitleAction"></html:div>
+                        <html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div>
+                    </html:div>
+                </html:div>
+            </html:div>
+            <html:div class="plAnchorBar plHorizontalContent">
+                <html:div class="plText plTextWeightL plTextWidthM plAnchorBarItem"></html:div>
+                <html:div class="plText plTextWeightL plTextWidthM plAnchorBarItem"></html:div>
+                <html:div class="plText plTextWeightL plTextWidthM plAnchorBarItem"></html:div>
+            </html:div>
+        </html:div>
+        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plContent plResponsivePadding">
+            <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plObjectPageSection">
+                <html:div class="plText plTextWeightL plTextWidthXL plObjectPageSectionTitle"></html:div>
+                <html:div class="plHorizontalLayout plHorizontalContent plTextAlignStart plVerticalAlignTop plCols2">
+                    <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop">
+                        <html:div class="plText plTextWeightL plTextWidthL"></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plPaddingTop">
+                            <html:div class="plText plTextWeightS plTextWidthM plHeaderTitleAction"></html:div>
+                            <html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div>
+                        </html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plPaddingTop">
+                            <html:div class="plText plTextWeightS plTextWidthM plHeaderTitleAction"></html:div>
+                            <html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div>
+                        </html:div>
+                    </html:div>
+                    <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop">
+                        <html:div class="plText plTextWeightL plTextWidthL"></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plPaddingTop">
+                            <html:div class="plText plTextWeightS plTextWidthM plHeaderTitleAction"></html:div>
+                            <html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div>
+                        </html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plPaddingTop">
+                            <html:div class="plText plTextWeightS plTextWidthM plHeaderTitleAction"></html:div>
+                            <html:div class="plText plTextWeightS plTextWidthS plHeaderTitleAction"></html:div>
+                        </html:div>
+                    </html:div>
+                </html:div>
+                <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTable plTable4Cols">
+                    <html:div class="plText plTextWeightL plTextWidthXL plTableTitle"></html:div>
+                    <html:div class="plHorizontalLayout plHorizontalContent plTextAlignStart plVerticalAlignTop plTableColmnHeaderRow">
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableColmnHeaderCell plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableColmnHeaderText plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableColmnHeaderCell plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableColmnHeaderText plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableColmnHeaderCell plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableColmnHeaderText plTableText"></html:div></html:div>
+                    </html:div>
+                    <html:div class="plHorizontalLayout plHorizontalContent plTextAlignStart plVerticalAlignTop plTableRow">
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                    </html:div>
+                    <html:div class="plHorizontalLayout plHorizontalContent plTextAlignStart plVerticalAlignTop plTableRow">
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                    </html:div>
+                    <html:div class="plHorizontalLayout plHorizontalContent plTextAlignStart plVerticalAlignTop plTableRow">
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                    </html:div>
+                    <html:div class="plHorizontalLayout plHorizontalContent plTextAlignStart plVerticalAlignTop plTableRow">
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                        <html:div class="plVerticalLayout plVerticalContent plTextAlignStart plVerticalAlignTop plTableCell"><html:div class="plText plTextWeightM plTextWidthM plTableText"></html:div></html:div>
+                    </html:div>
+                </html:div>
+            </html:div>
+        </html:div>
+         </html:div>
+          </html:div>
+	</Page>
+</core:FragmentDefinition>

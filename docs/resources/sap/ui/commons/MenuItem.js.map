@@ -1,0 +1,1 @@
+{"version":3,"file":"MenuItem.js","names":["sap","ui","define","MenuItemBase","library","UnifiedMenuItem","MenuItem","extend","metadata","deprecated"],"sources":["MenuItem-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAC,iBAAkB,YAAa,2BAC7C,SAASC,EAAcC,EAASC,GAChC,aAuBA,IAAIC,EAAWD,EAAgBE,OAAO,0BAA2E,CAAEC,SAAW,CAE7HC,WAAa,KACbL,QAAU,oBAKX,OAAOE,CAER"}

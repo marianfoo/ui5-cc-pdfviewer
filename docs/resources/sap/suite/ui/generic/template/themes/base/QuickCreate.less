@@ -1,0 +1,96 @@
+.hoverRow {
+	.hoverIcon {
+		visibility: hidden;
+	}
+	
+	&:hover, &:focus {
+		.hoverIcon {
+			visibility: visible !important;
+		}
+	}
+	
+	&:focus-within {
+		.hoverIcon {
+			visibility: visible !important;
+		}
+	}
+}
+
+.copilotQuickCreateContainerBox {
+	.sapQuickActionCreateButtonContainer {
+		>div {
+			width: 100% !important;
+		}
+		button {
+			width: 100%;
+			margin-top: 1rem;
+			height: 2.4rem;
+		}
+		.sapUiSmallMarginEnd {
+			margin-right: 0rem !important;
+		}
+		.sapMBtnInner.sapMBtnText {
+			padding: 0.2rem !important;
+			border: 0;
+			height: 2.0rem;
+		}
+	}
+	.sapQuickCreateLineItemTable {
+		.sapMTB.sapMListHdrTBar {
+			padding: 0rem;
+			height: 2.5rem;
+			margin-top: 0.5rem;
+		}
+		.sapMIBar {
+			.sapMTitle {
+				font-size: 1rem;
+				margin-left: 1rem;
+			}
+		}
+		.sapMListTblCell {
+			height: 1.5rem;
+		}
+	}
+	.sapQuickCreateFieldGroup {
+		text-align: right;
+		label {
+			text-align: right;
+			font-size: 0.805rem;
+		}
+	}
+	.sapQuickCreateSmartFieldLabelBox {
+		>div {
+			width: 100%;
+		}
+	}
+	.sapQuickCreateTitle {
+		margin-bottom: 0.5rem;
+		margin-left: 1rem;
+		.sapMTitle {
+			font-size: 1.125rem !important;
+		}
+	}
+	.sapQuickActionCenteredBusyIndicator {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 999999;
+	}
+	.sapQuickCreateLockedMessage {
+		margin-bottom: 1rem;
+		font-style: italic;
+	}
+	.quickCreateSmartFieldPadding .sapUiFormResGridCont{
+		padding-bottom: 0.675rem !important;
+	}
+	.quickCreatePanel .quickTemplateVBox {
+		border-top: 0px;
+		margin-top: 0px !important;
+	}
+	.quickCreatePanel .sapMPanelContent {
+		padding: 0rem;
+		border-bottom: none;
+	}
+	
+}

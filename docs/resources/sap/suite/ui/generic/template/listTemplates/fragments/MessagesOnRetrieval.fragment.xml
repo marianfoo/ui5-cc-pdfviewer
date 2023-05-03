@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+	<Dialog class="sapUiNoContentPadding" type="Message" initialFocus="Close" 
+		showHeader="true" horizontalScrolling="false" draggable="true"
+		contentHeight="440px" contentWidth="440px" verticalScrolling="false">
+		<content>
+			<MessageView id="messageView" items="{msg>/messages}" showDetailsPageHeader="false" itemSelect="itemSelected" groupItems="true">
+				<MessageItem id="messageItem" type="{msg>type}" title="{msg>message}" description="{msg>description}" 
+							longtextUrl="{msg>descriptionUrl}"  />
+			</MessageView>
+		</content>
+		<customHeader>
+			<Bar>
+				<contentMiddle>
+					<Text text="{i18n>ST_ERROR}" />
+				</contentMiddle>
+				<contentLeft>
+					<Button icon="sap-icon://nav-back" visible="{msg>/backbtnvisibility}" press="onBackButtonPress" tooltip="{i18n>BACK}" />
+				</contentLeft>
+			</Bar>
+		</customHeader>
+		<endButton>
+			<Button text="{i18n>CANCEL}" press="onReject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

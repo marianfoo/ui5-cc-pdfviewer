@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ui/model/resource/ResourceModel"],function(e){"use strict";var r={};r.getTranslationModel=function(o){var u;if(r._oResourceModel){u=r._oResourceModel}else{u=new e({bundleUrl:sap.ui.require.toUrl("sap/ushell/renderers/fiori2/resources/resources.properties"),bundleLocale:o});r._oResourceModel=u}return u};r.i18nModel=r.getTranslationModel(sap.ui.getCore().getConfiguration().getLanguage());r.i18n=r.i18nModel.getResourceBundle();return r},true);
+//# sourceMappingURL=resources.js.map

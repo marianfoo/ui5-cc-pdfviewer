@@ -1,0 +1,1 @@
+{"version":3,"file":"CameraFOVBindingType.js","names":["sap","ui","define","CameraFOVBindingType","Minimum","Maximum","Horizontal","Vertical"],"sources":["CameraFOVBindingType-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAuB,CAK1BC,QAAS,UAKTC,QAAS,UAKTC,WAAY,aAKZC,SAAU,YAGX,OAAOJ,CAER,EAAkB"}

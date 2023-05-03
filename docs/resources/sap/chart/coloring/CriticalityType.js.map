@@ -1,0 +1,1 @@
+{"version":3,"file":"CriticalityType.js","names":["sap","ui","define","CriticalityType","Negative","Critical","Positive","Neutral"],"sources":["CriticalityType-dbg.js"],"mappings":";;;;AAKAA,IAAIC,GAAGC,OAAO,WACV,aASA,IAAIC,EAAkB,CAKlBC,SAAU,WAMVC,SAAU,WAMVC,SAAU,WAMVC,QAAS,WAGb,OAAOJ,CAEX,EAAkB"}

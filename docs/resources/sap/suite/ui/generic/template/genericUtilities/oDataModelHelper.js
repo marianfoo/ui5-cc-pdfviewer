@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";function t(t){if(t.indexOf("/")===0){t=t.substring(1)}var n=t.split("(");var a=n.shift();var e=n.join("(");var i=e.substring(0,e.length-1);return{entitySet:a,key:i,canonicalPath:"/"+t}}function n(n,a){if(n.lastIndexOf("/")!==0){var e=a.getMetaModel();n=e.oMetadata._calculateCanonicalPath(n);if(!n){return{}}}return t(n)}function a(t){return n(t.getPath(),t.getModel())}return{splitCanonicalPath:t,analyseContextPath:n,analyseContext:a}});
+//# sourceMappingURL=oDataModelHelper.js.map

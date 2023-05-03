@@ -1,0 +1,1 @@
+{"version":3,"file":"ComparisonData.js","names":["sap","ui","define","ComparisonMicroChartData","ComparisonData","extend","metadata","deprecated","library"],"sources":["ComparisonData-dbg.js"],"mappings":";;;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAE,oDAAsD,SAASC,GAC9E,aAkBA,IAAIC,EAAiBD,EAAyBE,OAAO,sCAAuH,CAC3KC,SAAU,CACTC,WAAY,KACZC,QAAS,0BAIX,OAAOJ,CACR"}

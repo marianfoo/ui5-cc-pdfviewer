@@ -1,0 +1,1 @@
+{"version":3,"file":"MenuRenderer.js","names":["sap","ui","define","Renderer","UnifiedMenuRenderer","MenuRenderer","extend"],"sources":["MenuRenderer-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAC,uBAAwB,+BACtC,SAASC,EAAUC,GACnB,aAGA,IAAIC,EAAeF,EAASG,OAAOF,GAEnC,OAAOC,CAER,EAAkB"}

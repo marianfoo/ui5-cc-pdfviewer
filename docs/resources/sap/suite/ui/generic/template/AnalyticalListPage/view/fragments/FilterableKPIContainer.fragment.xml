@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+	xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:build="sap.build"
+	xmlns:layout="sap.ui.layout"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:alrControls="sap.suite.ui.generic.template.AnalyticalListPage.control">
+			<OverflowToolbar id="template::KPITagContainer::filterableKPIs" class="sapSmartTemplatesAnalyticalListPageFilterableKPIContainer" enabled="{= !${_templPriv>/alp/filterChanged} }">
+				<Title text="{parameter>/settings/contentTitle}" class="sapSmartTemplatesAnalyticalListPageFilterableKPITitle" visible="{= ${parameter>/settings/contentTitle} ? 'true' : 'false' }"/>
+				<template:if test="{= Object.keys(${kpis>}).length > 0}">
+					<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.KPITagList" type="XML"/>
+				</template:if>
+				<ToolbarSpacer />
+				<template:if test="{= !${parameter>/settings/quickVariantSelectionX}}">
+				<template:then>
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.ContentViewButtons" type="XML"/>
+				</template:then>
+				</template:if>
+			</OverflowToolbar>
+
+</core:FragmentDefinition>

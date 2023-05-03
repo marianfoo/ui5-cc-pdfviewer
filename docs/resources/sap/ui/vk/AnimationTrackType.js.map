@@ -1,0 +1,1 @@
+{"version":3,"file":"AnimationTrackType.js","names":["sap","ui","define","AnimationTrackType","Rotate","Translate","Scale","Opacity","Color"],"sources":["AnimationTrackType-dbg.js"],"mappings":";;;;;;AAOAA,IAAIC,GAAGC,OAAO,GACX,WACF,aASA,IAAIC,EAAqB,CAKxBC,OAAQ,UAKRC,UAAW,aAKXC,MAAO,SAKPC,QAAS,WAKTC,MAAO,SAGR,OAAOL,CACR"}

@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:f="sap.f" xmlns:core="sap.ui.core"
+						 xmlns:st="sap.suite.ui.generic.template"
+						 xmlns:variants="sap.ui.comp.smartvariants"
+						 template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}"
+						 xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+			<f:heading persistencyKey="{= ${path: 'parameter>/settings/routeConfig/', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getPersistencyKeyForDynamicPageTitle'} }">
+				<template:if test="{= ${parameter>/settings/subTitleIfVariantMgmtHidden} }">
+					<template:then>
+						<Title class="sapUiTinyMarginTop" text="{=${path: 'parameter>/settings/subTitleIfVariantMgmtHidden'}}"></Title>
+					</template:then>
+
+					<template:else>
+						<Title class="sapUiTinyMarginTop" text="{=${path: 'parameter>/manifest/sap.app/title'}}"></Title>
+					</template:else>
+				</template:if>
+			</f:heading>
+			<f:actions>
+				<ToolbarSpacer/>
+				<!-- global breakout actions-->
+				<template:repeat list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.ListReport.view.ListReport/sap.ui.generic.app}" var="tmpEntitySet">
+					<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GlobalActions" type="XML"/>
+				</template:repeat>
+				<MenuButton id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportAction', subType: 'Share'}) }"
+						icon="sap-icon://action"
+						type="Transparent"
+						visible="{parts: [{path: 'appSettings>/flexibleColumnLayout'}], formatter: 'AH.getShareOptionVisibility'}"
+						tooltip="{i18n>SHARE} (Shift+Ctrl+S)"
+						text="">
+				</MenuButton>
+			</f:actions>
+			<f:snappedContent>
+				<Text id="template::FilterText" class="sapSmartTemplatesListReportFilterSummary" visible="{= (!${parameter>/settings/isWorklist}) ? 'true' : 'false'}"></Text>
+			</f:snappedContent>
+
+</core:FragmentDefinition>

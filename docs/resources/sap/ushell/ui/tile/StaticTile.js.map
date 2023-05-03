@@ -1,0 +1,1 @@
+{"version":3,"file":"StaticTile.js","names":["sap","ui","define","ushellLibrary","TileBase","StaticTileRenderer","StaticTile","extend","metadata","library"],"sources":["StaticTile-dbg.js"],"mappings":";AAMAA,IAAIC,GAAGC,OAAO,CACV,qBACA,8BACA,yCACD,SACCC,EACAC,EACAC,GAEA,aAkBA,IAAIC,EAAaF,EAASG,OAAO,gCAAuF,CACpHC,SAAU,CACNC,QAAS,gBAIjB,OAAOH,CACX"}

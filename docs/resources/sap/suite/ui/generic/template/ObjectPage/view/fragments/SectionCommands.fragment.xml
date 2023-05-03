@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns:core="sap.ui.core">
+    <template:repeat list="{section>subSections}" var="subSection">
+        <template:repeat list="{subSection>actions}" var="action">
+            <template:if test="{action>command}">
+                <core:CommandExecution execute="{action>press}"
+                    command="{action>command}"
+                    visible="{path: 'action>id', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getActionCommandVisibility'}">
+
+                    <template:if test="{= ${action>action}}">
+                        <!-- only needed for DataFieldForIBN -->
+                        <core:customData>
+                            <core:CustomData key="ActionId" value="{action>id}" />
+                        </core:customData>
+                    </template:if>
+                </core:CommandExecution>
+            </template:if>
+        </template:repeat>
+    </template:repeat>
+</core:FragmentDefinition>

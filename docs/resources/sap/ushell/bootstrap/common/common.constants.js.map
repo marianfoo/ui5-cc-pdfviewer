@@ -1,0 +1,1 @@
+{"version":3,"file":"common.constants.js","names":["sap","ui","define","uiDebugKey","bootScriptId","bwcBootScriptId","configMetaPrefix","ushellConfigNamespace"],"sources":["common.constants-dbg.js"],"mappings":";AAKAA,IAAIC,GAAGC,OAAO,GAAI,WACd,aAEA,MAAO,CAEHC,WAAY,eAIZC,aAAc,mBAGdC,gBAAiB,uBAIjBC,iBAAkB,mBAElBC,sBAAuB,oBAE/B"}

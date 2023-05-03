@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:core="sap.ui.core">
+	<template:if test="{= ${tableSettings>type} === 'StandardList' || ${tableSettings>type} === 'ObjectList'}">
+	<template:then>
+		<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.SmartList" type="XML"/>
+	</template:then>
+	<template:else>
+		<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.SmartTable" type="XML"/>
+	</template:else>
+	</template:if>
+</core:FragmentDefinition>

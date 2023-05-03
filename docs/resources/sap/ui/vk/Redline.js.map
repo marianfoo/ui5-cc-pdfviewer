@@ -1,0 +1,1 @@
+{"version":3,"file":"Redline.js","names":["sap","ui","define","Redline","ElementType","Line","Rectangle","Ellipse","Freehand","Text","Comment","svgNamespace"],"sources":["Redline-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aAEA,IAAIC,EAAU,CACbC,YAAa,CACZC,KAAM,OACNC,UAAW,YACXC,QAAS,UACTC,SAAU,WACVC,KAAM,OACNC,QAAS,WAEVC,aAAc,8BAGf,OAAOR,CAER,EAAkB"}

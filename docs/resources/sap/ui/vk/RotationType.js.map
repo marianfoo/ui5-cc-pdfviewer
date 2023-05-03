@@ -1,0 +1,1 @@
+{"version":3,"file":"RotationType.js","names":["sap","ui","define","RotationType","Quaternion","AngleAxis","Euler"],"sources":["RotationType-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAe,CAKlBC,WAAY,aAKZC,UAAW,YAKXC,MAAO,SAGR,OAAOH,CAER,EAAkB"}

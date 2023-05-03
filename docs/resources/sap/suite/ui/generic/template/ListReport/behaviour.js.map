@@ -1,0 +1,1 @@
+{"version":3,"file":"behaviour.js","names":["sap","ui","define","XMLView","oPlaceholderInfo","html","autoClose","getPlaceholderInfo"],"sources":["behaviour-dbg.js"],"mappings":"AAEAA,IAAIC,GAAGC,OAAO,CAAC,2BAA4B,SAASC,GACnD,aAEA,IAAIC,EAAmB,CACpBC,KAAM,sDACNC,UAAW,OAGd,SAASC,IACR,OAAOH,CACR,CAGA,MAAO,CACNG,mBAAoBA,EAEtB"}

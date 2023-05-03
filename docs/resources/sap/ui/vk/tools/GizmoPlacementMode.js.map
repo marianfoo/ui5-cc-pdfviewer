@@ -1,0 +1,1 @@
+{"version":3,"file":"GizmoPlacementMode.js","names":["sap","ui","define","GizmoPlacementMode","Default","ObjectCenter","OnScreen","Rest"],"sources":["GizmoPlacementMode-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAqB,CAKxBC,QAAS,UAKTC,aAAc,eAKdC,SAAU,WAKVC,KAAM,QAGP,OAAOJ,CAER,EAAkB"}

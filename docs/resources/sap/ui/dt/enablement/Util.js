@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/dt/ElementUtil","sap/ui/dt/DOMUtil","sap/ui/dt/OverlayRegistry"],function(e,a,t){"use strict";var i=5;var r={};r.getInfo=function(e){var a=e.getMetadata();var i=t.getOverlay(e);return{metadata:a,overlay:i}};r.getAggregationInfo=function(e,t){var r={ignored:true,domRefDeclared:false,domRefFound:false,domRefVisible:false,overlayTooSmall:false,overlayGeometryCalculatedByChildren:false,overlayVisible:false};var o;var l=this.getInfo(e);var n=l.overlay.getAggregationOverlay(t);if(n){o=n.getDesignTimeMetadata()}if(o&&!o.isIgnored(e)){r.ignored=false;r.domRefDeclared=!!o.getDomRef();var g=n.getAssociatedDomRef();if(g){r.domRefFound=true;r.domRefVisible=a.isVisible(g.get(0))}var f=n.getGeometry();if(f){var s=f.size;r.overlayTooSmall=s.width<=i||s.height<=i;r.overlayGeometryCalculatedByChildren=!f.domRef;r.overlayVisible=f.visible}}return r};r.getAggregationsInfo=function(a){var t={};e.iterateOverAllPublicAggregations(a,function(e){t[e.name]=this.getAggregationInfo(a,e.name)}.bind(this));return t};return r},true);
+//# sourceMappingURL=Util.js.map

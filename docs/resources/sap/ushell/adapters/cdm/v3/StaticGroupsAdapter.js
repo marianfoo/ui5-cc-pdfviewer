@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/adapters/cdm/v3/AdapterBase","sap/ui/thirdparty/jquery"],function(t,jQuery){"use strict";function e(e,r,o){t.call(this,e,r,o)}e.prototype=t.prototype;e.prototype._addDefaultGroup=function(t,e){return t};e.prototype._getSiteData=function(){var t=new jQuery.Deferred;return t.resolve(this.oAdapterConfiguration.config)};return e},false);
+//# sourceMappingURL=StaticGroupsAdapter.js.map

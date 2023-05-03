@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("sap.suite.ui.generic.template.lib.TemplateViewController",{metadata:{library:"sap.suite.ui.generic.template"}})},true);
+//# sourceMappingURL=TemplateViewController.js.map

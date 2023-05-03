@@ -1,0 +1,137 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "sap.suite.ui.generic.template.ObjectPage",
+		"type": "component",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.108.9"
+		},
+		"title": "{{TITLE}}",
+		"description": "{{DESCRIPTION}}",
+		"tags": {
+			"keywords": [
+				"{{TITLE}}"
+			]
+		},
+		"ach": "CA-UI5-ST",
+		"embeddedBy": "../",
+		"offline": false,
+		"resources": "resources.json"
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal",
+			"sap_belize",
+			"sap_belize_plus",
+		  	"sap_belize_hcw"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"config": {
+			"sapFiori2Adaptation": {
+				"style": true,
+				"hierarchy": true
+			}
+		},
+		"services": {
+			"ShellUIService": {
+				"factoryName": "sap.ushell.ui5service.ShellUIService"
+			}
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.1",
+			"libs": {
+				"sap.ui.core": {
+					"minVersion": "1.30.1"
+				},
+				"sap.m": {
+					"minVersion": "1.30.1"
+				},
+				"sap.ui.comp": {
+					"minVersion": "1.30.1"
+				},
+				"sap.ui.table": {
+					"minVersion": "1.30.1"
+				},
+				"sap.uxap": {
+					"minVersion": "1.30.1"
+				},
+				"sap.ui.generic.app": {
+					"minVersion": "1.30.1"
+				},
+				"sap.suite.ui.generic.template": {
+					"minVersion": "1.30.1"
+				},
+				"sap.ui.layout": {
+					"minVersion": "1.30.1"
+				},
+				"sap.fe.placeholder":{
+			  		"minVersion":"1.86.0"
+			  	}
+			}
+		},
+		"commands": {
+			"Save": {
+				"name": "Save",
+				"shortcut": "Ctrl+S"
+			},
+			"Edit": {
+				"name": "Edit",
+				"shortcut": "Ctrl+E"
+			},
+			"Delete": {
+				"name": "Delete",
+				"shortcut": "Ctrl+Delete"
+			},
+			"Share": {
+				"name": "Share",
+				"shortcut": "Shift+Ctrl+S"
+			},
+			"TableEntryAdd": {
+				"name": "TableEntryAdd",
+				"shortcut": "Ctrl+Enter"
+			},
+			"TableEntryDelete": {
+				"name": "TableEntryDelete",
+				"shortcut": "Ctrl+D"
+			},
+			"NavigateForward": {
+				"name": "NavigateForward",
+				"shortcut": "Ctrl+F9"
+			},
+			"NavigateBackward" : {
+				"name": "NavigateBackward",
+				"shortcut": "Shift+Ctrl+F9"
+			},
+			"Cancel": {
+				"name": "Cancel",
+				"shortcut": "Escape"
+			}
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+            },
+			"i18n||Parent": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "../detailTemplates/i18n/i18n.properties"
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	}
+}

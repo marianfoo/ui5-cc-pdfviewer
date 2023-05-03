@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns:core="sap.ui.core"
+    template:require="{ AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+
+    <template:if test="{= ${parameter>/treeNode/level} === 1 || !${parameter>/isDraftEnabled} }">
+        <template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="actionId">
+            <template:if test="{= ${actionId>}.buildStableId({type: 'ObjectPageAction', subType: 'CommonAction', sAction: ${parameter>/isDraftEnabled} ? 'discard' : 'cancel' })}" />
+            <core:CommandExecution execute="._templateEventHandlers.onCancel"
+                command="Cancel"
+                visible="{path: 'actionId>id', formatter: 'AH.getActionCommandVisibility'}"/>
+        </template:with>
+    </template:if>
+
+    <template:repeat list="{parameter>/templateSpecific/pageLevelActions/commandExecution}" var="commandExecution">
+        <core:CommandExecution execute="{commandExecution>callbackName}"
+            command="{commandExecution>action}"
+            visible="{path: 'commandExecution>id', formatter: 'AH.getActionCommandVisibility'}">
+
+            <template:if test="{= ${commandExecution>annotatedAction} }">
+                <core:customData>
+                    <core:CustomData key="ActionId" value="{commandExecution>id}" />
+                </core:customData>
+            </template:if>
+        </core:CommandExecution>
+    </template:repeat>
+</core:FragmentDefinition>

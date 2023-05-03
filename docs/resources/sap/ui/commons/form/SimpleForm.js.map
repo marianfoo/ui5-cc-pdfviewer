@@ -1,0 +1,1 @@
+{"version":3,"file":"SimpleForm.js","names":["sap","ui","define","library","LayoutSimpleForm","SimpleFormRenderer","SimpleForm","extend","metadata","deprecated"],"sources":["SimpleForm-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,CACb,yBACA,gCACA,wBAEA,SAASC,EAASC,EAAkBC,GACpC,aAsBA,IAAIC,EAAaF,EAAiBG,OAAO,iCAAyF,CAAEC,SAAW,CAE9IC,WAAa,KACbN,QAAU,oBA8BX,OAAOG,CAER"}

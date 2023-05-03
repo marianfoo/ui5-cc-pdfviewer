@@ -1,0 +1,2 @@
+sap.ui.define(["sap/suite/ui/generic/template/js/AnnotationHelper"],function(t){"use strict";function e(t){var e="sapUiSizeCompact",n;if(!t){return true}n=document.body;return!(n.classList.contains(e)&&t)}return{setLinkWrapping:e}},true);
+//# sourceMappingURL=AnnotationHelper.js.map

@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    core:require="{
+        coreLibrary: 'sap/ui/core/library'
+    }">
+    <Page
+        class="sapUsheUserSettingDetaildPage"
+        showHeader="false"
+        busy="true">
+        <content>
+            <ObjectHeader
+                title="{entryInfo>/title}"
+                titleLevel="{= coreLibrary.TitleLevel.H3}"
+                visible="{entryInfo>/showHeader}"
+                backgroundDesign="Solid"
+                class="sapUshellUserSettingDetailHeader"/>
+        </content>
+    </Page>
+</core:FragmentDefinition>

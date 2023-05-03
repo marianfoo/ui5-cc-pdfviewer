@@ -1,0 +1,6 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="sap.suite.ui.generic.template.AnalyticalListPage.controller.KpiCardController" xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		   xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:semantic="sap.m.semantic" xmlns:ushell="sap.ushell.ui"
+		   xmlns:build="sap.build" xmlns:st="sap.suite.ui.generic.template"
+		   >
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.KpiCard" type="XML"/>
+</mvc:View>

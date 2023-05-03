@@ -1,0 +1,1 @@
+{"version":3,"file":"PersonalizationAdapter.js","names":["sap","ui","define","oAdapterInternals","HttpClient","PersonalizationAdapter","bind"],"sources":["PersonalizationAdapter-dbg.js"],"mappings":";AASAA,IAAIC,GAAGC,OAAO,CACV,qDACA,+BACD,SAAUC,EAAmBC,GAC5B,aAEA,OAAOD,EAAkBE,uBAAuBC,KAAK,KAAMF,EAAY,KAC3E,EAAmB"}

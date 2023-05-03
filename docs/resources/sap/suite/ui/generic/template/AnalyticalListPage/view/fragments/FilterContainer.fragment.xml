@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build"
+						 xmlns:l="sap.ui.layout"
+						 xmlns:smartVariantManagement="sap.ui.comp.smartvariants"
+						 xmlns:suite="sap.suite.ui.commons"
+						 xmlns:chart="sap.ui.comp.smartchart"
+						 xmlns:vfb="sap.suite.ui.generic.template.AnalyticalListPage.control.visualfilterbar"
+						 >
+		<!-- //TODO-DPL - addStyleClass as per the spec -->
+		<l:VerticalLayout class="sapSmartTemplatesAnalyticalListPageFilterContainer" id="template::FilterContainer">
+				<VBox id="template::CompactFilterContainer" visible="{= ${_templPriv>/alp/filterMode} === 'compact'}">
+					<core:Fragment fragmentName="sap.suite.ui.generic.template.AnalyticalListPage.view.fragments.SmartFilterBar" type="XML"/>
+				</VBox>
+
+			<template:if test="{= !(${parameter>/settings/hideVisualFilter} === true)}">
+				<FlexBox id="template::VisualFilterContainer" visible="{= ${_templPriv>/alp/filterMode} === 'visual'}" direction = "{= ${device>/system/phone} ? 'ColumnReverse' : 'Column'}">
+					<items>
+						<vfb:SmartVisualFilterBar
+						id="template::VisualFilterBar"
+						smartVariant="template::PageVariant"
+						persistencyKey="visualFilterPersistencyKey"
+						lazyLoadVisualFilter="{parameter>/settings/lazyLoadVisualFilter}"
+						allFiltersAsInParameters="{parameter>/settings/allFiltersAsInParameters}"
+						showDividers="false"/>
+						<template:if test="{= ${parameter>/settings/showGoButtonOnFilterBar} || ${device>/system/phone}}">
+							<FlexBox alignItems="End" justifyContent="End">
+								<items>
+									<Button id="template::GoFilters" text="{i18n>GO_FILTERS}" type="Emphasized" press="cmd:VisualFilterSearch"/>
+									<Button class="sapUiCompFilterBarPaddingRightBtn" id="template::VisualFilterDialogButton" text="{path:'_templPriv>/alp/filtersLink', formatter: 'sap.suite.ui.generic.template.AnalyticalListPage.util.FilterUtil.formatFiltersLink'}" tooltip="{path:'_templPriv>/alp/filtersLink', formatter: 'sap.suite.ui.generic.template.AnalyticalListPage.util.FilterUtil.formatFiltersLink'}" type="Transparent"
+									ariaHasPopup="Dialog" press="._templateEventHandlers.onFilterPress">
+									</Button>
+								</items>
+							</FlexBox>
+						</template:if>
+					</items>
+				</FlexBox>
+			</template:if>
+		</l:VerticalLayout>
+</core:FragmentDefinition>

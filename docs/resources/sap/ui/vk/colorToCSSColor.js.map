@@ -1,0 +1,1 @@
+{"version":3,"file":"colorToCSSColor.js","names":["sap","ui","define","colorToCSSColor","color","red","green","blue","alpha"],"sources":["colorToCSSColor-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aAeA,IAAIC,EAAkB,SAASC,GAC9B,MAAO,QAAUA,EAAMC,IAAM,IAAMD,EAAME,MAAQ,IAAMF,EAAMG,KAAO,IAAMH,EAAMI,MAAQ,GACzF,EAEA,OAAOL,CAER,EAAkB"}

@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover title="{parts: [{path: 'admin>/IsActiveEntity'}, {path: 'admin>/HasDraftEntity'}, {path : 'InProcessByUser'}], formatter: '.formatDraftLockText' }"
+			 showHeader="true"
+			 ariaLabelledBy="objectNoDataText unsavedPopoverText lockedPopoverText objectChangedText"
+			 contentWidth="15.625rem"
+			 verticalScrolling="false"
+			 class="sapSmartTemplatesListReportPopover sapUiContentPadding">
+		<endButton>
+				<Button icon="sap-icon://decline" tooltip="{i18n>CLOSE}" press="closeDraftAdminPopover" />
+		</endButton>
+
+		<VBox class="sapUiContentPadding">
+			<VBox visible="{= !${admin>/IsActiveEntity} === true &amp;&amp; !${LastChangeDateTime}}">
+				<Text id="objectNoDataText" text="{i18n>LOCKED_OBJECT_POPOVER_NO_DATA_TEXT}"></Text>
+			</VBox>
+
+			<VBox visible="{= ${admin>/IsActiveEntity} === true  &amp;&amp; ${InProcessByUser} === ''}">
+				<Text id="unsavedPopoverText" text="{parts: [{path: 'i18n>ST_GENERIC_UNSAVED_OBJECT_POPOVER_TEXT'},
+										{path: 'LastChangedByUserDescription'},
+										{path: 'LastChangeDateTime', type: 'sap.ui.model.type.DateTime'},
+										{path: 'i18n>LOCKED_OBJECT_POPOVER_NO_DATA_TEXT'},
+										{path: 'LastChangedByUser'}], formatter:'.formatText'}">
+				</Text>
+				<VBox visible="{= !!${LastChangeDateTime}}" class="sapUiSmallMarginTop"></VBox>
+			</VBox>
+
+			<VBox visible="{= ${admin>/IsActiveEntity} === true  &amp;&amp; !!${InProcessByUser}}">
+				<Text id="lockedPopoverText"  text="{parts: [{path: 'i18n>ST_GENERIC_LOCKED_OBJECT_POPOVER_TEXT'},
+										{path: 'InProcessByUserDescription'},
+										{path: 'LastChangeDateTime', type: 'sap.ui.model.type.DateTime'},
+										{path: 'i18n>LOCKED_OBJECT_POPOVER_NO_DATA_TEXT'},
+										{path: 'LastChangedByUser'}], formatter:'.formatText'}">
+				</Text>
+				<VBox visible="{= !!${LastChangeDateTime}}" class="sapUiSmallMarginTop"></VBox>
+			</VBox>
+			<Text id="objectChangedText" visible="{= !!${LastChangeDateTime}}"
+				  text="{parts: [{path: 'i18n>LOCKED_OBJECT_POPOVER_CHANGED_AT'},
+				  				 {path: 'LastChangeDateTime', type: 'sap.ui.model.type.DateTime'}], formatter:'.formatText'}">
+			</Text>
+		</VBox>
+	</Popover>
+</core:FragmentDefinition>

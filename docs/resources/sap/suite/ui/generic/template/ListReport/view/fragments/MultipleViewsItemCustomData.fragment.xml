@@ -1,0 +1,31 @@
+<!-- This fragment is used inside MultipleViewsSingleTableMode.fragment and IconTabBarWithSmartTable.fragment. It contains the CustomData which are included into the items
+	 (either of a SegmentedButton or a Select or a IconTabBar). These CustomData are used to make information about the items which is available at templating time accessible
+	 at runtime.
+ -->
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns:core="sap.ui.core" >
+	<core:CustomData key="variantAnnotationPath" value="{viewItem>annotationPath}"/>
+	<core:CustomData key="text" value="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterText'}"/>
+	<template:if test="{parts: [{path: 'entityType>'}, {path: 'viewItem>annotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.tabItemHasPresentationVariant'}">
+		<template:then>
+			<!-- PresentationVariant -->
+			<core:CustomData key="lineItemQualifier"
+				value="{parts: [{path: 'entityType>'}, {path: 'viewItem>annotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getPresentationVariantVisualisation'}" />
+			<core:CustomData key="TemplateSortOrder"
+				value="{parts: [{path: 'entityType>'}, {path: 'viewItem>annotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getPresentationVariantSortOrder'}" />
+			<core:CustomData key="presentationVariantQualifier"
+				value="{parts: [{path: 'entityType>'}, {path: 'viewItem>annotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getPresentationVariantQualifier'}" />
+			<core:CustomData key="InitialExpansionLevel"
+				value="{parts: [{path: 'entityType>'}, {path: 'viewItem>annotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getPresentationVariantInitialExpansionLevel'}" />
+		</template:then>
+		<template:else>
+			<template:with path="entityType>com.sap.vocabularies.UI.v1.PresentationVariant" var="variant">
+				<template:if test="{= ${variant>SortOrder}}">
+					<core:CustomData key="TemplateSortOrder" value="{path: 'variant>SortOrder', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSortOrder'}"/>
+				</template:if>
+				<template:if test="{= ${variant>InitialExpansionLevel}}">
+					<core:CustomData key="InitialExpansionLevel" value="{variant>InitialExpansionLevel/Int}" />
+				</template:if>
+			</template:with>
+		</template:else>
+	</template:if>
+</core:FragmentDefinition>

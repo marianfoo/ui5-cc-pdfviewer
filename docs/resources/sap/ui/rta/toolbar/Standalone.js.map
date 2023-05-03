@@ -1,0 +1,1 @@
+{"version":3,"file":"Standalone.js","names":["sap","ui","define","Adaptation","Standalone","extend","metadata","library","renderer","type"],"sources":["Standalone-dbg.js"],"mappings":";;;;;AAMAA,IAAIC,GAAGC,OAAO,CACb,gBAED,SACCC,GAEA,aAkBA,IAAIC,EAAaD,EAAWE,OAAO,gCAAiC,CACnEC,SAAU,CACTC,QAAS,cAEVC,SAAU,wCACVC,KAAM,eAGP,OAAOL,CACR"}

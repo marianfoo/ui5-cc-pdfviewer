@@ -1,0 +1,1 @@
+{"version":3,"file":"colorToABGR.js","names":["sap","ui","define","colorToABGR","color","alpha","blue","green","red"],"sources":["colorToABGR-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aAcA,IAAIC,EAAc,SAASC,GAE1B,OAAQA,EAAMC,MAAQ,KAAO,GAAKD,EAAME,MAAQ,GAAKF,EAAMG,OAAS,EAAIH,EAAMI,OAAS,CACxF,EAEA,OAAOL,CAER,EAAkB"}

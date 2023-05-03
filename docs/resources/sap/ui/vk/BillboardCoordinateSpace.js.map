@@ -1,0 +1,1 @@
+{"version":3,"file":"BillboardCoordinateSpace.js","names":["sap","ui","define","BillboardCoordinateSpace","Viewport","Screen","World"],"sources":["BillboardCoordinateSpace-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAA2B,CAC9BC,SAAU,WACVC,OAAQ,SACRC,MAAO,SAGR,OAAOH,CAER,EAAkB"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"BillboardStyle.js","names":["sap","ui","define","BillboardStyle","RectangularShape","CircularShape","None","TextGlow"],"sources":["BillboardStyle-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAiB,CACpBC,iBAAkB,mBAClBC,cAAe,gBACfC,KAAM,OACNC,SAAU,YAGX,OAAOJ,CAER,EAAkB"}

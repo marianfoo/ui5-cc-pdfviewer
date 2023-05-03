@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="draftResumeDialog" title="{i18n>WARNING}" state="Warning" type="Message" afterClose="onResumeDialogClosed">
+		<content>
+			<Text id="draftResumeText" text="{Dialog>/draftResumeText}" />
+		</content>
+		<buttons>
+			<Button id="draftResumeResumeButton" text="{i18n>RESUME}" press="onDraftResume" type="Emphasized"/>
+			<Button id="draftResumeDiscardButton" text="{i18n>DISCARD}" press="onDraftDiscard" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

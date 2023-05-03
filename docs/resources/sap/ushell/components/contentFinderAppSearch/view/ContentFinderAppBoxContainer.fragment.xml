@@ -1,0 +1,158 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:contentFinder="sap.ushell.ui.contentFinder"
+    xmlns:f="sap.f"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:integrationWidgets="sap.ui.integration.widgets"
+    core:require="{
+        ushellLibrary: 'sap/ushell/library'
+    }">
+    <Page id="sapCepContentPickerPage"
+        showHeader="false"
+        showFooter="false"
+        showSubHeader="false"
+        enableScrolling="true">
+        <VBox class="sapCepContentFinderBeginEndPadding">
+            <OverflowToolbar
+                id="overflowToolbar"
+                asyncMode="false"
+                style="Clear"
+                class="sapCepContentFinderToolbar sapUiSmallMarginTop sapUiTinyMarginBottom"
+                visible="false">
+                <Title id="AppBoxContainerTitle" titleStyle="H5" text="{
+                    parts: [
+                        'type',
+                        'appBoxCount',
+                        'searchTerm',
+                        'showSelectedPressed',
+                        'selectedAppCount',
+                        'CurrentSelectedTreeNode'
+                    ],
+                    formatter: '.titleFormatter'
+                }">
+                    <layoutData>
+                        <OverflowToolbarLayoutData minWidth="6rem" shrinkable="true" priority="High"/>
+                    </layoutData>
+                </Title>
+                <ToolbarSpacer/>
+                <SearchField
+                    id="AppBoxSearch"
+                    value="{searchTerm}"
+                    placeholder="{i18n>ContentFinder.AppBoxContainerToolbar.Search}"
+                    liveChange=".onTileSearch">
+                    <layoutData>
+                        <OverflowToolbarLayoutData minWidth= "6rem" maxWidth="13.75rem" shrinkable="true" priority="NeverOverflow"/>
+                    </layoutData>
+                </SearchField>
+                <ToggleButton
+                    id="ShowSelectedToggleBtn"
+                    type="Default"
+                    visible="{= ${type} === 'tiles'}"
+                    pressed="{showSelectedPressed}"
+                    enabled="{= ${selectedAppCount} > 0 || ${showSelectedPressed} }"
+                    icon="sap-icon://multi-select"
+                    tooltip="{i18n>ContentFinder.AppBoxContainerToolbar.Button.Tooltip.ShowSelected}"
+                    press=".onShowSelectedPressed">
+                    <layoutData>
+                        <OverflowToolbarLayoutData shrinkable="false" priority="Low"/>
+                    </layoutData>
+                </ToggleButton>
+                <ToggleButton
+                    id="SelectAllToggleBtn"
+                    text="{= ${hasSelectables} ? ${i18n>ContentFinder.AppBoxContainerToolbar.Button.SelectAll} : ${i18n>ContentFinder.AppBoxContainerToolbar.Button.DeselectAll}}"
+                    visible="{= ${type} === 'tiles'}"
+                    enabled="{= ${appBoxCount} > 0}"
+                    pressed="{= !${hasSelectables}}"
+                    press=".onSelectAllPressed">
+                    <layoutData>
+                        <OverflowToolbarLayoutData shrinkable="false" priority="Low"/>
+                    </layoutData>
+                </ToggleButton>
+                <SegmentedButton selectedKey="ViewType">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="Disappear"/>
+                    </layoutData>
+                    <items>
+                        <SegmentedButtonItem
+                                icon="sap-icon://table-view"
+                                visible="false"
+                                tooltip="{i18n>ContentFinder.AppBoxContainerToolbar.Button.Tooltip.GridView}"/>
+                        <SegmentedButtonItem
+                                icon="sap-icon://list"
+                                visible="false"
+                                tooltip="{i18n>ContentFinder.AppBoxContainerToolbar.Button.Tooltip.ListView}"/>
+                    </items>
+                </SegmentedButton>
+            </OverflowToolbar>
+            <f:GridContainer
+                id="tileGridList"
+                items="{tiles}"
+                visible="{= ${type} === 'tiles'}">
+                <f:layout>
+                    <f:GridContainerSettings
+                        columnSize="19.0625rem"
+                        rowSize="12.75rem"
+                        gap="1.5rem"/>
+                </f:layout>
+                <f:items>
+                    <contentFinder:AppBox
+                        id="ContentFinderAppBoxTile"
+                        appId="{appId}"
+                        dataHelpId="{dataHelpId}"
+                        disabled="{disabled}"
+                        disablePreview="{= !${showPreview} &amp;&amp; ${tilePreviewShown}}"
+                        gridGapSize="1.5rem"
+                        icon="{icon}"
+                        info="{info}"
+                        launchUrl="{launchUrl}"
+                        previewSize="{previewSize}"
+                        posinset="{posinset}"
+                        selectable="true"
+                        selected="{selected}"
+                        setsize="{setsize}"
+                        showExtraInformation="true"
+                        showPreview="{showPreview}"
+                        subtitle="{subtitle}"
+                        systemInfo="{systemInfo}"
+                        title="{title}"
+                        type="{type}"
+                        visible="{visible}"
+                        launch=".onLaunchPressed"
+                        select=".onAppBoxSelected"
+                        press=".onAppBoxPressed"
+                        previewShown=".showPreview">
+                        <contentFinder:layoutData>
+                            <f:GridContainerItemLayoutData
+                                columns="{= ${showPreview} &amp;&amp; ${previewSize} === ushellLibrary.AppBoxPreviewSize.Large ? 2 : 1}"
+                                rows="{= ${showPreview} ? 2 : 1}"/>
+                        </contentFinder:layoutData>
+                        <!--
+                        <contentFinder:preview>
+                            <GenericTile
+                                header="{title}"
+                                subheader="{subtitle}"
+                                pressEnabled="false"
+                                frameType="{frameType}" />
+                        </contentFinder:preview>
+                        -->
+                    </contentFinder:AppBox>
+                </f:items>
+            </f:GridContainer>
+            <f:GridContainer
+                id="cardGridList"
+                items="{
+                path: 'cards',
+                factory: '._cardAppBoxFactory'
+            }"
+                visible="{= ${type} === 'cards'}">
+                <f:layout>
+                    <f:GridContainerSettings
+                        columnSize="19.0625rem"
+                        rowSize="12.75rem"
+                        gap="1.5rem"/>
+                </f:layout>
+            </f:GridContainer>
+        </VBox>
+    </Page>
+</core:FragmentDefinition>

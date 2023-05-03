@@ -1,0 +1,1 @@
+{"version":3,"file":"AppType.js","names":["sap","ui","define","library","AppTypeUtils","oAppType","JSON","parse","stringify","AppType","getDisplayName"],"sources":["AppType-dbg.js"],"mappings":";AACAA,IAAIC,GAAGC,OAAO,CACV,qBACA,4BACD,SAAUC,EAASC,GAClB,aAWA,IAAIC,EAAWC,KAAKC,MAAMD,KAAKE,UAAUL,EAAQM,UAEjDJ,EAASK,eAAiBN,EAAaM,eAEvC,OAAOL,CACX"}

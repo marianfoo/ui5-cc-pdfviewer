@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns:core="sap.ui.core">
+    <template:if test="{= !${parameter>/isDraftEnabled} || ${entitySet>com.sap.vocabularies.Common.v1.DraftRoot} }">
+		<core:CommandExecution execute="._templateEventHandlers.onSave"
+            command="Save"
+            visible="{value: 'save', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getActionCommandVisibility'}" />
+	</template:if>
+</core:FragmentDefinition>

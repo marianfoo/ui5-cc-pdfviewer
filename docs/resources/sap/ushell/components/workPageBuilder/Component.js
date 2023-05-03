@@ -1,0 +1,3 @@
+//Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ui/core/UIComponent"],function(e){"use strict";return e.extend("sap.ushell.components.workPageBuilder.Component",{metadata:{manifest:"json",library:"sap.ushell",properties:{modelRootPath:{type:"string",multiple:false,defaultValue:"/data"}},events:{loadCatalog:{},closeEditMode:{parameters:{saveChanges:{type:"boolean"}}}}},init:function(){e.prototype.init.apply(this,arguments)}})});
+//# sourceMappingURL=Component.js.map

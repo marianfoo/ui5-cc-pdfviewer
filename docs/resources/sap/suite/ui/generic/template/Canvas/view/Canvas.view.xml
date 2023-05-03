@@ -1,0 +1,25 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"	template:require="sap.suite.ui.generic.template.js.AnnotationHelperReuseComponents"
+			xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		   xmlns="sap.m" xmlns:core="sap.ui.core" height="100%">
+		<template:alias name=".AH" value="sap.suite.ui.generic.template.js.AnnotationHelperReuseComponents">
+			<template:if test="{parameter>/treeNode/page/implementingComponent}">
+					<core:ComponentContainer id="template::ImplementingComponent"
+						propagateModel="true"
+						binding="{= '{' + ( ${parameter>/treeNode/page/implementingComponent/binding} || '' ) + '}' }" height="100%"
+						settings="{parts: [{path: 'entitySet>'}, {path: 'parameter>/treeNode/page/implementingComponent'}, {path: 'parameter>/routingSpec'}], formatter: '.AH.formatComponentSettingsCanvas'}">
+						<core:dependents>
+							<template:if test="{parameter>/settings/requiredControls/footerBar}">
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.FooterCommands" type="XML"/>
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.Footer" type="XML"/>
+							</template:if>
+							<template:if test="{parameter>/settings/requiredControls/paginatorButtons}">
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.detailTemplates.fragments.PaginatorButtons" type="XML"/>
+							</template:if>
+							<template:if test="{parameter>/settings/requiredControls/flexibleColumnLayoutActions}">
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.FCLActions" type="XML"/>
+							</template:if>
+						</core:dependents>
+					</core:ComponentContainer>
+			</template:if>
+		</template:alias>
+</mvc:View>

@@ -1,0 +1,1 @@
+{"version":3,"file":"MaterialType.js","names":["sap","ui","define","MaterialType","MeshPhongMaterial","MeshBasicMaterial","LineBasicMaterial"],"sources":["MaterialType-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAe,CAKlBC,kBAAmB,oBAKnBC,kBAAmB,oBAKnBC,kBAAmB,qBAGpB,OAAOH,CAER,EAAkB"}

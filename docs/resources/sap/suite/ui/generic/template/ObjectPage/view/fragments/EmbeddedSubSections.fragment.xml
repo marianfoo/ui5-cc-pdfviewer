@@ -1,0 +1,14 @@
+	<!--	This fragment generates the subsection for a reuse component. The metadata of this reuse component are provided in variable followingComponent. -->
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:uxap="sap.uxap"
+		template:require="{ AHReuseComponents: 'sap/suite/ui/generic/template/js/AnnotationHelperReuseComponents' }"
+		xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1">
+	<uxap:ObjectPageSubSection id="{followingComponent>subSectionId}" visible="{path: 'followingComponent>definition', formatter: '.AHReuseComponents.formatVisibleComponentSection'}" class="sapSmartTemplatesObjectPageSubSection" title="{followingComponent>definition/title}" titleLevel="H4">
+		<uxap:customData>
+			<core:CustomData key="stRefreshTrigger" value="{followingComponent>definition/settings/stRefreshTrigger}"/>
+		</uxap:customData>
+		<core:ComponentContainer id="{followingComponent>containerId}"
+			binding="{= '{' + ( ${followingComponent>definition/binding} || '' ) + '}' }" 
+			propagateModel="true"
+			settings="{parts: [{path: 'entitySet>'}, {path: 'followingComponent>definition'}, {path: 'parameter>/routingSpec'}, {path: 'followingComponent>sectionId'}, {path: 'followingComponent>subSectionId'}], formatter: '.AHReuseComponents.formatComponentSettingsSubSection'}"/>
+	</uxap:ObjectPageSubSection>
+</core:FragmentDefinition>

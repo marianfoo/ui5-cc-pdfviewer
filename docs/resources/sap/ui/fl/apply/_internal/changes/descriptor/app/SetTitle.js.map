@@ -1,0 +1,1 @@
+{"version":3,"file":"SetTitle.js","names":["sap","ui","define","SetTitle","applyChange","oManifest","title","id"],"sources":["SetTitle-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,GAEX,WAGF,aAcA,IAAIC,EAAW,CAUdC,YAAa,SAASC,GACrBA,EAAU,WAAWC,MAAQ,KAAOD,EAAU,WAAWE,GAAK,mBAC9D,OAAOF,CACR,GAID,OAAOF,CACR"}

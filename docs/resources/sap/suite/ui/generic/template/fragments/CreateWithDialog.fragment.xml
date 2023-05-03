@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core"  xmlns:build="sap.build"
+			  			 xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield"
+						template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+	<template:if test="{createWithParameterDialog>}">
+		<Dialog id="{createWithParameterDialog>id}" showHeader="false" visible="false">
+			<content>
+				<smartForm:SmartForm title="{localModel>/title}" validationMode="Async" editable="true" class="sapSmartTemplatesCreateDialog">
+					<smartForm:layout>
+						<smartForm:ColumnLayout/>
+					</smartForm:layout>
+					<smartForm:Group>
+						<template:repeat list="{createWithParameterDialog>fields}" var="values">
+							<smartForm:GroupElement>
+								<smartField:SmartField value="{path: 'values>', formatter: 'AH.formatSmartField'}"
+														clientSideMandatoryCheck="true"/>
+							</smartForm:GroupElement>
+						</template:repeat>
+					</smartForm:Group>
+				</smartForm:SmartForm>
+			</content>
+			<beginButton>
+				<Button text="{i18n>CREATE_OBJECT}" press="._templateEventHandlers.onSaveCreateWithPopUpDialog" type="Emphasized"/>
+			</beginButton>
+			<endButton>
+				<Button text="{i18n>CANCEL}" press="._templateEventHandlers.onCancelCreateWithPopUpDialog"/>
+			</endButton>
+		</Dialog>
+	</template:if>
+</core:FragmentDefinition>

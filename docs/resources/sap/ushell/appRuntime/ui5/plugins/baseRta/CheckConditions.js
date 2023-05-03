@@ -1,0 +1,5 @@
+/*!
+ * Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+ */
+sap.ui.define(["sap/base/util/UriParameters","sap/ui/Device","sap/ushell/appRuntime/ui5/plugins/baseRta/AppLifeCycleUtils"],function(e,t,r){"use strict";var a={_getAppDescriptor:function(e){if(e&&e.getMetadata){var t=e.getMetadata();if(t&&t.getManifest){return t.getManifest()}}return{}},checkRestartRTA:function(t){var r=e.fromQuery(window.location.search);var a=r.get("sap-ui-layer");t=a||t;var i=!!window.sessionStorage.getItem("sap.ui.rta.restart."+t);if(i){window.sessionStorage.removeItem("sap.ui.rta.restart."+t)}return i},checkUI5App:function(){return r.getCurrentRunningApplication().then(function(e){var t=e&&e.applicationType==="UI5";return t})},checkDesktopDevice:function(){return t.system.desktop}};return a},true);
+//# sourceMappingURL=CheckConditions.js.map

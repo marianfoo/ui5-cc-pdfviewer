@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns="sap.m" xmlns:core="sap.ui.core">
+	
+	<ObjectMarker id="DraftObjectMarker{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSuffixFromIconTabFilterKey'} : ''}"
+		type="{= ${parts: [{path: 'DraftAdministrativeData'}, {path: 'IsActiveEntity'}, {path: 'HasDraftEntity'}], formatter: '._templateFormatters.formatDraftType'}}"
+		visibility="{= ${parts: [{path: 'DraftAdministrativeData'}, {path: 'IsActiveEntity'}], formatter: '._templateFormatters.formatDraftVisibility'}}" 
+		press="._templateEventHandlers.onDraftLinkPressed"
+		visible="{= ${parts: [{path: 'DraftAdministrativeData'}, {path: '_templPriv>/listReport/vDraftState'}], formatter: '._templateFormatters.formatDraftLineItemVisible'}}"
+		additionalInfo="{= ${parts: [{path: 'DraftAdministrativeData'}, {path: 'HasDraftEntity'}], formatter: '._templateFormatters.formatDraftOwner'}}" 
+		ariaLabelledBy="{columnId>id}" />
+
+</core:FragmentDefinition>

@@ -1,0 +1,304 @@
+<core:FragmentDefinition
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smartField="sap.ui.comp.smartfield"
+	xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core" xmlns:smc="sap.ui.comp.smartmicrochart" xmlns:navpopover="sap.ui.comp.navpopover">
+	<!-- @classdesc @name: Name: sap.suite.ui.generic.template.ListReport.view.fragments.TableColumns.fragment.xml
+		@description: Visualizes columns (header) of a responsive table,
+		as part of a LR, OP or ALP.
+		@param {UI.LineItem} [collection]
+		@param {Edm.EntitySet} [listEntitySet] -->
+
+		<!-- Default Column width for FE rendered columns based on UX's suggestions
+		For SmartFields, SmartMultiInputs, IBN, Contact Popups and Semantic Key Fields default width is calculated based on MaxLength of the Property (eg. 30rem)
+		For Images default width is 5rem
+		For Rating and Progress Indicators default width is 6.875rem
+		For Charts Default width is 21rem
+		-->
+
+	<columns>
+		<template:repeat list="{collection>}" var="dataField">
+			<!-- handle data field with Stream Support -->
+			<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField'}">
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<template:if test="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperStreamSupport.checkIfEntityOrAssociationHasStreamEnabled'}">
+						<Column
+							width="{parts: [{path: 'dataField>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthBasedOnAnnotation'}"
+							visible="true"
+							importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+							<customData>
+								<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NFileUploader'}" />
+							</customData>
+							<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+							</Column>
+					</template:if>	
+				</template:with>
+			</template:if>
+			<!-- handle data field with 1:n -->
+			<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField'}">
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<template:if test="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.checkMultiplicityForDataFieldAssociationInTable'}">
+						<Column 
+								id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataField', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}})}"
+								width="{parts: [{path: 'dataField>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthBasedOnAnnotation'}"
+								visible="true"
+								importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+							<customData>
+								<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataFieldValue>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13N'}" />
+							</customData>
+							<template:if test="{dataField>Label}">
+								<template:then>
+									<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+								</template:then>
+								<template:elseif test="{dataFieldValue>com.sap.vocabularies.Common.v1.Label}">
+									<Text text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+								</template:elseif>
+							</template:if>
+						</Column>
+					</template:if>
+				</template:with>
+			</template:if>
+			<!--  handle data field which is either semantic key, title or description -->
+ 			<template:if test="{= ${parameter>/isDraftEnabled} &amp;&amp;  ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField' &amp;&amp; (${dataField>Value/Path} === ${targetColumn>} )}">
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<Column 
+							id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataField', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}})}"
+							width="{parts: [{path: 'dataField>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthBasedOnAnnotation'}"
+							hAlign="{= ${dataField>EdmType} === 'Edm.Decimal' || ${dataField>EdmType} === 'Edm.Double' ||  ${dataField>EdmType} === 'Edm.Float' ||  ${dataField>EdmType} === 'Edm.Int16' ||  ${dataField>EdmType} === 'Edm.Int32' || ${dataField>EdmType} === 'Edm.Int64' ||  ${dataField>EdmType} === 'Edm.Single' ||  ${dataField>EdmType} === 'Edm.Date' ||  ${dataField>EdmType} === 'Edm.DateTime' ||  ${dataField>EdmType} === 'Edm.DateTimeOffset' ||  ${dataField>EdmType} === 'Edm.Time' ? 'End' : 'Begin'}"
+							visible="{= ( ${dataField>com.sap.vocabularies.UI.v1.Hidden} || ( ${dataField>com.sap.vocabularies.Common.v1.FieldControl/EnumMember} === 'com.sap.vocabularies.Common.v1.FieldControlType/Hidden')) ? 'false' : 'true'}"
+							importance="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumnsWithSemanticKeyTitleAndDescription'}">
+						<customData>
+							<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataFieldValue>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13N'}" />
+						</customData>
+						<Text
+							text="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getColumnHeaderText'}" wrappingType="Hyphenated">
+						</Text>
+					</Column>
+				</template:with>
+			</template:if>
+			<!-- handle data field with images -->
+			<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField'}">
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<template:if test="{path: 'dataFieldValue>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.isImageUrl'}">
+						<Column 
+								id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataField', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}})}"
+								width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {value: ''}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+								visible="true"
+								importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+							<customData>
+								<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataFieldValue>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13N'}" />
+							</customData>
+							<template:if test="{dataField>Label}">
+								<template:then>
+									<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+								</template:then>
+								<template:elseif test="{dataFieldValue>com.sap.vocabularies.Common.v1.Label}">
+									<Text text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+								</template:elseif>
+							</template:if>
+						</Column>
+					</template:if>
+				</template:with>
+			</template:if>
+			<!-- Object Page Self-Linking -->
+			<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithNavigationPath' }">
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<Column 
+							id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldWithNavigationPath', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}, sTarget: ${dataField>Target/NavigationPropertyPath}})}"
+							width="{parts: [{path: 'dataField>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthBasedOnAnnotation'}"
+							visible="true"
+							importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+						<customData>
+							<core:CustomData key="p13nData" value="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}" />
+						</customData>
+						<Text text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}" />
+					</Column>
+				</template:with>
+			</template:if>
+			<!-- handle inline actions -->
+			<template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Inline/Bool} === 'true'}">
+				<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="columnId">
+					<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+						<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' }">
+							<template:then>
+								<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForAction', sSmartTableId: ${smartTableId>id}, sAction: ${dataField>Action/String}})}" />
+							</template:then>
+							<template:else>
+								<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sSemanticObject: ${dataField>SemanticObject/String}, sAction: ${dataField>Action/String}})}" />
+							</template:else>
+						</template:if>
+						<Column 
+								id="{columnId>id}"
+								width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {value: ''}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+								visible="true"
+								importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+							<customData>
+								<core:CustomData key="p13nData" value="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}" />
+							</customData>
+							<template:if test="{dataField>Label}">
+								<template:then>
+									<core:InvisibleText text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+								</template:then>
+							</template:if>
+						</Column>
+					</template:with>
+				</template:with>
+			</template:if>
+            <!-- handle DataFieldWithIntentBasedNavigation -->
+			<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithIntentBasedNavigation' }">
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<Column id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldWithIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}, sSemanticObject: ${dataField>SemanticObject/String}, sAction: ${dataField>Action/String}})}"
+						visible="true"
+						width="{parts: [{path: 'dataField>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthBasedOnAnnotation'}"
+						importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+						<customData>
+							<core:CustomData key="p13nData"
+								value="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}" />
+						</customData>
+						<Text	text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}" />
+					</Column>
+				</template:with>
+			</template:if>
+			<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation'}">
+				<template:then>
+					<!-- Handle ContactPopUp Over -->
+					<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') >= 0}">
+						<template:then>
+							<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+								<Column 
+										id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+										width="{parts: [{path: 'dataField>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthBasedOnAnnotation'}"
+										visible="true"
+										importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+									<customData>
+										<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForContactPopUp'}" />
+									</customData>
+									<template:if test="{dataField>Label}">
+										<template:then>
+											<Text
+												text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+												visible="true" />
+										</template:then>
+									</template:if>
+								</Column>
+							</template:with>
+						</template:then>
+					</template:if>
+
+					<!-- Semantically connected column -->
+					<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') >= 0}">
+						<template:then>
+							<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+								<template:if test="{parts: [{path: 'dataFieldTarget>Data'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.renderColumnForConnectedFields' }">
+									<Column 
+											id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+											width="{parts: [{path: 'dataFieldTarget>Data'}, {path: 'listEntitySet>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getColumnWidthForConnectedFields'}"
+											visible="true"
+											importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+										<template:if test="{parts: [{path: 'dataFieldTarget>Data'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.renderColumnHeader' }">
+											<template:then>
+												<template:if test="{dataField>Label}">
+													<template:then>
+														<core:InvisibleText text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+													</template:then>
+												</template:if>
+											</template:then>
+											<template:else>
+												<template:if test="{dataField>Label}">
+													<template:then>
+														<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" visible="true"/>
+													</template:then>
+												</template:if>
+											</template:else>
+										</template:if>
+										<customData>
+											<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'} ], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForConnectedFields'}"/>
+										</customData>
+									</Column>
+								</template:if>
+							</template:with>
+						</template:then>
+					</template:if>
+
+					<!-- handle smart micro chart -->
+					<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Chart') >= 0}">
+						<template:then>
+							<Column 
+									id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+									width="{parts: [{path: 'dataField>Target'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataField>Target/AnnotationPath'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+									visible="true"
+									importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+								<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+									<customData>
+										<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForChart'}" />
+									</customData>
+								</template:with>
+								<template:if test="{dataField>Label}">
+									<template:then>
+										<Text
+											text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+									</template:then>
+								</template:if>
+							</Column>
+						</template:then>
+					<template:else>
+						<!-- handle rating and progress indicators -->
+						<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+							<template:if test="{= ${dataFieldTarget>Visualization}}">
+								<template:then>
+									<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue"> <!-- only needed to pass to p13n to be able to switch to old implementation (DataFieldForAnnotation does not contain Value) -->
+										<template:with path="dataFieldTarget>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTargetValue">
+											<Column 
+													id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+													width="{parts: [{path: 'dataFieldTarget>'}, {path: 'dataField>'}, {path: 'listEntitySet>'},  {path: 'dataField>Target/AnnotationPath'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+													visible="true"
+													importance="{= ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getImportanceForTableColumns'}}">
+												<customData>
+													<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'}, {path: 'dataFieldTargetValue>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForIndicator'}" />
+												</customData>
+												<template:if test="{dataField>Label}">
+													<template:then>
+														<Text
+															text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+															visible="true" />
+													</template:then>
+													<template:elseif test="{dataFieldTarget>Title}">
+														<Text
+															text="{path: 'dataFieldTarget>Title', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+													</template:elseif>
+													<template:elseif
+														test="{dataFieldTargetValue>com.sap.vocabularies.Common.v1.Label}">
+														<Text
+															text="{path: 'dataFieldTargetValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+													</template:elseif>
+												</template:if>
+											</Column>
+										</template:with>
+									</template:with>
+								</template:then>
+							</template:if>
+						</template:with>
+					</template:else>
+					</template:if>
+
+				</template:then>
+			</template:if>
+		</template:repeat>
+ 		<!--  add break-out columns -->
+		<template:if test="{= ${facet>Target/AnnotationPath} }">
+			<template:then>
+				<core:ExtensionPoint
+					name="ResponsiveTableColumnsExtension|{listEntitySet>name}|{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}" />
+			</template:then>
+			<template:else>
+		 		<!--  ListReport: In case of multiple views, extension points have to be separated to allow providing stable ids in extensions - but for compatibility, also keep old extension point -->
+				<core:ExtensionPoint
+					name="ResponsiveTableColumnsExtension|{parameter>/entitySet}" />
+				<template:if test="{= ${tabItem>} }">
+					<core:ExtensionPoint
+						name="ResponsiveTableColumnsExtension|{parameter>/entitySet}|{path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}" />
+				</template:if>
+			</template:else>
+		</template:if>
+	</columns>
+</core:FragmentDefinition>

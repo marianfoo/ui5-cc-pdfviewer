@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:build="sap.build">
+	<QuickView class="sapSmartTemplatesObjectPageContactsQuickView" placement="Auto">
+		<QuickViewPage icon="{= ${contact>/photo} ? ${contact>/photo} : 'sap-icon://person-placeholder'}"
+			title="{contact>/fn}"
+			description="{contact>/role}">
+			<QuickViewGroup>
+				<QuickViewGroupElement label="{i18n>CONTACT_JOB_TITLE}" type="text"
+					value="{contact>/title}"
+					visible="{= !!${contact>/title}}"/>
+
+				<QuickViewGroupElement label="{i18n>CONTACT_DEPARTMENT}" type="text"
+					value="{contact>/org}"
+					visible="{= !!${contact>/org}}"/>
+
+				<QuickViewGroupElement label="{i18n>CONTACT_EMAIL}" type="email"
+					value="{contact>/email}"
+					visible="{= !!${contact>/email}}"/>
+
+				<QuickViewGroupElement label="{i18n>CONTACT_PHONE}" type="phone"
+					value="{contact>/work}"
+					visible="{= !!${contact>/work}}"/>
+
+				<QuickViewGroupElement  label="{i18n>CONTACT_MOBILE}" type="{= (${contact>/device/system/phone} || ${contact>/device/system/tablet})  ? 'mobile'  : 'phone' }"
+					value="{contact>/cell}"
+					visible="{= !!${contact>/cell}}"/>
+
+				<QuickViewGroupElement label="{i18n>CONTACT_FAX}" type="text"
+					value="{contact>/fax}"
+					visible="{= !!${contact>/fax}}"/>
+
+				<QuickViewGroupElement label="{i18n>CONTACT_ADDRESS}" type="text"
+					value="{contact>/adr}"
+					visible="{= !!${contact>/adr}}"/>
+			</QuickViewGroup>
+		</QuickViewPage>
+	</QuickView>
+</core:FragmentDefinition>

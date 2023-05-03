@@ -1,0 +1,249 @@
+<core:FragmentDefinition
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smartField="sap.ui.comp.smartfield" xmlns="sap.m" xmlns:build="sap.build"
+	xmlns:table="sap.ui.table" xmlns:core="sap.ui.core"
+	template:require="{AH:'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+
+	<template:repeat list="{collection>}" var="dataField">
+		<!-- handle data field with Stream Support -->
+		<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField'}">
+			<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+				<template:if test="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperStreamSupport.checkIfEntityOrAssociationHasStreamEnabled'}">
+					<table:Column 
+						width="{parts: [{path: 'dataField>'}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthBasedOnAnnotation'}"
+						customData:p13nData="{parts: [{path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NFileUploader'}">
+						<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+						<table:template>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GridTableCells" type="XML" />
+						</table:template>
+					</table:Column>
+				</template:if>	
+			</template:with>
+		</template:if>
+		<template:if
+			test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Inline/Bool} === 'true'}">
+			<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="columnId">
+				<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' }">
+					<template:then>
+						<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForAction', sSmartTableId: ${smartTableId>id}, sAction: ${dataField>Action/String}})}" />
+					</template:then>
+					<template:else>
+						<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sSemanticObject: ${dataField>SemanticObject/String}, sAction: ${dataField>Action/String}})}" />
+					</template:else>
+				</template:if>
+				<template:with path="dataField>Value"
+					helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<table:Column 
+							id="{columnId>id}"
+							sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getSortProperty'}" 
+							filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getFilterProperty'}"
+							customData:p13nData="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}"
+							showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+							width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {value: ''}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+							hAlign="Center">
+						<template:if test="{dataField>Label}">
+							<template:then>
+								<core:InvisibleText text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+							</template:then>
+							<template:else>
+								<core:InvisibleText text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+							</template:else>
+						</template:if>
+						<table:template>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.InlineButton" type="XML" />
+						</table:template>
+					</table:Column>
+				</template:with>
+			</template:with>
+		</template:if>
+		<template:if
+			test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithIntentBasedNavigation')}">
+			<template:then>
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<table:Column
+						id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldWithIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}, sSemanticObject: ${dataField>SemanticObject/String}, sAction: ${dataField>Action/String}})}"
+						sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getSortProperty'}" 
+						filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getFilterProperty'}"
+						showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+						width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'},{path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+						customData:p13nData="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}">
+						<Text
+							text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}" />
+						<table:template>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GridTableCells" type="XML" />
+						</table:template>
+					</table:Column>
+				</template:with>
+			</template:then>
+		</template:if>
+
+		<!-- ObjectPage Self-Linking -->
+		<template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithNavigationPath')}">
+			<template:then>
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<table:Column 
+						id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldWithNavigationPath', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}, sTarget: ${dataField>Target/NavigationPropertyPath}})}"
+						sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getSortProperty'}" 
+						filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getFilterProperty'}"
+						showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+						width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+						customData:p13nData="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}">
+						<Text
+							text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}" />
+						<table:template>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GridTableCells" type="XML" />
+						</table:template>
+					</table:Column>
+				</template:with>
+			</template:then>
+		</template:if>
+
+		<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation'}">
+			<template:then>
+				<!--Handle ContactPopUpOver	 -->
+				<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') >= 0}">
+					<template:then>
+						<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+							<table:Column
+									id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+									sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getSortProperty'}"
+									filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getFilterProperty'}"
+									showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+									width="{parts: [{path: 'dataFieldTarget>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+									customData:p13nData="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForContactPopUp'}">
+								<template:if test="{dataField>Label}">
+									<template:then>
+										<Text
+											text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+									</template:then>
+								</template:if>
+								<table:template>
+									<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GridTableCells" type="XML" />
+								</table:template>
+							</table:Column>
+						</template:with>
+					</template:then>
+				</template:if>
+				 <!-- Semantically connected fields.        Only enabled for ALP now but no issue using it in LR and OP. Needs testing for LROP -->
+				<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') >= 0} &amp;&amp; ${parameter>/templateSpecific/isSemanticallyConnected}">
+					<template:then>
+						<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+							<template:if test="{parts: [{path: 'dataFieldTarget>Data'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.renderColumnForConnectedFields' }">
+									<table:Column 
+											id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+											width="{parts: [{path: 'dataFieldTarget>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+											visible="{= ${dataField>com.sap.vocabularies.UI.v1.Importance/EnumMember} === 'com.sap.vocabularies.UI.v1.ImportanceType/High' ? 'true' :
+													( ${dataField>com.sap.vocabularies.UI.v1.Importance/EnumMember} === 'com.sap.vocabularies.UI.v1.ImportanceType/Medium' &amp;&amp; ( ${device>/system/tablet} || ${device>/system/desktop} ) ? 'true' : ${device>/system/desktop} ? 'true' : 'false' ) }">
+										<table:customData>
+											<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'} ], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForConnectedFields'}"/>
+										</table:customData>
+										<template:if test="{parts: [{path: 'dataFieldTarget>Data'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.renderColumnHeader' }">
+											<template:then>
+												<template:if test="{dataField>Label}">
+													<template:then>
+														<core:InvisibleText text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+													</template:then>
+												</template:if>
+											</template:then>
+											<template:else>
+												<template:if test="{dataField>Label}">
+													<template:then>
+														<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" visible="true"/>
+													</template:then>
+												</template:if>
+											</template:else>
+										</template:if>
+										<table:template>
+											<VBox class="sapMTableContentMargin">
+												<items>
+													<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTargetFields">
+														<template:repeat list="{dataFieldTargetFields>Data}" var="dataField">
+															<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GridTableCells" type="XML" />
+														</template:repeat>
+													</template:with>
+												</items>
+											</VBox>
+										</table:template>
+									</table:Column>
+							</template:if>
+						</template:with>
+					</template:then>
+				</template:if>
+
+				<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') >= 0}">
+					<template:then>
+						<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+							<template:if test="{= ${dataFieldTarget>Visualization}}">
+								<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue"> <!-- only needed to pass to p13n to be able to switch to old implementation (DataFieldForAnnotation does not contain Value) -->
+									<template:with path="dataFieldTarget>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTargetValue">
+										<!-- Column for rating indicator and Progress Bar in GridView Table -->
+										<table:Column
+												id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+												sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getSortProperty'}"
+												filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getFilterProperty'}"
+												showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+												width="{parts: [{path: 'dataFieldTarget>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+												visible="{= ${dataField>com.sap.vocabularies.UI.v1.Importance/EnumMember} === 'com.sap.vocabularies.UI.v1.ImportanceType/High' ? 'true' :
+															( ${dataField>com.sap.vocabularies.UI.v1.Importance/EnumMember} === 'com.sap.vocabularies.UI.v1.ImportanceType/Medium' &amp;&amp; ( ${device>/system/tablet} || ${device>/system/desktop} ) ? 'true' : ${device>/system/desktop} ? 'true' : 'false' ) }">
+											<table:customData>
+												<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'}, {path: 'dataFieldTargetValue>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForIndicator'}" />
+											</table:customData>
+											<template:if test="{dataField>Label}">
+												<template:then>
+													<Text
+														text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+														visible="true" />
+												</template:then>
+												<template:elseif test="{dataFieldTarget>Title}">
+													<Text
+														text="{path: 'dataFieldTarget>Title', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+												</template:elseif>
+												<template:elseif test="{dataFieldTargetValue>com.sap.vocabularies.Common.v1.Label}">
+													<Text
+														text="{path: 'dataFieldTargetValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+												</template:elseif>
+											</template:if>
+											<table:template>
+												<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GridTableCells" type="XML" />
+											</table:template>
+										</table:Column>
+									</template:with>
+								</template:with>
+							</template:if>
+						</template:with>
+					</template:then>
+				</template:if>
+			</template:then>
+		</template:if>
+		<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField'}">
+			<template:then>
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<template:if test="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.checkMultiplicityForDataFieldAssociationInTable'}">    
+						<table:Column 
+								id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataField', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}})}"
+								width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+								visible="{= ${dataField>com.sap.vocabularies.UI.v1.Importance/EnumMember} === 'com.sap.vocabularies.UI.v1.ImportanceType/High' ? 'true' :
+												( ${dataField>com.sap.vocabularies.UI.v1.Importance/EnumMember} === 'com.sap.vocabularies.UI.v1.ImportanceType/Medium' &amp;&amp; ( ${device>/system/tablet} || ${device>/system/desktop} ) ? 'true' : ${device>/system/desktop} ? 'true' : 'false' ) }">
+							<table:customData>
+								<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataFieldValue>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13N'}" />
+							</table:customData>
+							<table:template>
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.GridTableCells" type="XML" />
+							</table:template>
+							<template:if test="{dataField>Label}">
+								<template:then>
+									<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+								</template:then>
+								<template:elseif test="{dataFieldValue>com.sap.vocabularies.Common.v1.Label}">
+									<Text text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+								</template:elseif>
+							</template:if>
+						</table:Column>
+					</template:if>
+				</template:with>
+			</template:then>
+		</template:if>
+	</template:repeat>
+
+</core:FragmentDefinition>

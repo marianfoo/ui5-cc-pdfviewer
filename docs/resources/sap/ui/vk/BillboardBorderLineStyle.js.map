@@ -1,0 +1,1 @@
+{"version":3,"file":"BillboardBorderLineStyle.js","names":["sap","ui","define","BillboardBorderLineStyle","None","Solid","Dash","Dot","DashDot","DashDotDot"],"sources":["BillboardBorderLineStyle-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAA2B,CAC9BC,KAAM,OACNC,MAAO,QACPC,KAAM,OACNC,IAAK,MACLC,QAAS,UACTC,WAAY,cAGb,OAAON,CAER,EAAkB"}

@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1">
+	<Dialog title="{i18n>WARNING}" state="Warning" type="Message" contentWidth="22rem">
+		<content>
+			<!-- text will be set from JS file -->
+			<Text wrapping="true" />
+			<List mode="SingleSelectLeft" showSeparators="None" includeItemInSelection="true" backgroundDesign="Transparent" class="sapUiNoContentPadding">
+				<items>
+					<CustomListItem class="sapUiTinyMarginTop">
+						<customData>
+							<core:CustomData key="itemKey" value="draftPopupOptionSave" />
+						</customData>
+						<VBox class="sapUiTinyMargin">
+							<Label text="{= ${ui>/createMode} ? ${i18n>CREATE} : ${i18n>SAVE}}" design="Bold" />
+							<Text text="{= ${ui>/createMode} ? ${i18n>CREATE_DRAFT_MESSAGE_TEXT} : ${i18n>SAVE_DRAFT_MESSAGE_TEXT}}" />
+						</VBox>
+					</CustomListItem>
+					<CustomListItem class="sapUiTinyMarginTop">
+						<customData>
+							<core:CustomData key="itemKey" value="draftPopupOptionKeep" />
+						</customData>
+						<VBox class="sapUiTinyMargin">
+							<Label text="{i18n>ST_KEEP_DRAFT_BTN}" design="Bold" />
+							<Text text="{i18n>KEEP_DRAFT_MESSAGE_TEXT}" />
+						</VBox>
+					</CustomListItem>
+					<CustomListItem class="sapUiTinyMarginTop">
+						<customData>
+							<core:CustomData key="itemKey" value="draftPopupOptionDiscard" />
+						</customData>
+						<VBox class="sapUiTinyMargin">
+							<Label text="{i18n>ST_DISCARD_DRAFT_BTN}" design="Bold" />
+							<Text text="{i18n>DISCARD_DRAFT_MESSAGE_TEXT}" />
+						</VBox>
+					</CustomListItem>
+				</items>
+			</List>
+		</content>
+		<buttons>
+			<Button text="{i18n>OK}" type="Emphasized" press="onDraftPopupOk" />
+			<Button text="{i18n>CANCEL}" press="onDraftPopupCancel" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

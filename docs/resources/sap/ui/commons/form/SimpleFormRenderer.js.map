@@ -1,0 +1,1 @@
+{"version":3,"file":"SimpleFormRenderer.js","names":["sap","ui","define","Renderer","LayoutSimpleFormRenderer","SimpleFormRenderer","extend"],"sources":["SimpleFormRenderer-dbg.js"],"mappings":";;;;;AAKAA,IAAIC,GAAGC,OAAO,CAAC,uBAAwB,yCACtC,SAASC,EAAUC,GACnB,aAGA,IAAIC,EAAqBF,EAASG,OAAOF,GAEzC,OAAOC,CAER,EAAkB"}

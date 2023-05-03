@@ -1,0 +1,21 @@
+<mvc:View displayBlock="true" controllerName="sap.insights.preview.Preview" xmlns="sap.m" xmlns:w="sap.ui.integration.widgets" xmlns:mvc="sap.ui.core.mvc" id="previewView">
+    <Dialog id="previewDialog" title="{i18n>INT_PREVIEW_POPOVER_BUTTON_TITLE}" resizable="true" contentWidth= "352px" draggable="true">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <w:Card id="insightsCard" manifest="{cardPreviewModel>/descriptor}" width="100%" height="500px" manifestApplied="._onCardManifestApplied($event)"/>
+                <Label id="labelTitle" class="sapUiTinyMarginTop" text="{i18n>INT_Preview_TitleField_Label}" required="true" labelFor="titleTextInput"/>
+                <Input id="titleTextInput" change=".handleTitleChange" value="{cardPreviewModel>/descriptor/sap.card/header/title}" />
+                <Label id="labelSubTitle" text="{i18n>INT_Preview_SubTitleTitleField_Label}" class="sapUiTinyMarginTop" labelFor="subTitleTextInput"/>
+                <Input id="subTitleTextInput" change=".handleSubTitleChange" value="{cardPreviewModel>/descriptor/sap.card/header/subTitle}"/>
+                <!-- <Label id="visibilityLabel" text="{i18n>INT_Preview_Visibility_Label}" class="sapUiTinyMarginTop" labelFor="switch"/>
+                <Switch id="switch" change=".handleVisibilityChange" state="{cardPreviewModel>/descriptor/sap.insights/visible}" customTextOn="Yes" customTextOff="No" enabled="{= !${cardPreviewModel>/isMessageVisible}}"/>
+                <MessageStrip text="{cardPreviewModel>/message}" type="{cardPreviewModel>/messageType}" visible="{cardPreviewModel>/isMessageVisible}" showIcon="false" showCloseButton="false" class="sapUiTinyMarginTop sapUiMediumMarginBottom"/> -->
+            </VBox>
+        </content>
+        <buttons>
+            <Button text="{i18n>INT_DIALOG_Ok}" type="Emphasized" press=".save" enabled="{= ${cardPreviewModel>/bAddButton} ? true : false}"/>
+            <Button text="{i18n>INT_DIALOG_CANCEL}" press=".cancel" />
+            <Button text="{i18n>INT_SELECTION_DIALOG_OPEN}" press=".showCardSelectionDialog" />
+        </buttons>
+    </Dialog>
+</mvc:View>

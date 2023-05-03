@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+						 xmlns="sap.m" xmlns:core="sap.ui.core"
+						 xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+						 xmlns:build="sap.build"
+						 xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns:alrControls="sap.suite.ui.generic.template.AnalyticalListPage.control">
+							<template:repeat list="{kpis>}" var="kpi">
+						 		<template:if test="{kpi>filterable}">
+									<template:then>
+										<alrControls:SmartKpiTag id="{path: 'kpi&gt;', formatter: '.ALPHelper.generateKPITagID'}" entitySet="{kpi>entitySet}" qualifier="{kpi>qualifier}"  groupId="{kpi>groupId}" modelName="{kpi>model}" shortDescription="{kpi>shortDescription}" smartFilterId="template::SmartFilterBar" />
+									</template:then>
+									<template:else>
+									 	<alrControls:SmartKpiTag id="{path: 'kpi&gt;', formatter: '.ALPHelper.generateKPITagID'}" entitySet="{kpi>entitySet}" qualifier="{kpi>qualifier}" groupId="{kpi>groupId}" modelName="{kpi>model}" shortDescription="{kpi>shortDescription}"/>
+									</template:else>
+								</template:if>
+							</template:repeat>
+</core:FragmentDefinition>

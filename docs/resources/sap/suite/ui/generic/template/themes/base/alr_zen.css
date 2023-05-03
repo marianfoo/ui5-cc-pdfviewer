@@ -1,0 +1,136 @@
+/*****************************************************************************************************************
+ * Custom css styles for themeing Design Studio crosstab to look like sap_belize (based on crosstab sap_bluecrystal) 
+ * This file can be removed when Design Studio crosstab supports sap_belize related theme 
+ ******************************************************************************************************************/ 
+
+
+/* Crosstab related styles */
+
+.alr_dshContainer .sapzencrosstab-TableDiv {
+	border:none!important;
+	border-top:solid 1px rgb(241,245,249);
+}
+
+.alr_dshContainer .sapzencrosstab-HeaderCellFirstInCol {
+	border-top-color:rgb(241,245,249);
+}
+
+.alr_dshContainer .sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellFirstInCol,
+.alr_dshContainer .sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellFirstInCol {
+	background-color:rgb(241,245,249)!important;
+}
+
+.alr_dshContainer .sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellDefault,
+.alr_dshContainer .sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellDefault {
+	background-color:rgb(234,243,251);
+}
+
+.alr_dshContainer .sapzencrosstab-RowHeaderArea .sapzencrosstab-HeaderCellDefault {
+	background-color:#ffffff;
+}
+
+.alr_dshContainer .sapzencrosstab-lowerScrollHeaderSeparator,
+.alr_dshContainer .sapzencrosstab-upperScrollHeaderSeparator {
+	border-right-color: #ffffff!important;
+}
+
+.alr_dshContainer .sapzencrosstab-upperScrollHeaderSeparator,
+.alr_dshContainer .sapzencrosstab-lowerScrollHeaderSeparator,
+.alr_dshContainer .sapzencrosstab-HeaderCellDefault {
+	border-right-color: #ffffff!important;
+}
+
+.alr_dshContainer .sapzencrosstab-ColumnHeaderArea,
+.alr_dshContainer .sapzencrosstab-DimensionHeaderArea {
+	font-weight:normal;
+}
+
+.alr_dshContainer .sapzencrosstab-RowHeaderArea .sapzencrosstab-HeaderCellFirstInRow{
+	font-weight:bold;
+}
+
+.alr_dshContainer .sapzencrosstab-RowHeaderArea td[rowspan].sapzencrosstab-HeaderCellDefault {
+	vertical-align: top;
+	padding-top:8px;
+}
+
+.alr_dshContainer .sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellContentDiv {
+	color:inherit;
+	text-align:center;
+}
+
+.alr_dshContainer .sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellContentDiv>table {
+	margin:auto;
+}
+.alr_dshContainer .sapzencrosstab-RowHeaderArea {
+	/* background-color: */
+}
+
+.alr_dshContainer .sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellDefault,
+.alr_dshContainer .sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellDefault {
+	border-bottom-color:#ffffff!important;
+}
+
+.alr_dshContainer .sapzencrosstab-DimensionHeaderArea>tbody>tr:last-of-type .sapzencrosstab-HeaderCellDefault,
+.alr_dshContainer .sapzencrosstab-ColumnHeaderArea>tbody>tr:last-of-type .sapzencrosstab-HeaderCellDefault {
+	border-bottom-color: rgb(234,243,251);
+}
+
+.alr_dshContainer .sapzencrosstab-DataCellDefault,
+.alr_dshContainer .sapzencrosstab-HeaderCellDefault {
+	height:32px;
+}
+
+/** zen navigation panel **/
+.alr_navPanelClosed,
+.alr_dshContainer .zenNavigationPanelM * .sapMPageSubHeader,
+.alr_dshContainer .zenNavigationPanel-SubHeader,
+.alr_dshContainer .zenNavigationPanelM * .sapMSF,
+.alr_dshContainer .zenNavigationPanelM .sapUiLoSplitterContent,
+.alr_dshContainer .zenNavigationPanelM .sapUiLoSplitterContent .sapMList {
+	background-color:rgb(241,245,249)!important;
+}
+
+.alr_dshContainer .zenNavigationPanelM * .sapUiLoSplitter>.sapUiLoSplitterBar:hover {
+	background-color: rgb(214,227,237)!important;
+}
+
+.alr_dshContainer .zenNavigationPanelM * .sapUiLoSplitterBar {
+	background-color: #ffffff!important;
+}
+
+.alr_dshContainer .zenNavigationPanelM .sapUiLoSplitterContent .sapMListBGSolid .sapMLIB {
+	background-color:inherit;
+}
+
+.alr_dshContainer .zenNavigationPanelM * .sapUiLoSplitterV>.sapUiLoSplitterContent>.sapMPage>.sapMPageSubHeader,
+.alr_dshContainer .zenNavigationPanelM * .sapMPageSubHeader,
+.alr_dshContainer .zenNavigationPanel-SubHeader {
+	border-bottom-color: #ffffff!important;
+}
+
+.alr_dshContainer .zenNavigationPanelM {
+	border:none;
+}
+
+
+.alr_dshContainer .zenNavigationPanel-SubHeader>.sapMTitle {
+	padding-left: 5px;
+	font-weight:normal;
+}
+
+.alr_dshContainer .zenNavigationPanelM .sapUiLoSplitterH.sapUiLoSplitter>.sapUiLoSplitterBar {
+	height:inherit!important;
+}
+
+.alr_dshContainer .zenNavigationPanelM .sapMCLI.sapMLIB {
+	padding-left: 0.5rem;
+	padding-top: 0.25rem;
+}
+
+/** zen navigation panel **/
+	 	
+.ui-state-highlight { /* crosstab uses a ui5 css class that's no longer available in sap_belize */
+	border: 1px solid #fcefa1;
+	background-color: #fbf9ee;	
+}

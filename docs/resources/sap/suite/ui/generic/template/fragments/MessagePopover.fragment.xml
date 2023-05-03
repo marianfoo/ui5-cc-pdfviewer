@@ -1,0 +1,11 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<MessagePopover groupItems="true" items="{msg>/}" activeTitlePress="titlePressed" beforeOpen="beforeOpen" afterClose="afterClose" >
+		<MessageItem description="{msg>description}" type="{msg>type}" title="{msg>message}"
+					subtitle="{parts:[{path: 'msg>id'}, {path: 'msg>controlIds'}, {path: 'msg>additionalText'}, {path: 'helper>/heartBeat'}], formatter: '.getSubtitle'}"
+					longtextUrl="{msg>descriptionUrl}"
+					activeTitle="{path: 'msg>controlIds', formatter: '.isPositionable'}"
+					groupName="{parts:[{path: 'msg>id'}, {path: 'msg>controlIds'}], formatter: '.getGroupTitle'}"/>
+	</MessagePopover>
+</core:FragmentDefinition>

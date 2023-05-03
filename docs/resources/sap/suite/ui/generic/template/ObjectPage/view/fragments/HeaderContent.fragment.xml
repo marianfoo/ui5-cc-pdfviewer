@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+						 xmlns:sfi="sap.ui.comp.smartfield" xmlns:uxap="sap.uxap" xmlns:build="sap.build"
+						 template:require="{ AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+	
+
+	<template:if test="{= ${device>/system/desktop} &amp;&amp; !${parameter>/settings/showHeaderAsCarouselOnDesktop} }">
+		<template:then>
+			<template:if test="{= ${appSettings>/objectPageHeaderType} === 'Dynamic'}">
+				<template:then>	
+                    <FlexBox id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageHeader', subType: 'DynamicHeaderContentFlexBox'})}" wrap="Wrap" fitContainer="true" alignItems="Stretch" class="{parts:[{path: 'entityType>com.sap.vocabularies.UI.v1.HeaderInfo/ImageUrl'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.hasImageUrl'}">
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.HeaderContainer" type="XML"/>
+					</FlexBox>
+                </template:then>
+                <template:else>
+            		<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.HeaderContainer" type="XML"/>
+            	</template:else>	
+            </template:if>
+		</template:then>
+		<template:else>	
+			<HeaderContainer id="headerContainer" scrollStep="300" showDividers="false" >
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.HeaderContainer" type="XML"/>
+			</HeaderContainer>	
+		</template:else>
+	</template:if>
+	
+</core:FragmentDefinition>

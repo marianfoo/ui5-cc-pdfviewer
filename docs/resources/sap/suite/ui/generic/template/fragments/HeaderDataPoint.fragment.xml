@@ -1,0 +1,28 @@
+<core:FragmentDefinition template:require="sap.suite.ui.generic.template.js.AnnotationHelper"
+						 xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core"
+						 xmlns:sfi="sap.ui.comp.smartfield" xmlns:l="sap.ui.layout">
+
+	<template:if
+			test="{=${path:'dataPoint>Visualization/EnumMember'}  === 'com.sap.vocabularies.UI.v1.VisualizationType/Progress'}">
+		<template:then>
+			<template:alias name=".AH" value="sap.suite.ui.generic.template.js.AnnotationHelper">
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.ProgressIndicator" type="XML"/>
+			</template:alias>
+		</template:then>
+		<template:elseif
+				test="{= ${dataPoint>Visualization/EnumMember} === 'com.sap.vocabularies.UI.v1.VisualizationType/Rating'}">
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderRatingIndicator" type="XML"/>
+		</template:elseif>
+		<template:else>
+			<VBox id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::DataPoint"
+				  displayInline="true"
+				  visible="{= ${path: 'headerFacet>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}"
+				  binding="{parts: [{path: 'headerFacet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+				  class="sapSmartTemplatesObjectPageDataPoint">
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderDataPointContent"
+							   type="XML"/>
+			</VBox>
+		</template:else>
+	</template:if>
+</core:FragmentDefinition>

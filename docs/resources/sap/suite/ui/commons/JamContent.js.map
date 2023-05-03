@@ -1,0 +1,1 @@
+{"version":3,"file":"JamContent.js","names":["sap","ui","define","FeedContent","FeedContentRenderer","JamContent","extend","metadata","deprecated","library","renderer"],"sources":["JamContent-dbg.js"],"mappings":";;;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAE,oBAAqB,6BAA+B,SAASC,EAAaC,GACzF,aAkBA,IAAIC,EAAaF,EAAYG,OAAO,kCAA2F,CAC9HC,SAAU,CACTC,WAAY,KACZC,QAAS,wBAEVC,SAAUN,IAGX,OAAOC,CACR"}

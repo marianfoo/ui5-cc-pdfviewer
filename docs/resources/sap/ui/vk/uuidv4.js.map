@@ -1,0 +1,1 @@
+{"version":3,"file":"uuidv4.js","names":["sap","ui","define","uuidv4","replace","c","r","Math","random","v","toString"],"sources":["uuidv4-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aAEA,IAAIC,EAAS,WACZ,MAAO,uCAAuCC,QAAQ,QAAS,SAASC,GAC9D,IAAIC,EAAIC,KAAKC,SAAW,GAAK,EAAGC,EAAIJ,GAAK,IAAMC,EAAKA,EAAI,EAAM,EAC9D,OAAOG,EAAEC,SAAS,GACpB,EACT,EAEA,OAAOP,CAER,EAAkB"}

@@ -1,0 +1,240 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core"
+		xmlns:toolbar="sap.ui.rta.toolbar">
+	<HBox
+			id="sapUiRta_toolbarIconAndDraftSection"
+			class="sapUiRtaToolbarIconAndDraftSection" >
+		<OverflowToolbar class="sapUiRta_iconAndDraftBar">
+			<content>
+				<HBox id="sapUiRta_iconBox" />
+				<ToolbarSpacer
+						id="sapUiRta_iconSpacer"
+						width="0%"
+						visible="true" />
+				<Button
+						id="sapUiRta_versionButton"
+						type="Transparent"
+						class="sapUiRtaVersionButton"
+						icon="sap-icon://megamenu"
+						iconFirst="false"
+						visible="{= (${versions>/versioningEnabled} &amp;&amp; ${controls>/modeSwitcher} === 'adaptation')}"
+						text="{parts: [{path: 'versions>/versions'}, {path: 'versions>/displayedVersion'}], formatter: '.formatVersionButtonText'}"
+						tooltip="{parts: [{path: 'versions>/versions'}, {path: 'versions>/displayedVersion'}], formatter: '.formatVersionButtonText'}"
+						press=".showVersionHistory">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_activate"
+						icon="sap-icon://activate"
+						press=".activate(${versions>/displayedVersion})"
+						visible="{= (${versions>/versioningEnabled} &amp;&amp; ${controls>/modeSwitcher} === 'adaptation')}"
+						enabled="{versions>/activateEnabled}"
+						type="Transparent"
+						text="{i18n>TOL_ACTIVATE}"
+						tooltip="{i18n>TOL_ACTIVATE}" />
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_discardDraft"
+						icon="sap-icon://delete"
+						press=".discardDraft"
+						visible="{parts: ['versions>/displayedVersion', 'versions>/versioningEnabled', 'controls>/modeSwitcher' ], formatter: '.formatDiscardDraftVisible'}"
+						type="Transparent"
+						text="{i18n>TOL_DISCARD_DRAFT}"
+						tooltip="{i18n>TOL_DISCARD_DRAFT}" />
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_publishVersion"
+						enabled="{versions>/publishVersionEnabled}"
+						visible="{parts: ['controls>/publishVisible', 'versions>/versioningEnabled', 'versions>/displayedVersion', 'controls>/modeSwitcher'], formatter: '.formatPublishVersionVisibility'}"
+						press=".publishVersion"
+						type="Transparent"
+						icon="sap-icon://shipping-status"
+						tooltip="{i18n>TOL_PUBLISH_VERSION}" />
+			</content>
+		</OverflowToolbar>
+	</HBox>
+	<HBox
+			id="sapUiRta_switcherSection"
+			class="sapUiRtaToolbarSwitcherSection" >
+		<OverflowToolbar>
+			<content>
+				<ToolbarSpacer />
+				<SegmentedButton
+						id="sapUiRta_modeSwitcher"
+						selectionChange=".modeChange"
+						selectedKey="{controls>/modeSwitcher}"
+						width="auto" >
+					<items>
+						<SegmentedButtonItem
+								id="sapUiRta_adaptationSwitcherButton"
+								text="{i18n>BTN_ADAPTATION}"
+								width="auto"
+								key="adaptation" />
+						<SegmentedButtonItem
+								id="sapUiRta_navigationSwitcherButton"
+								text="{i18n>BTN_NAVIGATION}"
+								width="auto"
+								key="navigation" />
+						<SegmentedButtonItem
+								id="sapUiRta_visualizationSwitcherButton"
+								visible="{controls>/visualizationButtonVisible}"
+								text="{i18n>BTN_VISUALIZATION}"
+								width="auto"
+								key="visualization" />
+					</items>
+				</SegmentedButton>
+				<ToolbarSpacer />
+			</content>
+		</OverflowToolbar>
+	</HBox>
+	<HBox
+			id="sapUiRta_toolbarActionsSection"
+			class="sapUiRtaToolbarActionsSection"
+			justifyContent="End" >
+		<OverflowToolbar id="sapUiRta_actionsToolbar">
+			<content>
+				<ToolbarSpacer />
+				<MenuButton
+						id="sapUiRta_translateMenu"
+						icon="sap-icon://translate"
+						visible="{= ${controls>/modeSwitcher} === 'adaptation' &amp;&amp; ${controls>/translationVisible}}"
+						enabled="{controls>/translationEnabled}"
+						type="Transparent"
+						tooltip="{i18n>BTN_TRANSLATE}">
+					<Menu
+							id="sapUiRta_translate"
+							class="sapUiRtaToolbarVisualizationSelection">
+						<MenuItem
+								text="{i18n>BTN_OPEN_DOWNLOAD_TRANSLATION}"
+								press=".openDownloadTranslationDialog"
+								icon="sap-icon://download"/>
+						<MenuItem
+								text="{i18n>BTN_OPEN_UPLOAD_TRANSLATION}"
+								press=".openUploadTranslationDialog"
+								enabled="{= ${translation>/sourceLanguages}.length > 0}"
+								icon="sap-icon://upload"/>
+					</Menu>
+				</MenuButton>
+				<Button
+						id="sapUiRta_toggleChangeVisualizationMenuButton"
+						visible="{= ${controls>/modeSwitcher} === 'visualization'}"
+						text="{visualizationModel>/changeCategoryText}"
+						type="Transparent"
+						icon="sap-icon://slim-arrow-down"
+						iconFirst="false"
+						press=".openChangeCategorySelectionPopover"
+						tooltip="{i18n>BUT_CHANGEVISUALIZATION_SELECTCHANGES}"/>
+				<Button
+						id="sapUiRta_undo"
+						icon="sap-icon://undo"
+						press=".undo"
+						enabled="{controls>/undoEnabled}"
+						visible="{= ${controls>/modeSwitcher} === 'adaptation'}"
+						type="Transparent"
+						tooltip="{i18n>BTN_UNDO}" >
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow" />
+					</layoutData>
+				</Button>
+				<Button
+						id="sapUiRta_redo"
+						icon="sap-icon://redo"
+						press=".redo"
+						enabled="{controls>/redoEnabled}"
+						visible="{= ${controls>/modeSwitcher} === 'adaptation'}"
+						type="Transparent"
+						tooltip="{i18n>BTN_REDO}" >
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow" />
+					</layoutData>
+				</Button>
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_publish"
+						enabled="{controls>/publishEnabled}"
+						visible="{= (${controls>/publishVisible} &amp;&amp; !${versions>/versioningEnabled} &amp;&amp; ${controls>/modeSwitcher} === 'adaptation')}"
+						press=".publish"
+						type="Transparent"
+						text="{i18n>BTN_PUBLISH}" >
+					<toolbar:layoutData>
+						<OverflowToolbarLayoutData priority="High" />
+					</toolbar:layoutData>
+				</toolbar:OverflowToolbarButton>
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_restore"
+						enabled="{controls>/restoreEnabled}"
+						visible="{= ((${path: 'versions>/versioningEnabled', formatter: '.showRestore'}) &amp;&amp; ((${controls>/modeSwitcher} === 'visualization') || (${controls>/modeSwitcher} === 'adaptation')))}"
+						press=".restore"
+						type="Transparent"
+						text="{i18n>BTN_RESTORE}" >
+					<toolbar:layoutData>
+						<OverflowToolbarLayoutData priority="High" />
+					</toolbar:layoutData>
+				</toolbar:OverflowToolbarButton>
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_manageApps"
+						press=".manageApps"
+						enabled="{controls>/manageAppsEnabled}"
+						visible="{= (${controls>/manageAppsVisible} &amp;&amp; ${controls>/modeSwitcher} === 'adaptation')}"
+						type="Transparent"
+						text="{i18n>BTN_MANAGE_APPS_TXT}" >
+					<toolbar:layoutData>
+						<OverflowToolbarLayoutData priority="Low" />
+					</toolbar:layoutData>
+				</toolbar:OverflowToolbarButton>
+				<MenuButton
+						id="sapUiRta_appVariantOverview"
+						enabled="{controls>/appVariantsOverviewEnabled}"
+						visible="{= (${controls>/appVariantsOverviewVisible} &amp;&amp; ${controls>/modeSwitcher} === 'adaptation')}"
+						type="Transparent"
+						text="{i18n>BTN_MANAGE_APPS_TXT}" >
+					<menu>
+						<Menu
+								itemSelected=".appVariantOverview"
+								id="sapUiRta_appVariantMenu" >
+							<MenuItem
+									id="sapUiRta_keyUser"
+									text="{i18n>MENU_ITEM_KEY_USER}" />
+							<MenuItem
+									id="sapUiRta_developer"
+									text="{i18n>MENU_ITEM_SAP_DEVELOPER}" />
+						</Menu>
+					</menu>
+					<layoutData>
+						<OverflowToolbarLayoutData priority="Low" />
+					</layoutData>
+				</MenuButton>
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_saveAsContextBasedAdaptation"
+						visible="{= (${controls>/contextBasedAdaptationVisible} &amp;&amp; ${controls>/modeSwitcher} === 'adaptation')}"
+						press=".saveAsContextBasedAdaptation"
+						type="Transparent"
+						text="{i18n>BTN_SAVE_AS}" >
+					<toolbar:layoutData>
+						<OverflowToolbarLayoutData priority="Low" />
+					</toolbar:layoutData>
+				</toolbar:OverflowToolbarButton>
+				<toolbar:OverflowToolbarButton
+						id="sapUiRta_saveAs"
+						visible="{= (${controls>/saveAsVisible} &amp;&amp; ${controls>/modeSwitcher} === 'adaptation')}"
+						enabled="{parts: ['controls>/saveAsEnabled', 'versions>/displayedVersion'], formatter: '.formatSaveAsEnabled'}"
+						press=".saveAs"
+						type="Transparent"
+						text="{i18n>BTN_SAVE_AS}" >
+					<toolbar:layoutData>
+						<OverflowToolbarLayoutData priority="Low" />
+					</toolbar:layoutData>
+				</toolbar:OverflowToolbarButton>
+			</content>
+		</OverflowToolbar>
+		<Button
+				id="sapUiRta_exit"
+				type="Transparent"
+				press=".exit"
+				text="{i18n>BTN_EXIT}" >
+		</Button>
+		<layoutData>
+			<FlexItemData growFactor="0" />
+		</layoutData>
+	</HBox>
+</core:FragmentDefinition>

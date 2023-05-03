@@ -1,0 +1,13 @@
+/*!
+ * 
+		SAP UI development toolkit for HTML5 (SAPUI5)
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ *//*!
+ * 
+		SAP UI development toolkit for HTML5 (SAPUI5)
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	
+ */.editInsightsCardsListHBox .sapMTextMaxWidth{display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.editInsightsCardsListHBox>.sapMFlexItem:first-child:not(:only-child){min-width:0 !important}.insightsDndIcon{display:none;position:absolute;margin:0 -0.5rem;top:25%;left:0rem}
+/* Inline theming parameters */
+#sap-ui-theme-sap\.insights{background-image:url('data:text/plain;utf-8,%7B%7D')}

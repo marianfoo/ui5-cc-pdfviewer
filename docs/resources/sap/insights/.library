@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>sap.insights</name>
+	<vendor>SAP SE</vendor>
+	<copyright>
+		SAP UI development toolkit for HTML5 (SAPUI5)
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	</copyright>
+	<version>1.108.4</version>
+
+	<documentation>SAP UI library: sap.insights</documentation>
+
+	<dependencies>
+		<!-- static dependencies -->
+		<dependency>
+			<libraryName>sap.ui.core</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.viz</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.m</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.integration</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.f</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.layout</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+	</dependencies>
+
+	<appData>
+		<!-- excludes for the JSCoverage -->
+		<jscoverage xmlns="http://www.sap.com/ui5/buildext/jscoverage">
+			<exclude name="sap.insights.js." />
+		</jscoverage>
+		<ownership xmlns="http://www.sap.com/ui5/buildext/ownership">
+			<!-- default component for library, embedded text as a shortcut for <name>text</name> -->
+			<component>CA-FLP-EXT-INS</component>
+		</ownership>
+		<packaging xmlns="http://www.sap.com/ui5/buildext/packaging" version="2.0">
+			<all-in-one>
+				<!-- excludes for the all-in-one file -->
+			</all-in-one>
+		</packaging>
+
+	</appData>
+
+</library>

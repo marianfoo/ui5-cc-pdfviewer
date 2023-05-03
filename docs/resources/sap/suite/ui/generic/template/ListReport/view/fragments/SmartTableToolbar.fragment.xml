@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build">
+
+	<OverflowToolbar id="template::ListReport::TableToolbar{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSuffixFromIconTabFilterKey'} : ''}"
+					 design="Transparent">
+
+		<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.MultipleViewsSingleTableMode" type="XML"/>
+
+		<ToolbarSpacer/>
+
+		<!--add search field to table toolbar if worklist light is set-->
+		<template:if test="{=${parameter>/settings/isWorklist} }">
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.SearchField" type="XML"/>
+		</template:if>
+
+		<!-- Custom Action Breakout -->
+		<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.BreakoutActions" type="XML"/>
+
+		<template:with path="tableAnnotationPath>" var="collection">
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.AnnotatedActionButtons" type="XML"/>
+			<customData>
+				<core:CustomData
+					key="annotatedActionIds"
+					value="{parts: [{path: 'collection>'}, {path: 'facet>'}, {path: 'parameter>/settings/quickVariantSelectionX'}, {path: 'tabItem>'}, {path: 'chartItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildActionButtonsCustomData'}" />
+			</customData>
+		</template:with>
+
+		<template:with path="entityType>" var="listEntityType">
+			<template:if test="{= ${tableSettings>type} !== 'TreeTable'}">
+				<template:with path="entitySet>" var="listEntitySet">
+					<template:with path="tableAnnotationPath>" var="collection">
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.CRUDActionButtons" type="XML"/>
+					</template:with>
+				</template:with>
+			</template:if>
+		</template:with>
+
+		<!-- add Add to cards repository Button-->
+		<template:if test="{= !${parameter>/settings/tableSettings/addCardtoInsightsHidden} &amp;&amp; ${parameter>/templateSpecific/isResponsiveTable} &amp;&amp; !${parameter>/settings/quickVariantSelectionX} &amp;&amp; !${parameter>/settings/quickVariantSelection} }">
+			<Button id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportAction', subType: 'AddCardtoInsights'})}" icon="sap-icon://add-folder" press="._templateEventHandlers.onAddCardsToRepository" text="{i18n>ST_ADD_CARDS_TO_INSIGHTS}" enabled="{= ${_templPriv>/generic/bDataAreShownInTable}}" visible="{= ${parameter>/templateSpecific/bInsightsEnabled} }">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="AlwaysOverflow"/>
+				</layoutData>
+			</Button>
+		</template:if>
+	</OverflowToolbar>
+
+</core:FragmentDefinition>

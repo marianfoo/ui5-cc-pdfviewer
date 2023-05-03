@@ -1,0 +1,1 @@
+{"version":3,"file":"JsSearchFactory.js","names":["sap","ui","define","JsSearch","jsSearchFactory","createJsSearch","options"],"sources":["JsSearchFactory-dbg.js"],"mappings":";;;;;;CAOA,WACAA,IAAIC,GAAGC,OAAO,CAAC,wCAAyC,SAAUC,GAChE,IAAIC,EAAkB,CACpBC,eAAgB,SAASA,EAAeC,GACtC,OAAO,IAAIH,EAASG,EACtB,GAEF,OAAOF,CACT,EACC,EATD"}

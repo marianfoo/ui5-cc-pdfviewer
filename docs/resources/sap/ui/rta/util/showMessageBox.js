@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/m/MessageBox","sap/ui/layout/HorizontalLayout","sap/m/Link","sap/m/Text"],function(e,r,t,n){"use strict";var a="\\[(.*?)\\]\\((.*?)\\)";function i(e){var r=o(e);return Array.isArray(r)&&r.length>0}function u(e){var r=new RegExp("^"+a+"$");return Array.isArray(r.exec(e))}function s(e){var r=new RegExp(a).exec(e);return{text:r[1],href:r[2]}}function o(e){var r=new RegExp(a,"g");return e.match(r)}function c(e){var a=new r({allowWrapping:true,content:e.map(function(e){if(u(e)){var r=s(e);return new t({text:r.text,href:r.href,target:"_blank",emphasized:true,wrapping:true})}return new n({text:e,renderWhitespace:true})})});a.addStyleClass("sapUiRtaMessageBox");return a}function p(e){var r=[e];var t=o(e);t.forEach(function(e){var t=0;while(t<r.length){var n=r[t];if(u(n)){t++}else{var a=n.split(e);var i=[];a.forEach(function(r,t,n){i.push(r);if(t!==n.length-1){i.push(e)}});r.splice.apply(r,[t,1].concat(i));t+=i.length}}});return r}return function r(t,n,a){var u;if(i(t)){var s=p(t);u=c(s)}else{u=t}e[a||"show"](u,n)}});
+//# sourceMappingURL=showMessageBox.js.map

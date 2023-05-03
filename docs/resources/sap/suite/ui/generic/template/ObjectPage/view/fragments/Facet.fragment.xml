@@ -1,0 +1,73 @@
+<core:FragmentDefinition 
+		xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		xmlns="sap.m" 
+		xmlns:layout="sap.ui.layout" 
+		xmlns:build="sap.build" 
+		xmlns:core="sap.ui.core"
+		template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+	<!-- @classdesc @name: Name: sap.suite.ui.generic.template.ObjectPage.view.fragments.Facet.fragment.xml
+		@param {UI.Facet} [facet] @param {edm.EntitySet} [entitySet] @param {edm.EntityType}
+		[entityType] -->
+	<template:with path="parameter>/variables" helper="AH.getNewVariable" var="objectPageTableSettings">
+		<template:if test="{:= ${objectPageTableSettings>}.set(${block>tableSettings})}"/>
+		<template:if test="{= ${objectPageTableSettings>value/type} !== 'TreeTable' || !${device>/system/phone}}">
+			<layout:Grid defaultSpan="XL12 L12 M12 S12" hSpacing="0" vSpacing="0" class="sapSmartTemplatesObjectPageSubSectionGrid">
+				<!--
+					isMultiple will return false if there is no navigation property. As we want to create a FacetForm
+					in case of no navigation property in annotation path and if navigation property and isMultiple false
+					we only check for isMultiple
+				-->
+				<template:if test="{path: 'facet>Target', formatter: 'sap.ui.model.odata.AnnotationHelper.isMultiple'}">
+					<template:then>
+						<template:if test="{=${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.LineItem') > -1}">
+							<template:then>
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartTable" type="XML"/>
+							</template:then>
+							<template:elseif test="{=${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') > -1}">
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.Contacts" type="XML"/>
+							</template:elseif>
+							<template:elseif test="{=${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Chart') > -1}">
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartChart" type="XML" />
+							</template:elseif>
+						</template:if>
+					</template:then>
+					<template:elseif test="{= ${facet>RecordType}.indexOf('com.sap.vocabularies.UI.v1.CollectionFacet') > -1 ||
+												(${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') > -1
+											     || ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Identification') > -1) }">
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartForm" type="XML"/>
+					</template:elseif>
+					<template:elseif test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') > -1 }">
+						<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataPoint">
+							<template:if test="{= ${dataPoint>Visualization/EnumMember}.indexOf('com.sap.vocabularies.UI.v1.VisualizationType/Rating') = -1 }">
+								<template:then>
+									<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartForm" type="XML"/>
+								</template:then>
+							</template:if>
+						</template:with>
+					</template:elseif>
+					<template:elseif test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Address') > -1 }">
+						<!-- Be aware: variable facet is not always provided (in case of SmartForm it is not meaningful, as the SmartForm actually shows multiple facets).
+								 Thus, it does not make sense to create facetId globally (for this fragment). In fact, doing this would lead to console errors for not provided mandatory parameter
+								 sRecordType when trying to build the id. 
+								 AddressFacet is the only case, where facetId is used, so we create it only here. In this case, facet obviously is provided.
+						 -->
+						<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="facetId">
+							<template:if test="{= ${facetId>}.buildStableId({ type:'ObjectPage', subType:'StandardFacet', sRecordType: ${facet>RecordType}, sAnnotationPath: ${facet>Target/AnnotationPath} , sAnnotationId: ${facet>ID/String} }) }"/>
+							<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="address">
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.AddressFacet" type="XML"/>
+							</template:with>
+						</template:with>
+					</template:elseif>
+
+					<!-- better: check for <template:elseif test="{= ${block>additionalData/type} === 'SmartForm'}">
+								but currently this is not (yet) supplied in case of mixed reference facets on 3rd level  -->
+					<template:else>
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartForm" type="XML"/>
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.StreamSupport" type="XML"/>
+					</template:else>
+				</template:if>
+
+			</layout:Grid>
+		</template:if>
+	</template:with>
+</core:FragmentDefinition>

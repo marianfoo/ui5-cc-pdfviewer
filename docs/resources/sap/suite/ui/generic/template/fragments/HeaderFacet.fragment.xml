@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core">
+	<template:if test="{=${headerFacet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') >= 0}">
+		<template:then>
+			<template:with path="headerFacet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataPoint">
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderDataPoint" type="XML"/>
+			</template:with>
+		</template:then>
+		<template:elseif test="{= ${headerFacet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') >= 0}">
+			<template:with path="headerFacet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="form">
+				<!-- If there is only 1 DataField in the FieldGroup, the field is rendered directly without a label as plain text -->
+				<template:with path="form>Data/0/Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="target">
+					<template:if test="{parts: [{path: 'form>'}, {path: 'target>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.doesFieldGroupContainOnlyOneMultiLineDataField'}">
+						<template:then>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderPlainText" type="XML"/>
+						</template:then>
+						<template:else>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderForm" type="XML"/>
+						</template:else>
+					</template:if>
+				</template:with>
+			</template:with>
+		</template:elseif>
+		<template:elseif test="{= ${headerFacet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Chart') >= 0}">
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.SmartMicroChart" type="XML"/>
+		</template:elseif>				
+		<template:elseif test="{= ${headerFacet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Identification') >= 0}">
+			<template:with path="headerFacet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="form">
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderForm" type="XML"/>
+			</template:with>
+		</template:elseif>		
+		<template:elseif test="{= ${headerFacet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') >= 0}">
+			<template:with path="headerFacet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="contact">
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderContactWithDetailsPopover" type="XML"/>
+			</template:with>
+		</template:elseif>
+		<template:elseif test="{= ${headerFacet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Address') >= 0}">
+			<template:with path="headerFacet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="contact">
+				<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.HeaderAddress" type="XML"/>
+			</template:with>
+		</template:elseif>
+	</template:if>
+</core:FragmentDefinition>

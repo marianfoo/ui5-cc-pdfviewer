@@ -1,0 +1,79 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m"
+	xmlns:build="sap.build"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout"
+	xmlns:smartChart="sap.ui.comp.smartchart"
+	template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+
+
+	<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.gotoEntitySet" var="entitySet">
+		<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="chartAnnotation">
+
+			<template:with path="parameter>/variables" helper="AH.getNewVariable" var="objectPageChartSettings">
+				<template:if test="{:= ${objectPageChartSettings>}.set(${block>chartSettings})}"/>
+				<template:with path="parameter>/variables" helper="AH.getNewVariable" var="smartChartId">
+					<template:if test="{:= ${smartChartId>}.set(AH.getStableIdPartFromFacet(${facet>}) + '::Chart') }"/>
+					<smartChart:SmartChart
+						id="{smartChartId>value}"
+						header="{chartAnnotation>Title/String}"
+						initialized="._templateEventHandlers.onChartInit"
+						requestAtLeastFields="{parts: [{path: 'chartAnnotation>'}, {path: 'entitySet>entityType'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getApplicablePathForChartToolbarActions'}"
+						persistencyKey="{parts: [{path: 'smartChartId>value'}, {path: 'objectPageChartSettings>value/persistencyKeyState'}], formatter: 'AH.getPersistencyKey'}"
+						useChartPersonalisation="false"
+						useVariantManagement="{objectPageChartSettings>value/variantManagement}"
+						enableAutoBinding="true"
+						showDetailsButton="true"
+						showDrillBreadcrumbs="true"
+						showSemanticNavigationButton="false"
+						useTooltip="false"
+						chartBindingPath="{= ${path: 'facet>Target/AnnotationPath'}.slice(0, ${path: 'facet>Target/AnnotationPath'}.indexOf('/')) }"
+						beforeRebindChart="._templateEventHandlers.onBeforeRebindChart"
+						visible="{= ${path: 'facet>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}"
+						noData="{i18n>NOITEMS_SMARTCHART}"
+						entitySet="{entitySet>name}">
+						<smartChart:layoutData>
+							<layout:GridData id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Chart::GridData" span="XL12 L12 M12 S12" />
+						</smartChart:layoutData>
+						<smartChart:customData>
+							<core:CustomData key="sectionId" value="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}" />
+							<core:CustomData key="dateFormatSettings"
+											value='\{"UTC":true,"style":"medium"\}' />
+							<template:if test="{= ${facet>Target/AnnotationPath}.split('#')[1]}">
+								<core:CustomData key="chartQualifier"
+												value="{= ${facet>Target/AnnotationPath}.split('#')[1]}" />
+							</template:if>
+						</smartChart:customData>
+						<smartChart:toolbar>
+							<OverflowToolbar design="Transparent" id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Chart::Toolbar">
+								<ToolbarSpacer />
+								<!-- Custom Action Breakout -->
+								<template:repeat list="{objectPageTableSettings>value/extensionActions}"
+									var="customAction">
+									<Button id="{customAction>id}" text="{customAction>text}"
+											press="{customAction>press}" type="Transparent">
+										<layoutData>
+											<OverflowToolbarLayoutData priority = "{customAction>importance}"/>
+										</layoutData>
+									</Button>
+								</template:repeat>
+								<!-- Annotated Action Buttons -->
+								<template:with path="entitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="targetEntityType">
+										<template:with path="targetEntityType>com.sap.vocabularies.UI.v1.Chart/Actions" var="collection">
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.AnnotatedActionButtons" type="XML"/>
+											<customData>
+												<core:CustomData
+													key="annotatedActionIds"
+													value="{parts: [{path: 'collection>'}, {path: 'facet>'}, {path: 'parameter>/settings/quickVariantSelectionX'}, {path: 'tabItem>'}, {path: 'chartItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildActionButtonsCustomData'}" />
+											</customData>
+										</template:with>
+								</template:with>
+							</OverflowToolbar>
+						</smartChart:toolbar>
+					</smartChart:SmartChart>
+				</template:with>
+			</template:with>
+		</template:with>
+	</template:with>
+</core:FragmentDefinition>

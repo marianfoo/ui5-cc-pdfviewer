@@ -1,0 +1,1 @@
+{"version":3,"file":"RestAPIConnector.js","names":["sap","ui","define","RestAPIConnector","getAppContextData","appContext"],"sources":["RestAPIConnector-dbg.js"],"mappings":";;;;;AAKAA,IAAIC,GAAGC,OAAO,GAEX,WAGF,aAEA,IAAIC,EAAmB,CACtBC,kBAAmB,WAElB,MAAO,CAAEC,WAAY,GACtB,GAID,OAAOF,CACR"}

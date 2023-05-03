@@ -1,0 +1,113 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	template:require="sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:smartlink="sap.ui.comp.navpopover"
+	xmlns:smartchart="sap.ui.comp.smartchart"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:build="sap.build">
+	<template:with path="entityType>com.sap.vocabularies.UI.v1.HeaderInfo" var="header">
+		<template:with path="entitySet>dummy" var="facet">
+			 <template:with path="workingContext>chartPath" helper=".ALPHelper.resolveMetaModelPath" var="chartItem">
+				<smartchart:SmartChart
+					id="{:= ${parameter>/stableId}.getStableId({type: 'ALPChart', subType: 'SmartChart', sQuickVariantKey: ${tabItem>key}})}"
+					visible="{path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getVisibleForALPTableTabs'}"
+					smartFilterId="template::SmartFilterBar"
+					smartVariant="{= (${parameter>/settings/smartVariantManagement} || ${parameter>/settings/smartVariantManagement} === undefined) ? 'template::PageVariant' : null }"
+					persistencyKey="chartPersistencyKey{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSuffixFromIconTabFilterKey'} : ''}"
+					header="{path: 'header>TypeNamePlural', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+					afterVariantSave="._templateEventHandlers.onAfterChartVariantSave"
+					afterVariantApply="._templateEventHandlers.onAfterApplyChartVariant"
+					entitySet="{entitySet>name}"
+					class="sapSmartTemplatesAnalyticalListPageSmartChart"
+					enableAutoBinding="false"
+					showFullScreenButton="true"
+					fullScreenToggled="._templateEventHandlers.onFullScreenToggled"
+					showDrillBreadcrumbs="true"
+					showSemanticNavigationButton="false"
+					activateTimeSeries="true"
+					showDetailsButton="true"
+					showDrillButtons="false"
+					noData="{i18n>NODATA_SMARTCHART_ALP}"
+					beforeRebindChart="._templateEventHandlers.onBeforeRebindChart"
+					selectionDetailsActionPress="._templateEventHandlers.onSelectionDetailsActionPress"
+					>
+				<smartchart:dependents>
+					<core:Fragment fragmentName="sap.suite.ui.generic.template.listTemplates.fragments.ChartCommands" type="XML"/>
+				</smartchart:dependents>
+					<template:if test="{= ${parameter>/settings/quickVariantSelectionX}}">
+						<template:then>
+							<smartchart:customData>
+								<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}'/>
+								<core:CustomData key="presentationVariantQualifier" value="{parts:[{path: 'workingContext>'}, {path: 'tabItem>'}],  formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getChartPresentationVariantQualifier'}"/>
+								<template:if test="{parts:[{path: 'workingContext>'}, {path: 'tabItem>'}],  formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.checkIfChartQualifier'}">
+									<template:then>
+										<core:CustomData key="chartQualifier" value="{parts:[{path: 'workingContext>'}, {path: 'tabItem>'}],  formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getChartQualifier'}"/>
+									</template:then>
+								</template:if>
+								<core:CustomData key="variantAnnotationPath" value="{tabItem>annotationPath}"/>
+								<core:CustomData key="text" value="{path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterText'}"/>
+								<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'parameter>/settings/subPages/'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDisplayNavigationIntent'}">
+									<core:CustomData key="CrossNavigation" value="{parts: [{path: 'entitySet>name'}, {path: 'parameter>/settings/subPages/'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDisplayNavigationIntent'}"/>
+								</template:if>
+							</smartchart:customData>
+							<smartchart:semanticObjectController>
+										<smartlink:SemanticObjectController beforePopoverOpens="._templateEventHandlers.onBeforeSemanticObjectLinkPopoverOpens"/>
+							</smartchart:semanticObjectController>
+							<!--Custom tool bar -->
+							<smartchart:toolbar>
+										<core:Fragment fragmentName="sap.suite.ui.generic.template.listTemplates.fragments.SmartChartToolbar" type="XML"/>
+							</smartchart:toolbar>
+								<template:if test="{parts: [{path: 'tabItem>'}, {path: 'parameter>/settings/subPages/'}, {path: 'parameter>/entitySet'}, {path: 'parameter>/settings/quickVariantSelectionX'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.checkIfChartNavigationIsEnabled'}">
+									<smartchart:selectionDetailsItemActions>
+											<core:Item text="{i18n>NAVIGATE_TO_DETAIL}"></core:Item>
+									</smartchart:selectionDetailsItemActions>
+							</template:if>
+						</template:then>
+						<template:else>
+							<smartchart:customData>
+								<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}'/>
+								<template:if test="{workingContext>chartPresentationVariantQualifier}">
+									<template:then>
+										<core:CustomData key="presentationVariantQualifier" value='{workingContext>chartPresentationVariantQualifier}'/>
+									</template:then>
+									<template:else>
+										<template:if test="{workingContext>presentationVariantQualifier}">
+											<template:then>
+												<core:CustomData key="presentationVariantQualifier" value='{workingContext>presentationVariantQualifier}'/>
+											</template:then>
+										</template:if>
+									</template:else>
+								</template:if>
+								<template:if test="{workingContext>chartQualifier}">
+									<template:then>
+										<core:CustomData key="chartQualifier" value='{workingContext>chartQualifier}'/>
+									</template:then>
+								</template:if>
+								<template:if test="{parts: [{path: 'parameter>/entitySet'}, {path: 'parameter>/settings/subPages/'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDisplayNavigationIntent'}">
+									<core:CustomData key="CrossNavigation" value="{parts: [{path: 'parameter>/entitySet'}, {path: 'parameter>/settings/subPages/'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDisplayNavigationIntent'}"/>
+								</template:if>
+							</smartchart:customData>
+							<smartchart:layoutData>
+								<FlexItemData growFactor="1"/>
+							</smartchart:layoutData>
+							<smartchart:semanticObjectController>
+								<smartlink:SemanticObjectController beforePopoverOpens="._templateEventHandlers.onBeforeSemanticObjectLinkPopoverOpens"/>
+							</smartchart:semanticObjectController>
+							<!-- Custom tool bar -->
+							<smartchart:toolbar>
+								<core:Fragment fragmentName="sap.suite.ui.generic.template.listTemplates.fragments.SmartChartToolbar" type="XML"/>
+							</smartchart:toolbar>
+							<template:if test="{= (${parameter>/settings/showItemNavigationOnChart} === true) }">
+								<smartchart:selectionDetailsItemActions>
+									<core:Item text="{i18n>NAVIGATE_TO_DETAIL}"></core:Item>
+								</smartchart:selectionDetailsItemActions>
+							</template:if>
+						</template:else>
+					</template:if>
+				</smartchart:SmartChart>
+			</template:with>
+		</template:with>
+	</template:with>
+</core:FragmentDefinition>

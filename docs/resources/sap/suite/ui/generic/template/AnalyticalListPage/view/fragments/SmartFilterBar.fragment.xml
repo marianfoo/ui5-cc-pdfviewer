@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartfilterbar="sap.ui.comp.smartfilterbar" xmlns:smartfilterbarext="sap.suite.ui.generic.template.AnalyticalListPage.control"
+						 template:require="{
+						 SemanticDateRangeTypeHelper: 'sap/suite/ui/generic/template/listTemplates/semanticDateRangeTypeHelper'}"
+						 xmlns:build="sap.build">
+
+	<smartfilterbarext:SmartFilterBarExt id="template::SmartFilterBar" entitySet="{parameter>/entitySet}"
+		entityType="{parameter>/entityType}"
+		smartVariant="template::PageVariant"
+		class="sapSmartTemplatesAnalyticalListPageCompactFilter"
+		persistencyKey="compactFilterPersistencyKey"
+		useToolbar="false"
+		showMessages="false"
+		enableBasicSearch="{= !(${entitySet>Org.OData.Capabilities.V1.SearchRestrictions/Searchable/Bool} === 'false') }"
+		initialise="._templateEventHandlers.onSmartFilterBarInitialise"
+		initialized="._templateEventHandlers.onSmartFilterBarInitialized"
+		search="cmd:Search"
+		beforeVariantSave="._templateEventHandlers.onBeforeSFBVariantSave"
+		afterVariantLoad="._templateEventHandlers.onAfterSFBVariantLoad"
+		assignedFiltersChanged="._templateEventHandlers.onAssignedFiltersChanged"
+		considerAnalyticalParameters="true"
+		useDateRangeType="{parameter>/templateSpecific/filterSettings/dateSettings/useDateRange}"
+		reset="{= (${parameter>/settings/hideVisualFilter} === false || ${parameter>/settings/hideVisualFilter} === undefined) ? '._templateEventHandlers.onRestore' : undefined}"
+		filtersDialogClosed="{= (${parameter>/settings/hideVisualFilter} === false || ${parameter>/settings/hideVisualFilter} === undefined) ? '._templateEventHandlers.onDialogClosed' : undefined}"
+		filtersDialogBeforeOpen="{= (${parameter>/settings/hideVisualFilter} === false || ${parameter>/settings/hideVisualFilter} === undefined) ? '._templateEventHandlers.onDialogOpened' : undefined}"
+		filtersDialogSearch="{= (${parameter>/settings/hideVisualFilter} === false || ${parameter>/settings/hideVisualFilter} === undefined) ? '._templateEventHandlers.onDialogSearch' : undefined}"
+		filtersDialogCancel="{= (${parameter>/settings/hideVisualFilter} === false || ${parameter>/settings/hideVisualFilter} === undefined) ? '._templateEventHandlers.onDialogCancel' : undefined}"
+		clear="._templateEventHandlers.onDialogClear"
+		filtersDialogSearchForFilters = "{= (${parameter>/settings/hideVisualFilter} === false || ${parameter>/settings/hideVisualFilter} === undefined) ? '._templateEventHandlers.onSearchForFilters' : undefined}"
+		useProvidedNavigationProperties = "{= (${entityType>sap:semantics} === 'aggregate') ? 'true' : 'false'}"
+		>
+		<smartfilterbarext:controlConfiguration>
+			<template:repeat list="{parameter>/templateSpecific/controlConfigurationSettings}" var="controlConfigurationSetting">
+				<smartfilterbar:ControlConfiguration
+					key="{controlConfigurationSetting>key}"
+					groupId="{controlConfigurationSetting>groupId}"
+					index="{controlConfigurationSetting>index}"
+					visibleInAdvancedArea="{controlConfigurationSetting>visibleInAdvancedArea}"
+					conditionType="{controlConfigurationSetting>conditionType}"
+					historyEnabled="{controlConfigurationSetting>historyEnabled}"/>
+			</template:repeat>
+		
+				<core:ExtensionPoint name="SmartFilterBarControlConfigurationExtension|{entitySet>name}"/>
+		</smartfilterbarext:controlConfiguration>
+		<smartfilterbarext:customData>
+			<core:CustomData key="defaultDropDownDisplayBehaviour" value="descriptionOnly"/>
+			<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}'/>
+		</smartfilterbarext:customData>
+		<smartfilterbarext:layoutData>
+			<FlexItemData shrinkFactor="0"/>
+		</smartfilterbarext:layoutData>
+	</smartfilterbarext:SmartFilterBarExt>
+
+</core:FragmentDefinition>

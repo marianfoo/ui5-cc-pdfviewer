@@ -1,0 +1,141 @@
+<core:FragmentDefinition xmlns:sfi="sap.ui.comp.smartfield"
+						 xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:sfo="sap.ui.comp.smartform" xmlns:build="sap.build"
+						 xmlns:smartlink="sap.ui.comp.navpopover"
+						 xmlns:core="sap.ui.core"
+						 xmlns:fe="sap.suite.ui.generic.template.genericUtilities">
+	<!--
+        @classdesc
+        @name: Name: sap.suite.ui.generic.template.fragments.SmartFormDataField.fragment.xml
+        @description: This fragment contains label value pairs for the smart form derived from UI.DataFields
+        @param {Collection(UI.DataField)} [dataField]
+    -->
+
+	<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation'}">
+		<template:then>
+			<template:with path="dataField>Target"
+						   helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="contact">
+				<HBox binding="{parts: [{path: 'headerFacet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+					visible="{= ${path: 'dataField>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}">
+					<Label id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Label"
+						   labelFor="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Field"
+						   text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+						   class="sapSmartTemplatesObjectPageHeaderFormLabel sapUiTinyMarginEnd"/>
+					<fe:Link id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Field"
+						  press="._templateEventHandlers.onContactDetails"
+						  ariaLabelledBy="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageHeader', subType: 'HeaderTitle', sFacet: ${facetId>id}})} header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Label"
+ 						  binding="{parts: [{path: 'dataField>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+						  text="{path: 'contact>fn', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+						  class="sapSmartTemplatesObjectPageHeaderFormField">
+						<fe:customData>
+							<core:CustomData key="Location" value="Header"/>
+							<core:CustomData key="contactDetails" value="{= ${path: 'contact>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getCustomDataForContactPopup'}}"/>
+						</fe:customData>
+					</fe:Link>
+				</HBox>
+			</template:with>
+		</template:then>
+		<template:elseif
+				test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithIntentBasedNavigation'}">
+			<HBox binding="{parts: [{path: 'headerFacet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+				visible="{= ${path: 'dataField>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}">
+				<Label
+						id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Label"
+						text="{parts: [{path: 'dataField>'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}"
+						class="sapSmartTemplatesObjectPageHeaderFormLabel sapUiTinyMarginEnd"/>
+				<fe:Link
+						id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Field"
+						text="{parts: [{path: 'dataField>'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLinkTextForDFwithIBN'}"
+						press="._templateEventHandlers.onDataFieldWithIntentBasedNavigation"
+						wrapping="true"
+						class="sapSmartTemplatesObjectPageHeaderFormField"
+						ariaLabelledBy="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageHeader', subType: 'HeaderTitle', sFacet: ${facetId>id}})} header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Label">
+					<fe:customData>
+						<core:CustomData key="SemanticObject" value="{path: 'dataField>SemanticObject', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+						<core:CustomData key="Action" value="{path: 'dataField>Action', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+					</fe:customData>
+				</fe:Link>
+			</HBox>
+		</template:elseif>
+		<template:elseif
+			test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithNavigationPath'}">
+			<HBox
+				binding="{parts: [{path: 'headerFacet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+				visible="{= ${path: 'dataField>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}" >
+				<sfi:SmartLabel
+					labelFor="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Field"
+					class="sapSmartTemplatesObjectPageHeaderFormLabel sapUiTinyMarginEnd" />
+
+				<sfi:SmartField class="sapSmartTemplatesObjectPageHeaderFormField"
+					id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Field"
+					value="{path: 'dataField>Value', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDataFieldValueSimplePath'}"
+					textLabel="{parts: [{path: 'dataField>'}, {path: 'entitySet>'}, {path: 'headerFacet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}"
+					textInEditModeSource="{path: 'dataFieldValue>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.setValidationForValueList'}"
+					editable="{ui>/editable}" press="._templateEventHandlers.onDataFieldWithNavigationPath">
+					<sfi:configuration>
+						<sfi:Configuration
+							displayBehaviour="{parts: [{path: 'dataField>'}, {value: ''}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTextArrangementForSmartControl'}" />
+					</sfi:configuration>
+					<sfi:customData>
+						<core:CustomData key="Target" value="{dataField>Target/NavigationPropertyPath}" />
+					</sfi:customData>
+				</sfi:SmartField>
+			</HBox>
+		</template:elseif>
+		<template:elseif test="{= ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForAction'}">
+			<HBox binding="{parts: [{path: 'headerFacet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+				visible="{= ${path: 'dataField>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}">
+				<sfi:SmartLabel
+						id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Label"
+						labelFor="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Field"
+						class="{= ${dataField>Criticality} ? 'sapSmartTemplatesObjectPageHeaderFormLabel': 'sapSmartTemplatesObjectPageHeaderFormLabelNCriticcal' }  sapUiTinyMarginEnd"/>
+				<!-- TODO: Should also work with ...format -->
+				<template:with path="headerFacet>Target" helper="sap.ui.model.odata.AnnotationHelper.gotoEntitySet" var="annotation">
+					<sfi:SmartField
+							id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Field"
+							contextEditable="false" uomEditable="false" enabled="true" clientSideMandatoryCheck="false"
+							ariaLabelledBy="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageHeader', subType: 'HeaderTitle', sFacet: ${facetId>id}})} header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Label"
+							value="{parts: [{path: 'dataField>Value'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatWithExpandSimplePath'}"
+							textLabel="{= ${dataField>Label} ? ${path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.simplePath'} : '' }"
+							class="sapSmartTemplatesObjectPageHeaderFormField"
+							url="{= ${dataField>Url} ? ${path: 'dataField>Url', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} : ''}"
+							fetchValueListReadOnly="{parts:[{path: 'parameter>/entityType'},{path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getValueListReadOnly'}"
+							textInEditModeSource="{path: 'dataFieldValue>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.setValidationForValueList'}"
+							initialise="._templateEventHandlers.onSmartFieldInitialise">
+						<sfi:semanticObjectController>
+							<smartlink:SemanticObjectController replaceSmartLinkNavigationTargetsObtained="true"
+																beforePopoverOpens="._templateEventHandlers.onBeforeSemanticObjectLinkPopoverOpens"
+																navigationTargetsObtained="._templateEventHandlers.onSemanticObjectLinkNavigationTargetObtained"
+					                                            beforeNavigationCallback="._templateEventHandlers.onBeforeSemanticObjectLinkNavigationCallback"
+																forceLinkRendering="{parts: [{path: 'entitySet>'},{path: 'parameter>/templateSpecific/targetEntities'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.hasQuickViewFacet'}"/>
+						</sfi:semanticObjectController>
+						<sfi:configuration>
+							<sfi:Configuration
+									displayBehaviour="{parts: [{path: 'dataField>'}, {path: 'annotation>'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTextArrangementForSmartControl'}"/>
+						</sfi:configuration>
+						<template:if test="{= ${dataField>Criticality} }">
+							<sfi:controlProposal>
+								<sfi:ControlProposal>
+									<sfi:objectStatus>
+										<sfi:ObjectStatus
+												criticality="{path: 'dataField>Criticality', formatter: 'sap.ui.model.odata.AnnotationHelper.simplePath'}"
+												criticalityRepresentationType="{= (${dataField>CriticalityRepresentation/EnumMember} === 'com.sap.vocabularies.UI.v1.CriticalityRepresentationType/WithoutIcon') ? 'WithoutIcon' : 'WithIcon'}"
+												class="sapSmartTemplatesObjectPageHeaderFormObjectStatus"/>
+									</sfi:objectStatus>
+								</sfi:ControlProposal>
+							</sfi:controlProposal>
+						</template:if>
+						<sfi:customData>
+							<core:CustomData
+								key="LabelId"
+								value="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::Label"/>
+							<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}' />
+						</sfi:customData>
+					</sfi:SmartField>
+				</template:with>
+			</HBox>
+		</template:elseif>
+	</template:if>
+
+
+</core:FragmentDefinition>

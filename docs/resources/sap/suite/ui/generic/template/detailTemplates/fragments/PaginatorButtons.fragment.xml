@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:uxap="sap.uxap">
+	<HBox id="template::UpAndDownNavigation"
+		  visible="{= (${_templPriv>/generic/viewLevel} > 1) &amp;&amp; (${_templPriv>/objectPage/navButtons/navUpEnabled} || ${_templPriv>/objectPage/navButtons/navDownEnabled})}"
+		  displayInline="true"
+		  class="sapSmartTemplatesUpAndDownNavigation">
+		<uxap:ObjectPageHeaderActionButton id="template::NavigationUp"
+										   icon="sap-icon://navigation-up-arrow"
+										   enabled="{_templPriv>/objectPage/navButtons/navUpEnabled}"
+										   tooltip="{_templPriv>/objectPage/navButtons/navUpTooltip}"
+										   press="._templateEventHandlers.handleShowPrevObject"
+										   type="Transparent"
+										   importance="High"/>
+		<uxap:ObjectPageHeaderActionButton id="template::NavigationDown"
+										   icon="sap-icon://navigation-down-arrow"
+										   enabled="{_templPriv>/objectPage/navButtons/navDownEnabled}"
+										   tooltip="{_templPriv>/objectPage/navButtons/navDownTooltip}"
+										   press="._templateEventHandlers.handleShowNextObject"
+										   type="Transparent"
+										   importance="High"/>
+	</HBox>
+</core:FragmentDefinition>

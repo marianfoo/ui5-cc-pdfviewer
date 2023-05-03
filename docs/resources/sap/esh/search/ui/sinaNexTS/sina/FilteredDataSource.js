@@ -1,0 +1,14 @@
+/*! 
+ * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	 
+ */
+(function(){sap.ui.define(["./DataSource"],function(t){function e(t,e){for(var r=0;r<e.length;r++){var a=e[r];a.enumerable=a.enumerable||false;a.configurable=true;if("value"in a)a.writable=true;Object.defineProperty(t,a.key,a)}}function r(t,r,a){if(r)e(t.prototype,r);if(a)e(t,a);Object.defineProperty(t,"prototype",{writable:false});return t}function a(t,e){if(!(t instanceof e)){throw new TypeError("Cannot call a class as a function")}}function n(t,e){if(typeof e!=="function"&&e!==null){throw new TypeError("Super expression must either be null or a function")}t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:true,configurable:true}});Object.defineProperty(t,"prototype",{writable:false});if(e)o(t,e)}function o(t,e){o=Object.setPrototypeOf||function t(e,r){e.__proto__=r;return e};return o(t,e)}function u(t){var e=f();return function r(){var a=l(t),n;if(e){var o=l(this).constructor;n=Reflect.construct(a,arguments,o)}else{n=a.apply(this,arguments)}return i(this,n)}}function i(t,e){if(e&&(typeof e==="object"||typeof e==="function")){return e}else if(e!==void 0){throw new TypeError("Derived constructors may only return object or undefined")}return c(t)}function c(t){if(t===void 0){throw new ReferenceError("this hasn't been initialised - super() hasn't been called")}return t}function f(){if(typeof Reflect==="undefined"||!Reflect.construct)return false;if(Reflect.construct.sham)return false;if(typeof Proxy==="function")return true;try{Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],function(){}));return true}catch(t){return false}}function l(t){l=Object.setPrototypeOf?Object.getPrototypeOf:function t(e){return e.__proto__||Object.getPrototypeOf(e)};return l(t)}
+/*!
+   * SAPUI5
+
+		(c) Copyright 2009-2021 SAP SE. All rights reserved
+	
+   */var d=t["DataSource"];var p=function(t){n(o,t);var e=u(o);function o(t){var r,n,u,i,c,f;var l;a(this,o);t.annotations=(r=t.annotations)!==null&&r!==void 0?r:t.dataSource.annotations;t.hidden=(n=t.hidden)!==null&&n!==void 0?n:t.dataSource.hidden;t.attributesMetadata=(u=t.attributesMetadata)!==null&&u!==void 0?u:t.dataSource.attributesMetadata;t.attributeMetadataMap=(i=t.attributeMetadataMap)!==null&&i!==void 0?i:t.dataSource.attributeMetadataMap;t.attributeGroupsMetadata=(c=t.attributeGroupsMetadata)!==null&&c!==void 0?c:t.dataSource.attributeGroupsMetadata;t.attributeGroupMetadataMap=(f=t.attributeGroupMetadataMap)!==null&&f!==void 0?f:t.dataSource.attributeGroupMetadataMap;l=e.call(this,t);l.dataSource=t.dataSource;l.filterCondition=t.filterCondition;return l}return r(o)}(d);var s={__esModule:true};s.FilteredDataSource=p;return s})})();
+//# sourceMappingURL=FilteredDataSource.js.map

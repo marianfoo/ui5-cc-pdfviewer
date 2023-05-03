@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:layout="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:viz.data="sap.viz.ui5.data"
+	xmlns:smartChart="sap.ui.comp.smartchart"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:custData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	template:require="sap.suite.ui.generic.template.AnalyticalListPage.util.KpiAnnotationHelper sap.ui.model.odata.AnnotationHelper">
+	<core:ComponentContainer id = "template::ALPcardContainer"/>
+</core:FragmentDefinition>

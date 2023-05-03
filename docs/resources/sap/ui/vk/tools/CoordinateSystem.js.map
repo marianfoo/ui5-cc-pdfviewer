@@ -1,0 +1,1 @@
+{"version":3,"file":"CoordinateSystem.js","names":["sap","ui","define","CoordinateSystem","Local","World","Screen","Parent","Custom"],"sources":["CoordinateSystem-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAmB,CAKtBC,MAAO,QAKPC,MAAO,QAKPC,OAAQ,SAKRC,OAAQ,SAKRC,OAAQ,UAGT,OAAOL,CAER,EAAkB"}

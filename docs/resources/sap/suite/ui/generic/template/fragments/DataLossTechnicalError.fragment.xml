@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>ST_ERROR}" state="Error" type="Message" contentWidth="28em" ariaLabelledBy="dataLossTechnicalErrorText">
+		<content>
+			<Text id="dataLossTechnicalErrorText" text="{= ${dataLoss>/isLeaving} ? ${i18n>ST_DATA_LOSS_TECHNICAL_ERROR_DISCARD} : ${i18n>ST_DATA_LOSS_TECHNICAL_ERROR_GENERAL} }" />
+		</content>
+		<buttons>
+			<Button text="{i18n>DATA_LOSS_DISCARD_CHANGES}"
+				press="onDataLossOK"
+				visible="{dataLoss>/isLeaving}" type="Emphasized"/>
+			<Button text="{= ${dataLoss>/isLeaving} ? ${i18n>CANCEL} : ${i18n>CLOSE} }"
+				press="onDataLossCancel" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>		

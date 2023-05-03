@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build"
+	template:require="{AH:'sap/suite/ui/generic/template/js/AnnotationHelper'}" >
+    <template:if test="{= ${parameter>/settings/quickVariantSelectionX}}">
+        <template:then>
+			<template:repeat list="{tabItem>tableSettings/extensionActions}" var="customAction">
+				<!--all break out actions which are neither determining nor global-->
+				<template:if test="{= !(${customAction>determining} || ${customAction>global})}">
+					<Button id="{customAction>id}"
+						enabled="{customAction>enabled}"
+						text="{customAction>text}"
+						press="{customAction>press}"
+						type="Transparent">
+						<layoutData>
+							<OverflowToolbarLayoutData priority = "{customAction>importance}"/>
+						</layoutData>
+					</Button>
+  	          </template:if>
+			</template:repeat>
+		</template:then>
+        <template:else>
+		<template:repeat list="{parameter>/templateSpecific/tableSettings/extensionActions}" var="customAction">
+			<!--all break out actions which are neither determining nor global-->
+			<template:if test="{= !(${customAction>determining} || ${customAction>global})}">
+				<Button id="{customAction>id}"
+					enabled="{customAction>enabled}"
+					text="{customAction>text}"
+					press="{customAction>press}"
+					type="Transparent">
+					<layoutData>
+						<OverflowToolbarLayoutData priority = "{customAction>importance}"/>
+					</layoutData>
+				</Button>
+            </template:if>
+		</template:repeat>
+		</template:else>
+	</template:if>
+</core:FragmentDefinition>

@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";function t(t){var n,e,i;var r=new Promise(function(t){e=t});if(typeof t!=="string"){f(t)}function u(){if(!n){return i}return{searchString:n.getValue()}}function a(t){i=t;r.then(function(){n.setValue(t.searchString)})}function c(t){r.then(function(){n.attachLiveChange(t)})}function f(t){n=t;e(n)}return{getState:u,setState:a,setControl:f,attachStateChanged:c}}return t});
+//# sourceMappingURL=SearchFieldWrapper.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"SearchResultTable.js","names":["sap","ui","define","Table","SearchResultTable","extend","renderer","apiVersion"],"sources":["SearchResultTable-dbg.js"],"mappings":";;;;;;CAOA,WACAA,IAAIC,GAAGC,OAAO,CAAC,eAAgB,SAAUC,GAIvC,IAAIC,EAAoBD,EAAME,OAAO,+CAAgD,CACnFC,SAAU,CACRC,WAAY,KAGhB,OAAOH,CACT,EACC,EAZD"}

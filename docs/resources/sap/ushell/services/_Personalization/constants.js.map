@@ -1,0 +1,1 @@
+{"version":3,"file":"constants.js","names":["sap","ui","define","keyCategory","FIXED_KEY","GENERATED_KEY","writeFrequency","HIGH","LOW"],"sources":["constants-dbg.js"],"mappings":";AACAA,IAAIC,GAAGC,OAAO,GAEX,WACC,aAIA,MAAO,CACHC,YAAc,CACVC,UAAc,YACdC,cAAkB,iBAEtBC,eAAiB,CACbC,KAAS,OACTC,IAAQ,OAGpB"}

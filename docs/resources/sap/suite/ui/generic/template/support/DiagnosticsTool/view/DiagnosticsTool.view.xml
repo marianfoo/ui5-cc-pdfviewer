@@ -1,0 +1,144 @@
+<mvc:View
+		controllerName="sap.suite.ui.generic.template.support.DiagnosticsTool.controller.DiagnosticsTool"
+		xmlns="sap.m"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<Panel expandable="false" class="sapUiNoContentPadding">
+		<content>
+			<!-- Custom layout for grouping headers -->
+			<html:style>
+				.diagnosticPropertiesGroupHeader {
+					background-color: #EFF4F9;
+					height: 70%;
+				}
+
+				.diagnosticPropertiesGroupHeaderContent {
+					color: #2C4E6C !important;
+				}
+				#CopyDataTextArea {
+					display: none;
+					height: 0;
+					width: 0;
+					padding: 0;
+					color: transparent;
+					background: transparent;
+					border-color: transparent;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+				}
+			</html:style>
+
+			<!-- Show countdown when application is still loading -->
+			<!-- Countdown still available at binding path {data>/timeLeft}, not shown to user right now -->
+			<VBox visible="{= ${data>/status} === 'Loading'}"
+				  width="100%"
+				  alignItems="Center"
+				  class="sapUiSmallMarginTopBottom sapUiNoMarginBegin sapUiNoMarginEnd">
+				<BusyIndicator text="The application is still loading! Please wait a few more seconds..."/>
+			</VBox>
+
+			<!-- Display hint when application did not finish loading -->
+			<MessageStrip
+				text="{data>/statusMessage}"
+				type="Warning"
+				showIcon="true"
+				visible="{= ${data>/status} === 'Failed'}"
+				class="sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiSmallMarginTop sapUiNoContentPadding">
+			</MessageStrip>
+
+			<!-- Display hint when status of application is unknown -->
+			<MessageStrip
+				text="The current state of the application is not known by the plugin!"
+				type="Error"
+				showIcon="true"
+				visible="{= ${data>/status} !== 'Failed' &amp;&amp; ${data>/status} !== 'Rendered' &amp;&amp; ${data>/status} !== 'Loading' &amp;&amp; ${data>/status} !== 'Unknown'}"
+				class="sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiSmallMarginTop sapUiNoContentPadding">
+			</MessageStrip>
+
+			<!-- Display properties -->
+			<Table
+				id="diagnosticPropertiesTable"
+				noDataText="No data available! Please verify that the Fiori Elements application is still running."
+				items="{data>/properties}"
+				visible="{= ${data>/status} === 'Rendered' || ${data>/status} === 'Failed' || ${data>/status} === 'Unknown'}"
+				class="sapUiSizeCompact">
+
+				<!-- custom toolbar with copy & refresh button -->
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Time of Retrieval: {data>/retrieval}"/>
+
+						<ToolbarSpacer/> <!-- aligns following content to right site -->
+
+						<Button
+							icon="sap-icon://synchronize"
+							tooltip="Refresh"
+							press="onRefreshData"/>
+
+						<MenuButton icon="sap-icon://copy" tooltip="Copy Plaintext" enabled="{data>/copyEnabled}" buttonMode="Split" defaultAction="onCopyDataPlain" useDefaultActionOnly="true" width="auto">
+							<menu>
+								<Menu>
+									<items>
+										<MenuItem text="Copy Plaintext" icon="sap-icon://copy" press="onCopyDataPlain" />
+										<MenuItem text="Copy HTML" icon="sap-icon://attachment-html" press="onCopyDataHTML" />
+									</items>
+								</Menu>
+							</menu>
+						</MenuButton>
+
+						<Button
+							icon="sap-icon://sys-help"
+							tooltip="Documentation"
+							press="onShowDocumentation"/>
+
+					</Toolbar>
+				</headerToolbar>
+
+				<!-- columns -->
+				<columns>
+					<Column id="nameCol" width="30%"/> <!-- property name -->
+					<Column id="valueCol"/> <!-- current value -->
+				</columns>
+
+				<!-- content -->
+				<items>
+					<ColumnListItem>
+						<cells>
+							<VBox> <!-- Keys -->
+								<!-- Only group headers (type equals "group") get class diagnosticPropertiesGroupHeader to identify and style them later on -->
+								<Text text="{data>name}" class="diagnosticPropertiesGroupHeaderContent"
+									  visible="{= ${data>type} === 'group'}"/>
+								<Text text="{data>name}" visible="{= ${data>type} !== 'group'}"/>
+							</VBox>
+
+							<VBox> <!-- Values -->
+								<!-- Show simple string, requires type='string' -->
+								<Text text="{data>value}" wrapping="true" visible="{= ${data>type} === 'string'}"/>
+
+								<!-- Show simple link with target _blank, requires type='link' -->
+								<Link text="{data>value}" href="{data>target}" target="_blank" wrapping="true"
+									  visible="{= ${data>type} === 'link'}"/>
+							</VBox>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+
+			<!--
+				This textarea is required to copy data to the users clipboard. It needs to be rendered at least with the
+				size of 1 pixel when content should be copied from it into the users clipboard. Therefor it has all these
+				style attributes. display:none will be changed to display:block at runtime and after copying data has
+				finished, display will be set again to none.
+			-->
+			<html:textarea id="CopyDataTextArea">
+			</html:textarea>
+			<!--
+				Placeholder as direct DOM insertion is not allowed in UI5. Needed by function fnOnCopyDataHTML when copying
+				HTML formatted data to clipboard.
+			-->
+			<html:div id="CopyDataHTML"></html:div>
+		</content>
+	</Panel>
+</mvc:View>

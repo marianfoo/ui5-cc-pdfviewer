@@ -1,0 +1,49 @@
+<mvc:View displayBlock="true" 
+  controllerName="sap.insights.copy.Copy"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+  xmlns:w="sap.ui.integration.widgets"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:l="sap.ui.layout">
+      <Page id="copyCardPage" backgroundDesign="List" enableScrolling="true" title="{i18n>copyCard}">
+        <headerContent>
+                <VBox direction="Row">
+                    <Button
+                        class="sapUiTinyMarginEnd"
+                        type="Emphasized"
+                        text="{i18n>save}"
+                        press=".handleCardCopyPress"/>
+                    <Button
+                        text="{i18n>cancelButton}"
+                        press=".onNavBack"/>
+                </VBox>
+            </headerContent>
+            <FlexBox id="CopyCardFlexWrapper" alignItems="Start" justifyContent="SpaceBetween" height="100%" direction="Column" class="sapUiTinyMarginBegin sapUiSmallMarginEnd">
+                <Title id="CopyCardEditDetailsTitle" text="{i18n>editDetails}" titleStyle="H5" width="100%" class="sapUiSmallMarginTop sapUiSmallMarginBegin" />
+                <f:SimpleForm id="CopyCardsEditDetailsForm" class="sapContrastPlus sapUiSmallMarginBegin" backgroundDesign="Transparent" width="100%" editable="true" layout="ColumnLayout">
+                    <f:content>
+                        <Label id="CopyCardsEditTitleLabel" text="{i18n>title}" required="true" />
+                        <Input id="CopyCardsEditTitleField" value="{copyCardView>descriptorContent/sap.card/header/title}" change=".handleCardsInputChange" valueStateText="{i18n>emptyTitle}" />
+                        <Label id="CopyCardsEditSubTitleLabel" text="{i18n>subTitle}" />
+                        <Input id="CopyCardsEditSubTitleField" value="{copyCardView>descriptorContent/sap.card/header/subTitle}" change=".handleCardsInputChange"/>
+                    </f:content>
+                </f:SimpleForm>
+                <FlexBox id="copyCardSmartForm" class="sapUiTinyMarginTop" justifyContent="Center" direction="Column" width="100%"/>
+                <DynamicDateRange id="hiddenDDR" hideInput="true"/>
+                <DynamicDateRange id="hiddenFilterDDR" hideInput="true"/>
+                <VBox id="CopyCardPreviewVBoxWrapper" class="sapUiMediumMarginTop" backgroundDesign="Transparent" height="100%" width="100%" >
+                    <HBox id="CopyCardPreviewHBox" alignItems="Center" justifyContent="SpaceBetween" width="100%">
+                        <Title id="CopyCardPreviewTitle" text="{i18n>preview}" titleStyle="H5" class="sapUiSmallMarginBegin" />
+                        <Button type="Transparent" id="CopyCardPreviewRefreshButton" text="{i18n>refresh}" press="_handleCardPreviewPress"/>
+                    </HBox>
+                    <VBox id="CopyCardsPreviewVBox" alignItems="Center" class="sapUiMediumMarginBottom">
+                        <w:Card id="copyCardPreview" manifest="{copyCardView>descriptorContent}" parameters="{copyCardView>params}" width="17rem" height="23.5rem"/>
+                        <HBox id="insightsCopyOverflowLayer" class="sapMFlexBoxJustifyCenter" height="0" visible="{= ${copyCardView>descriptorContent/sap.card/type}  === 'Analytical' ? false : true}">
+                            <HBox  id="insightsCopyOverflowInnerHBox" class="insightsCardOverflowLayer insightsPreviewOverLaySize"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </FlexBox>
+        </Page>
+</mvc:View>

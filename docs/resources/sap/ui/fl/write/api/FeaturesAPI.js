@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/fl/registry/Settings","sap/ui/fl/Layer"],function(n,e){"use strict";var t={isPublishAvailable:function(){return n.getInstance().then(function(n){return!n.isProductiveSystem()&&n.isSystemWithTransports()})},isSaveAsAvailable:function(t){return n.getInstance().then(function(n){if(n.isAppVariantSaveAsEnabled()&&t===e.CUSTOMER&&sap.ushell_abap){return true}return false})},isContextBasedAdaptationAvailable:function(t){return n.getInstance().then(function(n){if(n.isContextBasedAdaptationEnabled()&&t===e.CUSTOMER){return true}return false})},isKeyUser:function(){return n.getInstance().then(function(n){return n.isKeyUser()})},isVersioningEnabled:function(e){return n.getInstance().then(function(n){return n.isVersioningEnabled(e)})},isKeyUserTranslationEnabled:function(t){if(t===e.CUSTOMER){return n.getInstance().then(function(n){return n.isKeyUserTranslationEnabled()})}return Promise.resolve(false)},isContextSharingEnabled:function(t){if(t!==e.CUSTOMER){return Promise.resolve(false)}return n.getInstance().then(function(n){return n.isContextSharingEnabled({layer:t})})}};return t});
+//# sourceMappingURL=FeaturesAPI.js.map

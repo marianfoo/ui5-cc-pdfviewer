@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build">
+
+	<OverflowToolbar id="template::ListReport::ChartToolbar{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSuffixFromIconTabFilterKey'} : ''}" design="Transparent">
+		<ToolbarSpacer/>
+		<!-- Custom Action Breakout -->
+		<template:repeat list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.ListReport.view.ListReport/sap.ui.generic.app}" var="tmpEntitySet">
+
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.BreakoutActions"
+					type="XML"/>
+		</template:repeat>
+
+		<!-- Annotated Action Buttons -->
+		<template:with path="tabItem>" helper="sap.suite.ui.generic.template.ListReport.AnnotationHelper.getChartAnnotationPath" var="collection">
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.AnnotatedActionButtons" type="XML"/>
+			<customData>
+				<core:CustomData
+					key="annotatedActionIds"
+					value="{parts: [{path: 'collection>'}, {path: 'facet>'}, {path: 'parameter>/settings/quickVariantSelectionX'}, {path: 'tabItem>'}, {path: 'chartItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildActionButtonsCustomData'}" />
+			</customData>
+		</template:with> 
+	</OverflowToolbar>
+
+</core:FragmentDefinition>

@@ -1,0 +1,15 @@
+<!-- This fragment describes the side content action button, which can be used to toggle the visibility of the side content -->
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns="sap.m" xmlns:uxap="sap.uxap" xmlns:core="sap.ui.core"
+						 template:require="{AHSideContent: 'sap/suite/ui/generic/template/ObjectPage/annotationHelpers/AnnotationHelperSideContent'}">
+	<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'subSection>additionalData/facetId'}, {path: 'manifestViewExtensions>'}], formatter: 'AHSideContent.getSideContentExtensionPoint'}">
+		<uxap:actions>
+			<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="facetId">
+				<template:if test="{= ${facetId>}.buildStableId({type: 'ObjectPage', subType: 'Facet', sRecordType: ${facet>RecordType}, sAnnotationPath: ${facet>Target/AnnotationPath}, sAnnotationId: ${facet>ID/String}, bIsHeaderFacet: ${isHeaderFacet>value}})}"/>
+				<Button id="{:= ${parameter>/stableId}.getStableId({ type:'ObjectPageSection', subType:'SideContentButton', sFacet: ${facetId>id}}) }"
+						text="{path: 'facetId>id', formatter: 'AHSideContent.formatTextForSideContentButton'}"
+						type = "Transparent"
+						press="{path: 'facetId>id', formatter: 'AHSideContent.formatPressForSideContentButton'}" />
+			</template:with>
+		</uxap:actions> 
+	</template:if>
+</core:FragmentDefinition>

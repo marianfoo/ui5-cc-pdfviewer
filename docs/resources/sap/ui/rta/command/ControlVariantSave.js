@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/rta/command/BaseCommand","sap/ui/core/util/reflection/JsControlTreeModifier","sap/ui/fl/Utils"],function(e,t,a){"use strict";var n=e.extend("sap.ui.rta.command.ControlVariantSave",{metadata:{library:"sap.ui.rta",properties:{model:{type:"object"}},associations:{},events:{}}});n.prototype.prepare=function(){this.oAppComponent=a.getAppComponentForControl(this.getElement());this.sVariantManagementReference=t.getSelector(this.getElement(),this.oAppComponent).id;return true};n.prototype.execute=function(){var e=this.getModel().getCurrentVariantReference(this.sVariantManagementReference);this._aControlChanges=this.getModel().getVariant(e,this.sVariantManagementReference).controlChanges;this._aDirtyChanges=this.getModel()._getDirtyChangesFromVariantChanges(this._aControlChanges);this._aDirtyChanges.forEach(function(e){if(e.getFileType()==="change"){e.assignedToVariant=true}});this.getModel().oData[this.sVariantManagementReference].modified=false;this.getModel().checkUpdate(true);return Promise.resolve()};n.prototype.undo=function(){this._aDirtyChanges.forEach(function(e){if(e.getFileType()==="change"){e.assignedToVariant=false}});this.getModel().checkDirtyStateForControlModels([this.sVariantManagementReference]);return Promise.resolve()};return n});
+//# sourceMappingURL=ControlVariantSave.js.map

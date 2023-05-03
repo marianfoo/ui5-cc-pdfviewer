@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/dt/enablement/Test","sap/ui/dt/enablement/ElementEnablementTest"],function(e,t){"use strict";var r=e.extend("sap.ui.dt.enablement.report.LibraryReport",{metadata:{library:"sap.ui.dt",properties:{libraryName:{type:"string"},testData:{type:"object"}}}});r.prototype.run=function(){this._aResult=[];var e=this.getTestData()||{};var r=this.getLibraryName();var a=[];var n=sap.ui.getCore().getLoadedLibraries()[r];if(n){var i=n.controls;i.forEach(function(r){var n=e[r];if(!n&&n!==false){n={}}if(n!==false){n.type=r;var i=null;if(n.create){i=Object.assign({},n);delete i.create;n.groupPostfix="with create method"}a.push(new t(n));if(i){a.push(new t(i))}}})}var s=[];var u=function(e){if(e){s.push(e)}var t=a.shift();if(t){return t.run().then(function(e){t.destroy();return u(e)})}return Promise.resolve(s)};return u().then(function(e){var t=this.createSuite("Library Enablement Test");e.forEach(function(e){var r=e.children[0];var a=t.children[t.children.length-1];if(a&&r.name===a.name){a.children=a.children.concat(r.children)}else{t.children.push(r)}});t=this.aggregate(t);return t}.bind(this))};return r});
+//# sourceMappingURL=LibraryReport.js.map

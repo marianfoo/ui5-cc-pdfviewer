@@ -1,0 +1,1 @@
+{"version":3,"file":"ChangeStates.js","names":["sap","ui","define","ChangeStates","ACTIVATED","DRAFT","DIRTY","getDraftState","this"],"sources":["ChangeStates-dbg.js"],"mappings":";;;;;AAMAA,IAAIC,GAAGC,OAAO,GACX,WAEF,aAEA,IAAIC,EAAe,CAAC,EAEpBA,EAAaC,UAAY,YACzBD,EAAaE,MAAQ,QACrBF,EAAaG,MAAQ,QAOrBH,EAAaI,cAAgB,WAC5B,MAAO,CAACC,KAAKH,MAAOG,KAAKF,MAC1B,EAEA,OAAOH,CACR"}

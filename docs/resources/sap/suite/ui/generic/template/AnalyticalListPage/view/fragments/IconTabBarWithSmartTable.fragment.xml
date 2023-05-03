@@ -1,0 +1,56 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	template:require="sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews"
+	xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build">
+
+	<IconTabBar class="sapUiResponsiveContentPadding" id="{:= ${parameter>/stableId}.getStableId({type: 'QuickVariantSelectionX', subType: 'IconTabBar'})}"
+		 expandable="false" headerMode="Inline" stretchContentHeight="{= (${parameter>/templateSpecific/isResponsiveTable} ? false : true) }" selectedKey="{_templPriv>/alp/multipleViews/selectedKey}">
+		 <items>
+			<template:repeat list="{parameter>/templateSpecific/quickVariantSelectionX/variants}" var="viewItem">
+				<template:with path="viewItem>" helper="sap.suite.ui.generic.template.js.AnnotationHelper.getEntityType" var="entityType">
+					<IconTabFilter id="{:= ${parameter>/stableId}.getStableId({type: 'QuickVariantSelectionX', subType: 'IconTabFilter', sQuickVariantKey: ${viewItem>key}})}"
+						key="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}"
+						text="{parts: [{path: 'parameter>/settings/quickVariantSelectionX'}, {path: 'viewItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getTextForItemAnalyticalListPage'}">
+						<customData>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.MultipleViewsItemCustomData" type="XML"/>
+						</customData>
+					</IconTabFilter>
+				</template:with>
+			</template:repeat>
+		</items>
+		<content>
+			<MessageStrip
+				id="{:= ${parameter>/stableId}.getStableId({type: 'QuickVariantSelectionX', subType: 'IconTabMessageStrip'})}"
+				text="{parts:[{path: '_templPriv>/alp/multipleViews/implementingHelper/ignoredFilters'}, {path: '_templPriv>/alp/multipleViews/selectedKey'}],
+				formatter: '._templateFormatters.formatMessageStrip'}"
+				type="Information" showIcon="true" showCloseButton="true" class="sapUiSmallMargin"
+				visible="{= ${_templPriv>/alp/multipleViews/implementingHelper/ignoredFilters}.length > 0 &amp;&amp; !${_templPriv>/alp/customMessageType}}">
+			</MessageStrip>
+			<template:repeat list="{parameter>/templateSpecific/quickVariantSelectionX/variants}" var="tabItem">
+				<template:with path="tabItem>" helper="sap.suite.ui.generic.template.js.AnnotationHelper.getEntityType" var="entityType">
+					<template:with path="tabItem>" helper="sap.suite.ui.generic.template.js.AnnotationHelper.getEntitySet" var="entitySet">
+						<template:if test="{tabItem>isSmartChart}">
+							<template:then>
+								<template:with path="tabItem>" helper="sap.suite.ui.generic.template.js.AnnotationHelper.getChartAnnotationPath" var="chartAnnotationPath">
+									<template:with path="entitySet>dummy" var="facet">
+										<core:Fragment fragmentName="sap.suite.ui.generic.template.listTemplates.fragments.SmartChart" type="XML" />
+									</template:with>
+								</template:with>
+							</template:then>
+						<template:else>
+							<template:with path="tabItem>" helper="sap.suite.ui.generic.template.js.AnnotationHelper.getTableAnnotationPath" var="tableAnnotationPath">
+							    <template:with path="tabItem>tableSettings" var="tableSettings">
+									<core:Fragment fragmentName="sap.suite.ui.generic.template.listTemplates.fragments.DetailSmartTable" type="XML" />
+									<template:with path="tableSettings>createWithParameterDialog" var="createWithParameterDialog">
+										<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.CreateWithDialog" type="XML"/>
+									</template:with>
+								</template:with>
+							</template:with>
+						</template:else>
+						</template:if>
+					</template:with>
+				</template:with>
+			</template:repeat>
+		</content>
+	</IconTabBar>
+</core:FragmentDefinition>

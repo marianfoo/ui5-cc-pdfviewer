@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core"
+						 xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+
+	<VBox id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::ContactAddress"
+		  visible="{= ${path: 'headerFacet>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}"
+		  displayInline="true" binding="{parts: [{path: 'headerFacet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+		  class="sapSmartTemplatesObjectPageHeaderAddress">
+		<template:if test="{headerFacet>Label}">
+			<Title id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+				   text="{path: 'headerFacet>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}:"
+				   class="sapSmartTemplatesObjectPageHeaderAddressLabel" />
+		</template:if>
+		<Text id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Address"
+			  class="sapSmartTemplatesObjectPageHeaderAddressValue"
+			  text="{path: 'contact>label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"></Text>
+	</VBox>
+
+</core:FragmentDefinition>

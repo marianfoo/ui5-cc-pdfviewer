@@ -1,0 +1,169 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+
+	<!-- Prepare facetId for stableId creation
+	Note: currently only used for AddressFacet, but intentionally placed here to be used by all other stable ids in future
+	-->
+	<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="facetId">
+		<template:if test="{= ${facetId>}.buildStableId({ type:'ObjectPage', subType:'EditableHeaderFacet', sRecordType: ${facet>RecordType}, sAnnotationPath: ${facet>Target/AnnotationPath} , sAnnotationId: ${facet>ID/String} }) }"/>
+
+		<template:with path="parameter>/manifest/sap.ui5/extends/extensions/sap.ui.viewExtensions/sap.suite.ui.generic.template.ObjectPage.view.Details"
+						var="manifestViewExtensions">
+			<template:if test="{parameter>/settings/simpleHeaderFacets}">
+				<template:then>
+	<!-- 		Before Simple Header Facet -->
+					<template:if test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Identification') >= 0} || ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') >= 0}">
+						<template:with path="facet>Target"
+									   helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="form">
+							<template:repeat list="{form>}" var="dataField">
+							<!-- 	Identification -->
+								<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointBeforeSimpleHeaderFacetExists' }">
+									<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::BeforeIdentificationExtensionEdit"
+										  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointBeforeSimpleHeaderFacet' }" >
+											<core:ExtensionPoint name="BeforeSimpleHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path:'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}" />
+									</VBox>
+								</template:if>
+							</template:repeat>
+							<template:repeat list="{form>Data}" var="dataField">
+							<!--	FieldGroup -->
+								<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointBeforeSimpleHeaderFacetExists' }">
+									<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::BeforeFGExtensionEdit"
+										  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointBeforeSimpleHeaderFacet' }" >
+											<core:ExtensionPoint name="BeforeSimpleHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path:'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}" />
+									</VBox>
+								</template:if>
+							</template:repeat>
+						</template:with>
+					</template:if>
+					<template:if test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') >= 0}">
+						<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataPoint">
+							<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointBeforeSimpleHeaderFacetExists' }">
+								<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}::BeforeDPExtensionEdit"
+									  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointBeforeSimpleHeaderFacet' }" >
+										<core:ExtensionPoint name="BeforeSimpleHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path:'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}" />
+								</VBox>
+							</template:if>
+						</template:with>
+					</template:if>
+				</template:then>
+				<template:else>
+	<!-- 			Before Standard Header Facet -->
+					<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointBeforeHeaderFacetExists'}">
+						<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::BeforeExtensionEdit"
+							  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointBeforeHeaderFacet'}" class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+							<core:ExtensionPoint name="BeforeHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}" />
+						</VBox>
+					</template:if>
+				</template:else>
+			</template:if>
+		<!--
+			isMultiple will return false if there is no navigation property. As we want to create a FacetForm
+			in case of no navigation property in annotation path and if navigation property and isMultiple false
+			we only check for isMultiple
+		-->
+			<template:if test="{path: 'facet>Target', formatter: 'sap.ui.model.odata.AnnotationHelper.isMultiple'}">
+				<template:then>
+					<template:if test="{=${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') > -1}">
+		                <template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointReplaceHeaderFacetExists' }">
+			                <template:then>
+			                    <VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::ReplaceContactExtensionEdit"
+			                          visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointReplaceHeaderFacet' }" >
+			                            <core:ExtensionPoint name="ReplaceHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}" />
+			                    </VBox>
+			                </template:then>
+			                <template:else>
+			                    <core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.Contacts" type="XML"/>
+			                </template:else>
+		                </template:if>
+		            </template:if>
+				</template:then>
+				<template:elseif test="{= ${facet>RecordType}.indexOf('com.sap.vocabularies.UI.v1.CollectionFacet') > -1 ||
+											(${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') > -1
+										     || ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Identification') > -1) }">
+					<template:with path="parameter>/variables" helper="AH.getNewVariable" var="block">
+						<template:if test="{= ${block>}.set(${path: 'facet>', formatter: 'AH.getBlockForEditableHeaderFacet'})}"/> 
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartForm" type="XML"/>
+					</template:with>
+				</template:elseif>
+				<template:elseif test="{=  ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Address') > -1 }">
+					<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="address">
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.AddressFacet" type="XML"/>
+					</template:with>
+				</template:elseif>
+				<template:elseif test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') > -1 }">
+					<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataPoint">
+						<template:if test="{= ${dataPoint>Visualization/EnumMember}.indexOf('com.sap.vocabularies.UI.v1.VisualizationType/Rating') >= 0 }">
+							<template:then>
+								<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointReplaceSimpleHeaderFacetExists' }">
+								<!--	Replace rating indicator in case of simple header in edit mode-->
+									<template:then>
+										<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}::ReplaceDPExtensionEdit"
+											visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointReplaceSimpleHeaderFacet' }" >
+												<core:ExtensionPoint name="ReplaceSimpleHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path:'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}"/>
+										</VBox>
+									</template:then>
+									<template:else>
+										<template:with path="facet>" var="ratingFacet">
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.RatingIndicatorFacet" type="XML"/>
+										</template:with>
+									</template:else>
+								</template:if>
+							</template:then>
+							<template:else>
+								<template:with path="parameter>/variables" helper="AH.getNewVariable" var="block">
+									<template:if test="{= ${block>}.set(${path: 'facet>', formatter: 'AH.getBlockForEditableHeaderFacet'})}"/> 
+									<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartForm" type="XML"/>
+								</template:with>
+							</template:else>
+						</template:if>
+					</template:with>
+				</template:elseif>
+			</template:if>
+			<template:if test="{parameter>/settings/simpleHeaderFacets}">
+				<template:then>
+	<!-- 		After Simple Header Facet -->
+					<template:if test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.Identification') >= 0} || ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') >= 0}">
+						<template:with path="facet>Target"
+									   helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="form">
+							<template:repeat list="{form>}" var="dataField">
+								<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointAfterSimpleHeaderFacetExists' }">
+									<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::AfterIdentificationExtensionEdit"
+										  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointAfterSimpleHeaderFacet' }" >
+											<core:ExtensionPoint name="AfterSimpleHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path:'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}" />
+									</VBox>
+								</template:if>
+							</template:repeat>
+							<template:repeat list="{form>Data}" var="dataField">
+								<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointAfterSimpleHeaderFacetExists' }">
+									<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}::AfterFGExtensionEdit"
+										  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointAfterSimpleHeaderFacet' }" >
+											<core:ExtensionPoint name="AfterSimpleHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path:'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}" />
+									</VBox>
+								</template:if>
+							</template:repeat>
+						</template:with>
+					</template:if>
+					<template:if test="{= ${facet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') >= 0}">
+						<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataPoint">
+							<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointAfterSimpleHeaderFacetExists' }">
+								<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path: 'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}::AfterDPExtensionEdit"
+									  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointAfterSimpleHeaderFacet' }" >
+										<core:ExtensionPoint name="AfterSimpleHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::{path:'dataPoint>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataPoint'}" />
+								</VBox>
+							</template:if>
+						</template:with>
+					</template:if>
+				</template:then>
+				<template:else>
+	<!-- 		After Standard Header Facet -->
+					<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.extensionPointAfterHeaderFacetExists'}">
+						<VBox id="header::{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::AfterExtensionEdit"
+							  visible="{parts: [{path: 'entitySet>name'}, {path: 'facet>'}, {path: 'manifestViewExtensions>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getVisibilityForExtensionPointAfterHeaderFacet'}" class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+							<core:ExtensionPoint name="AfterHeaderFacet|{entitySet>name}|{path: 'facet>' , formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}" />
+						</VBox>
+					</template:if>
+				</template:else>
+			</template:if>
+		</template:with>
+	</template:with>
+</core:FragmentDefinition>

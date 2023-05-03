@@ -1,0 +1,149 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:cssgrid="sap.ui.layout.cssgrid"
+    xmlns:f="sap.f"
+    core:require="{
+      formatMessage: 'sap/base/strings/formatMessage'
+    }">
+    <Dialog
+        id="sapCepContentFinderDialog"
+        contentWidth="64.5rem"
+        contentHeight="80%"
+        resizable="true"
+        closeOnNavigation="true"
+        class="sapUiNoContentPadding sapUiSizeCompact"
+        horizontalScrolling="false"
+        verticalScrolling="false"
+        afterClose=".afterClose">
+
+        <customHeader>
+            <OverflowToolbar>
+                <Button icon="sap-icon://nav-back"
+                        id="sapCepContentFinderBackButton"
+                        visible="{= ${/currentPageIndex} !== 0 &amp;&amp; !${/restrictedMode}}"
+                        press=".navigate(0)"/>
+                <Title text="{
+                    parts: ['/currentPageIndex','/selectedWidget'],
+                    formatter: '.titleFormatter'
+                }" />
+                <ToolbarSpacer />
+                <Button text="{i18n>ContentFinder.Button.ToggleSidebar}" visible="{= ${/currentBreakpoint} === 'S'}" press=".handleToggle"/>
+            </OverflowToolbar>
+        </customHeader>
+
+        <content>
+            <NavContainer id="sapCepContentFinderNavContainer" afterNavigate=".afterNavigate">
+                <Page id="sapCepContentFinderCategoryPage"
+                        showHeader="false"
+                        showFooter="false"
+                        showSubHeader="false"
+                        enableScrolling="true">
+                    <VBox class="sapCepContentFinderBeginEndPadding">
+                        <OverflowToolbar asyncMode="true" style="Clear" class="sapCepContentFinderToolbar">
+                            <Title titleStyle="H5" text="{/currentCategory/title}"/>
+                            <ToolbarSpacer/>
+                        </OverflowToolbar>
+
+                        <VBox
+                            class="sapCepContentFinderCategoriesContainer"
+                            items="{
+                                path: '/currentCategory/categories',
+                                templateShareable: false,
+                                key: 'id'
+                            }">
+                            <customData>
+                                <core:CustomData
+                                    key="displayCategory"
+                                    value="{= ${/currentCategory/categories}.length > 1 ? 'multiple' : 'single'}"
+                                    writeToDom="true"/>
+                            </customData>
+                            <VBox class="sapUiTinyMarginBottom">
+                                <OverflowToolbar asyncMode="true" style="Clear" class="sapCepContentFinderToolbar" visible="{= !!${title}}">
+                                    <Title titleStyle="H6" text="{title}" />
+                                </OverflowToolbar>
+                                <f:GridList
+                                    id="sapCepContentFinderGridList"
+                                    mode="None"
+                                    items="{
+                                        path: 'widgets',
+                                        templateShareable: false,
+                                        key: 'id'
+                                    }">
+                                    <f:customLayout>
+                                        <cssgrid:GridResponsiveLayout containerQuery="true">
+                                            <cssgrid:layout>
+                                                <cssgrid:GridSettings gridGap="1.5rem"
+                                                                        gridTemplateColumns="repeat(2, 40rem)"
+                                                                        gridAutoRows="5rem"/>
+                                            </cssgrid:layout>
+                                            <cssgrid:layoutL>
+                                                <cssgrid:GridSettings gridGap="1.5rem"
+                                                                        gridTemplateColumns="repeat(2, 40rem)"
+                                                                        gridAutoRows="5rem"/>
+                                            </cssgrid:layoutL>
+                                            <cssgrid:layoutM>
+                                                <cssgrid:GridSettings gridGap="1.5rem"
+                                                                        gridTemplateColumns="repeat(2, 29.5rem)"
+                                                                        gridAutoRows="5rem"/>
+                                            </cssgrid:layoutM>
+                                            <cssgrid:layoutS>
+                                                <cssgrid:GridSettings gridGap="1.5rem"
+                                                                        gridTemplateColumns="16rem"
+                                                                        gridAutoRows="5rem"/>
+                                            </cssgrid:layoutS>
+                                        </cssgrid:GridResponsiveLayout>
+                                    </f:customLayout>
+
+                                    <f:GridListItem type="Active" press=".selectWidgetType">
+                                        <HBox alignItems="Center" height="100%" class="sapUiSmallMarginEnd">
+
+                                            <Avatar src="{icon}" class="sapUiSmallMarginEnd sapUiSmallMarginBegin"
+                                                    backgroundColor="Placeholder">
+                                                <layoutData>
+                                                    <FlexItemData maxHeight="3rem" />
+                                                </layoutData>
+                                            </Avatar>
+
+                                            <VBox>
+                                                <Title text="{title}" titleStyle="H6" wrapping="true" />
+                                                <Label text="{description}" visible="{= !!${description}}" wrapping="true" />
+                                            </VBox>
+                                        </HBox>
+                                    </f:GridListItem>
+                                </f:GridList>
+                            </VBox>
+
+                        </VBox>
+                    </VBox>
+                </Page>
+
+                <Page showFooter="false" showHeader="false" id="sapCepContentFinderWidgetPage">
+                     <core:ComponentContainer
+                        height="100%"
+                        usage="ContentFinderAppSearch"
+                        manifest="true"
+                        propagateModel="true"
+                        componentCreated=".onAppBoxContainerCreated"
+                        lifecycle="Application"
+                        async="true"
+                        name="sap.ushell.components.contentFinderAppSearch"/>
+                </Page>
+            </NavContainer>
+        </content>
+        <beginButton>
+            <Button id="sapCepContentFinderAddButton"
+                    type="Emphasized"
+                    visible="{= ${/selectedWidget} === 'widgets-tiles'}"
+                    text="{parts: [{path: 'i18n>ContentFinder.Dialog.Button.Add'}, {path: '/selectedAppCount'}],
+                    formatter: 'formatMessage'
+                    }"
+                    enabled="{= ${/selectedAppCount} > 0}"
+                    press=".addWidget"/>
+        </beginButton>
+        <endButton>
+            <Button id="sapCepContentFinderCancelButton" text="{i18n>ContentFinder.Button.Cancel}" press=".close"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

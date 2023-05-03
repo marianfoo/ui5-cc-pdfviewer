@@ -1,0 +1,6 @@
+/*!
+ * SAPUI5
+ * (c) Copyright 2009-2022 SAP SE. All rights reserved.
+ */
+sap.ui.define(["sap/ui/comp/library","sap/m/ComboBox","sap/m/ComboBoxRenderer"],function(e,t,r){"use strict";var i="00000000-0000-0000-0000-000000000000";function a(e){return e===i}var s=t.extend("sap.ui.comp.smartfield.ComboBox",{metadata:{library:"sap.ui.comp",properties:{enteredValue:{type:"string",group:"Data",defaultValue:""},realValue:{type:"string",group:"Data",defaultValue:""}}},renderer:r});s.prototype.init=function(){t.prototype.init.apply(this,arguments);this.attachChange(function(){var e=this.getSelectedKey(),t=e?e:this.getValue();if(!e&&this.getItemByKey(t)){this.setSelectedKey(t)}this.setProperty("realValue",t)}.bind(this))};s.prototype.setRealValue=function(e){this.setValue(e);this.setSelectedKey(e);return this.setProperty("realValue",e)};s.prototype.setEnteredValue=function(e){if(typeof e!=="undefined"){this.setSelectedKey(e)}var t=this.getSelectedItem();if(e&&!t&&!a(e)){this.setValue(e)}var r=t?this.getSelectedKey():this.getValue();this.setProperty("enteredValue",r);return this};return s});
+//# sourceMappingURL=ComboBox.js.map

@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core">
+
+    <template:repeat list="{collection>}" var="dataField">
+        <template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' &amp;&amp; ${dataField>com.sap.vocabularies.UI.v1.IsCopyAction/Bool} !== 'true') || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation'}">
+            <template:if test="{= ${dataField>Inline/Bool} !== 'true' &amp;&amp; ${dataField>Determining/Bool} !== 'true'}">
+                <template:then>
+                    <core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.ToolbarButton" type="XML"/>
+                </template:then>
+            </template:if>
+        </template:if>
+
+        <template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation'}">
+            <template:then>
+                <template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') >= 0}">
+                    <template:then>
+                        <template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+                            <!-- TODO Replace with if test="{dataFieldTarget>Data} if no other conditions to be added "-->
+                            <template:if test="{= ${dataFieldTarget>Data} !== undefined &amp;&amp; Object.keys(${dataFieldTarget>Data}).length > 0 }">
+                                <template:repeat list="{dataFieldTarget>Data}" var="dataField">
+                                    <template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation'}">
+                                        <template:if test="{= ${dataField>Inline/Bool} !== 'true' &amp;&amp; ${dataField>Determining/Bool} !== 'true'}">
+                                            <template:then>
+                                                <core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.ToolbarButton" type="XML"/>
+                                            </template:then>
+                                        </template:if>
+                                    </template:if>
+                                </template:repeat>
+                            </template:if>
+                        </template:with>
+                    </template:then>
+                </template:if>
+            </template:then>
+        </template:if>
+    </template:repeat>
+
+</core:FragmentDefinition>

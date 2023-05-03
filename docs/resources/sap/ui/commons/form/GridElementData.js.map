@@ -1,0 +1,1 @@
+{"version":3,"file":"GridElementData.js","names":["sap","ui","define","library","LayoutGridElementData","GridElementData","extend","metadata","deprecated"],"sources":["GridElementData-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAC,yBAA0B,sCACxC,SAASC,EAASC,GAClB,aAyBA,IAAIC,EAAkBD,EAAsBE,OAAO,sCAAmG,CAAEC,SAAW,CAElKC,WAAa,KACbL,QAAU,oBAIX,OAAOE,CAER"}

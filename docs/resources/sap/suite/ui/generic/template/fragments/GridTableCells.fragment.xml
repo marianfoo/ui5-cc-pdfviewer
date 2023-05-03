@@ -1,0 +1,129 @@
+<core:FragmentDefinition
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smartField="sap.ui.comp.smartfield" xmlns="sap.m" xmlns:build="sap.build"
+	xmlns:table="sap.ui.table" xmlns:core="sap.ui.core"
+	xmlns:navpopover="sap.ui.comp.navpopover"
+	xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
+	template:require="sap.suite.ui.generic.template.listTemplates.AnnotationHelper"
+    xmlns:fe="sap.suite.ui.generic.template.genericUtilities">
+    <template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+        <template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithIntentBasedNavigation')}">
+            <!-- template for DataFieldWithIntentBasedNavigation -->
+            <template:then>
+                <fe:Link
+                    text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLinkTextForDFwithIBN'}"
+                    press="._templateEventHandlers.onDataFieldWithIntentBasedNavigation"
+                    wrapping="false">
+                    <fe:customData>
+                        <core:CustomData key="SemanticObject" value="{path: 'dataField>SemanticObject', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+                        <core:CustomData key="Action" value="{path: 'dataField>Action', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+                    </fe:customData>
+                </fe:Link>
+            </template:then>
+            <template:elseif test="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperStreamSupport.checkIfEntityOrAssociationHasStreamEnabled'}">
+                <template:with path="listEntityType>" helper="AHModel.resolvePath" var="entityType">
+                    <core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.FileUploader" type="XML"/>	
+                </template:with>
+            </template:elseif>	
+            <template:elseif test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField')}">
+               <smartField:SmartField value="{path: 'dataField>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.simplePath'}" editable="false" contextEditable="false" fetchValueListReadOnly="false"
+                    ariaLabelledBy="{columnId>id}">
+                    <smartField:configuration>
+                        <smartField:Configuration displayBehaviour="{parts: [{path: 'dataField>'}, {path: 'entitySet>'}, {path: 'dataFieldTarget>Data'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTextArrangementForSCFields'}"/>
+                    </smartField:configuration>
+                    <template:if test="{= ${dataField>Criticality}}">
+                        <smartField:controlProposal>
+                            <smartField:ControlProposal>
+                                <smartField:objectStatus>
+                                    <smartField:ObjectStatus criticality="{path: 'dataField>Criticality', formatter: 'sap.ui.model.odata.AnnotationHelper.simplePath'}"
+                                                            criticalityRepresentationType="{= (${dataField>CriticalityRepresentation/EnumMember} === 'com.sap.vocabularies.UI.v1.CriticalityRepresentationType/WithoutIcon') ? 'WithoutIcon' : 'WithIcon'}"
+                                                            ariaLabelledBy="{columnId>id}"/>
+                                </smartField:objectStatus>
+                            </smartField:ControlProposal>
+                        </smartField:controlProposal>
+                    </template:if>
+                </smartField:SmartField>
+            </template:elseif>
+            <!-- template for DataFieldForAction and DataFieldForIntentBasedNavigation -->
+            <template:elseif test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Inline/Bool} === 'true'}" >
+                <core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.InlineButton" type="XML" />
+            </template:elseif>
+
+            <!-- ObjectPage Self-Linking.  Template for DataFieldWithNavigationPath-->
+            <template:elseif test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithNavigationPath')}">
+                <smartField:SmartField value="{path: 'dataField>Value', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDataFieldValueSimplePath'}"
+                     editable="{ui>/editable}" press="._templateEventHandlers.onDataFieldWithNavigationPath">
+                    <smartField:customData>
+                        <core:CustomData key="Target" value="{dataField>Target/NavigationPropertyPath}" />
+                    </smartField:customData>
+                    <smartField:configuration>
+					<smartField:Configuration displayBehaviour="{parts: [{path: 'dataField>'}, {value: ''}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTextArrangementForSmartControl'}" />
+				</smartField:configuration>
+                </smartField:SmartField>
+            </template:elseif>
+
+            <template:elseif test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation'}">
+                 <!--	Handle ContactPopUpOver	 -->
+                <template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') >= 0}">
+                    <template:then>
+                        <template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="contact">
+                        <VBox>
+                            <fe:Link binding="{= ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/') > -1 ? '{' + ${path: 'dataField>Target/AnnotationPath'}.slice(0, ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/')) + '}' : null}"
+                                        text="{path: 'contact>fn', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+                                        press="._templateEventHandlers.onContactDetails">
+                                <fe:customData>
+                                    <core:CustomData key="Location" value="SmartTable"/>
+                                    <core:CustomData key="contactDetails" value="{= ${path: 'contact>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getCustomDataForContactPopup'}}"/>
+                                </fe:customData>
+                            </fe:Link>
+                        </VBox>
+                        </template:with>
+                    </template:then>
+                    <template:elseif test="{= ${dataFieldTarget>Visualization/EnumMember} === 'com.sap.vocabularies.UI.v1.VisualizationType/Rating'}">
+                      <template:with path="dataFieldTarget>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="value">
+							<!--Due to SideEffect issues the RatingIndicator is not editable -->
+							<!-- Rating Indicator Control -->
+						  <RatingIndicator
+								enabled="true" editable="false" maxValue="{path: 'dataFieldTarget>TargetValue', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+								binding="{= ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/') > -1 ? '{' + ${path: 'dataField>Target/AnnotationPath'}.slice(0, ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/')) + '}' : null}"
+								value="{path: 'dataFieldTarget>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" width="16px" />
+					   </template:with>
+					</template:elseif>
+                    <template:elseif test="{= ${dataFieldTarget>Visualization/EnumMember} === 'com.sap.vocabularies.UI.v1.VisualizationType/Progress'}">
+                        <template:with path="dataFieldTarget>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="value">
+                        <!-- Progress Bar Control -->
+                            <ProgressIndicator
+                                        binding="{= ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/') > -1 ? '{' + ${path: 'dataField>Target/AnnotationPath'}.slice(0, ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/')) + '}' : null}"
+                                        percentValue="{ parts: [{path:'dataFieldTarget>'}, {path:'value>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildExpressionForProgressIndicatorPercentValue' }"
+                                        displayValue="{ parts: [{path:'dataFieldTarget>'}, {path:'value>Org.OData.Measures.V1.Unit'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildExpressionForProgressIndicatorDisplayValue'}"
+                                        state="{path:'dataFieldTarget>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildExpressionForProgressIndicatorCriticality'}">
+                                <customData>
+                                    <core:CustomData key="Target" value="{= ${path: 'dataFieldTarget>TargetValue', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} }" />
+                                    <core:CustomData key="UoM" value="{= ${path: 'valueProperty>Org.OData.Measures.V1.Unit', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} }" />
+                                </customData>
+                            </ProgressIndicator>
+                        </template:with>
+                    </template:elseif>
+                </template:if>
+            </template:elseif>
+        </template:if>
+       <template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField'}">
+            <template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+                <template:if test="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.checkMultiplicityForDataFieldAssociationInTable'}">
+                    <smartMultiInput:SmartMultiInput
+                        visible="true"
+                        editable="{tableobserver>/editable}"
+                        enableODataSelect="true"
+                        clientSideMandatoryCheck="false"
+                        tokenUpdate="._templateEventHandlers.submitChangesForSmartMultiInput"
+                        selectionFinish="._templateEventHandlers.submitChangesForSmartMultiInput"
+                        value="{path: 'dataField>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.simplePath'}"
+                        textLabel="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDataFieldLabel'}"
+                        fetchValueListReadOnly="false"/>
+                </template:if>
+            </template:with>
+	    </template:if>
+    </template:with>
+
+</core:FragmentDefinition>

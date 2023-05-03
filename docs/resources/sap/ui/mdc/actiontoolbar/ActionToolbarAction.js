@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/core/Control","sap/ui/mdc/actiontoolbar/ActionToolbarActionRenderer","sap/ui/mdc/enum/ActionToolbarActionAlignment"],function(t,e,o){"use strict";var n=t.extend("sap.ui.mdc.actiontoolbar.ActionToolbarAction",{metadata:{library:"sap.ui.mdc",designtime:"sap/ui/mdc/designtime/actiontoolbar/ActionToolbarAction.designtime",interfaces:["sap.m.IOverflowToolbarContent"],properties:{layoutInformation:{type:"object",defaultValue:{aggregationName:"end",alignment:o.Begin}}},defaultAggregation:"action",aggregations:{action:{type:"sap.ui.core.Control",multiple:false}}},renderer:e});n.prototype.getOverflowToolbarConfig=function(){var t={canOverflow:true};t.onBeforeEnterOverflow=this._onBeforeEnterOverflow.bind(this);t.onAfterExitOverflow=this._onAfterExitOverflow.bind(this);return t};n.prototype._onBeforeEnterOverflow=function(){if(this.getParent()){this.getParent()._updateSeparators()}};n.prototype._onAfterExitOverflow=function(){if(this.getParent()){this.getParent()._updateSeparators()}};n.prototype.getLabel=function(){var t=this.getAction();return t&&t.getText?t.getText():this.getId()};return n});
+//# sourceMappingURL=ActionToolbarAction.js.map

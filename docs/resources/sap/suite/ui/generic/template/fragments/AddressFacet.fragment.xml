@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:sfi="sap.ui.comp.smartfield"
+                         xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+                         xmlns="sap.m" xmlns:core="sap.ui.core">
+
+	<VBox displayInline="true"
+	      binding="{parts: [{path: 'facet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}" >
+		 <template:if test="{facet>Label}">
+			<sfi:SmartLabel id="{:= ${parameter>/stableId}.getStableId({ type:'ObjectPageSection', subType:'AddressLabel', sFacet: ${facetId>id}}) }"
+			                text="{path: 'facet>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}:"
+			                labelFor="{:= ${parameter>/stableId}.getStableId({ type:'ObjectPageSection', subType:'AddressValue', sFacet: ${facetId>id}}) }"/>
+		 </template:if>
+		<template:if test="address>label}">
+			<!-- same coding for SmartField is used in SmartFormDataField.fragment.xml -->
+			<sfi:SmartField id="{:= ${parameter>/stableId}.getStableId({ type:'ObjectPageSection', subType:'AddressValue', sFacet: ${facetId>id}}) }"
+				value="{path: 'address>label', formatter: 'sap.ui.model.odata.AnnotationHelper.simplePath'}"/>
+		</template:if>
+	</VBox>
+
+</core:FragmentDefinition>

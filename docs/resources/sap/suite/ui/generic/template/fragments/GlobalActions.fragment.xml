@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+		xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core">
+
+	<template:if test="{= ${tmpEntitySet>EntitySet} === ${parameter>/entitySet} }">
+		<template:repeat list="{tmpEntitySet>Actions}" var="customAction">
+			<template:if test="{= ${customAction>global} === true}">
+				<Button id="{:= ${parameter>/stableId}.getStableId({type: 'Action', subType: 'Global', sAction: ${customAction>id}}) }"
+					text="{customAction>text}"
+					press="{= ${customAction>command} ? 'cmd:' + ${customAction>command} : ${customAction>press} }"
+					type="Default">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="{customAction>importance}"/>
+					</layoutData>
+				</Button>
+			</template:if>
+		</template:repeat>
+	</template:if>
+</core:FragmentDefinition>

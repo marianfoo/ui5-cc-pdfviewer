@@ -1,0 +1,132 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:smartForm="sap.ui.comp.smartform"
+	xmlns:c="sap.ui.core"
+	controllerName="sap.suite.ui.generic.template.QuickCreate.view.QuickCreate"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smart="sap.ui.comp.smartfield"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:semantic="sap.m.semantic">
+
+	<BusyIndicator visible="{ui>/busy}" class="sapQuickActionCenteredBusyIndicator"></BusyIndicator>
+
+	<FlexBox visible="{= !${quickCreate>/draftExists}}" class="sapQuickActionCenteredBusyIndicator" width="100%" alignItems="Center" justifyContent="Center">
+		<Text text="{i18n>QuickCreate_Draft_Not_Existing}"/>
+	</FlexBox>
+	<FlexBox visible="{= !${ui>/enabled}}" class="sapQuickCreateLockedMessage" width="100%" alignItems="Left" justifyContent="Left">
+		<Text text="{parts: [{path: 'i18n>QuickCreate_Disabled'}, {path: 'quickCreate>/quickCreateUser'}], formatter: '.formatI18NMessage'}"/>
+	</FlexBox>
+
+	<Panel class="quickCreatePanel">
+		<headerToolbar>
+			<Toolbar>
+				<FlexBox class="sapQuickCreateTitle" width="100%" alignItems="Left" justifyContent="Left">
+					<template:with path="entitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="entityType">
+						<template:with path="entityType>com.sap.vocabularies.UI.v1.QuickCreateFacets" helper="sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.resolveFieldGroupTarget" var="target">
+							<Title text="{path: 'target>Label', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatWithExpandSimple'}"/>
+						</template:with>
+					</template:with>
+				</FlexBox>
+			</Toolbar>
+		</headerToolbar>
+		<content>
+			<VBox class="quickTemplateVBox">
+				<template:with path="entitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="entityType">
+					<template:with path="entityType>com.sap.vocabularies.UI.v1.QuickCreateFacets" helper="sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.resolveFieldGroupTarget" var="target">
+						<smartForm:SmartForm id="QuickCreateSmartForm"
+							editable="true"
+							visible="{quickCreate>/draftExists}"
+							 class="quickCreateSmartFieldPadding">
+							<smartForm:layout>
+								<smartForm:Layout
+									labelSpanXL="4"
+									labelSpanL="3"
+									labelSpanM="4"
+									labelSpanS="12"
+									emptySpanXL="0"
+									emptySpanL="4"
+									emptySpanM="0"
+									emptySpanS="0"
+									columnsXL="2"
+									columnsL="1"
+									columnsM="1"/>
+							</smartForm:layout>
+							<template:repeat list="{target>Data}" var="dataField">
+								<smartForm:Group>
+									<smartForm:GroupElement>
+										<smart:SmartField
+											id="field::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}"
+											editable="true"
+											clientSideMandatoryCheck="false"
+											contextEditable="true"
+											change=".onChange"
+											value="{path: 'dataField>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+											innerControlsCreated="onSmartFieldsCreated"
+											width="100%"/>
+									</smartForm:GroupElement>
+								</smartForm:Group>
+							</template:repeat>
+						</smartForm:SmartForm>
+					</template:with>
+					<template:with path="entityType>com.sap.vocabularies.UI.v1.QuickCreateFacets" helper="sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.resolveLineItemFacet" var="facet">
+						<template:if test="{path: 'facet>Target', formatter: 'sap.ui.model.odata.AnnotationHelper.isMultiple'}">
+							<template:then>
+								<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="target">
+									<HBox visible="{quickCreate>/draftExists}" width="100%" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginEnd sapQuickCreateLineItemTable">
+										<Table
+											updateStarted="onTableUpdateStarted"
+											updateFinished="onTableUpdateFinished"
+											backgroundDesign="Translucent"
+											items="{parts:[{path:'entitySet>entityType'}, {path: 'parameter>/isDraftEnabled'}], formatter: 'sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.formatBindingPathForLineItems'}">
+											<headerToolbar>
+												<Toolbar>
+													<Title text="{path: 'facet>Label', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatWithExpandSimple'}" level="h6"/>
+													<ToolbarSpacer/>
+													<Button icon="sap-icon://add" press="onAddLineItemPress" visible="{ui>/enabled}"/>
+												</Toolbar>
+											</headerToolbar>
+											<columns>
+												<template:repeat list="{target>}" var="dataField">
+													<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+														<Column>
+															<Text tooltip="{path:'dataFieldValue>com.sap.vocabularies.Common.v1.QuickInfo', formatter: 'sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.getTooltip'}"
+																													  text="{= ${dataField>Label} ? ${path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} : ${path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}}"/>
+														</Column>
+													</template:with>
+												</template:repeat>
+												<Column width="20px">
+													<Text text=""/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem class="hoverRow">
+													<cells>
+														<template:repeat list="{target>}" var="columnItemFieldValue">
+															<smart:SmartField
+																editable="true"
+																clientSideMandatoryCheck="false"
+																contextEditable="true"
+																value="{path: 'columnItemFieldValue>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+																change=".onChange"
+																innerControlsCreated="onSmartFieldsCreated"/>
+														</template:repeat>
+														<c:Icon visible="{ui>/enabled}" src="sap-icon://delete" class="hoverIcon" press="onRemoveLineItemPress" tooltip="{i18n>QuickCreate_DeleteLineItem}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</HBox>
+								</template:with>
+							</template:then>
+						</template:if>
+					</template:with>
+				</template:with>
+			</VBox>
+		</content>
+	</Panel>
+	<HBox visible="{quickCreate>/draftExists}" width="100%" alignItems="Center" justifyContent="Center" class="sapQuickActionCreateButtonContainer">
+		<Button enabled="{ui>/createenabled}" type="Emphasized" text="{i18n>QuickCreate_CreateButtonText}" press="onCreatePress" visible="{ui>/enabled}"/>
+	</HBox>
+
+</mvc:View>

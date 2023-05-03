@@ -1,0 +1,117 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core"
+	xmlns:fesr="http://schemas.sap.com/sapui5/extension/sap.ui.core.FESR/1"
+	template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+	<!-- @classdesc @name: Name: sap.suite.ui.generic.template.ListReport.view.fragments.CRUDActionButtons.fragment.xml -->
+	<template:if test="{= ${listEntitySet>Org.OData.Capabilities.V1.InsertRestrictions/Insertable/Bool} !== 'false' || ${parameter>/templateSpecific/bNewAction} || ${parts: [{path: 'listEntitySet>name'}, {path: 'parameter>/settings/subPages/'}, {path: 'facet>Target/AnnotationPath'}], formatter: 'AH.getCreateNavigationIntent'}}">
+		<template:then>
+			<template:if test="{= !!${parameter>/settings/createWithFilters} }">
+				<template:then>
+					<template:with path="tableSettings>commandExecution/Create" var="createAction">
+						<template:with path="tableSettings>commandExecution/CreateWithFilters" var="createWithFiltersAction">
+							<MenuButton text="{i18n>CREATE_OBJECT}" type="Transparent" id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportAction', subType: 'CreateMenu', sQuickVariantKey: ${tabItem>key}})}">
+								<menu>
+									<Menu>
+										<items>
+											<MenuItem text="{createAction>text}" tooltip="{createAction>text}" id="{createAction>id}" press="{createAction>press}" enabled="{createAction>enabled}" fesr:press="fe:create">
+												<template:if test="{= ${createAction>isStandardAction}}">
+													<customData>
+														<core:CustomData key="CrossNavigation" value="{parts: [{path: 'listEntitySet>name'}, {path: 'parameter>/settings/subPages/'}, {path: 'facet>Target/AnnotationPath'}], formatter: 'AH.getCreateNavigationIntent'}" />
+													</customData>
+												</template:if>
+											</MenuItem>
+											<MenuItem text="{createWithFiltersAction>text}" tooltip="{createWithFiltersAction>text}" id="{createWithFiltersAction>id}" enabled="{createWithFiltersAction>enabled}" press="{createWithFiltersAction>press}"  fesr:press="fe:createWithFilters">
+												<template:if test="{= ${createWithFiltersAction>isStandardAction}}">
+													<customData>
+														<core:CustomData key="CrossNavigation" value="{parts: [{path: 'listEntitySet>name'}, {path: 'parameter>/settings/subPages/'}, {path: 'facet>Target/AnnotationPath'}], formatter: 'AH.getCreateNavigationIntent'}" />
+													</customData>
+												</template:if>
+											</MenuItem>
+										</items>
+									</Menu>
+								</menu>
+							</MenuButton>
+						</template:with>
+					</template:with>
+				</template:then>
+				<template:else>
+					<template:with path="tableSettings>commandExecution/Create" var="createAction">
+						<Button text="{createAction>text}" type="Transparent" id="{createAction>id}" press="{createAction>press}" enabled="{createAction>enabled}" fesr:press="fe:create">
+							<template:if test="{= ${createAction>isStandardAction} }">
+								<customData>
+									<core:CustomData key="CrossNavigation" value="{parts: [{path: 'listEntitySet>name'}, {path: 'parameter>/settings/subPages/'}, {path: 'facet>Target/AnnotationPath'}], formatter: 'AH.getCreateNavigationIntent'}" />
+								</customData>
+							</template:if>
+						</Button>
+					</template:with>
+				</template:else>
+			</template:if>
+		</template:then>
+	</template:if>
+
+	<!-- dataFieldForActions annotated with isCopyAction -->
+	<template:if test="{path: 'collection>', formatter: 'AH.checkCopyActionValidity'}">
+		<template:repeat list="{collection>}" var="dataField">
+        	<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' &amp;&amp; ${dataField>com.sap.vocabularies.UI.v1.IsCopyAction/Bool} === 'true' &amp;&amp; ${dataField>Determining/Bool} !== 'true' &amp;&amp; ${dataField>Inline/Bool} !== 'true'}">
+                <template:then>
+					<Button
+						id="{parts: [{path: 'dataField>'}, {path: 'facet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartForDatafieldActionButton'}{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSuffixFromIconTabFilterKey'} : ''}{= (${chartItem>}) ? '::chart' : ''}"
+                		text="{= ${path: 'dataField>Label'} ? ${path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} : '{i18n>COPY}'}"
+                		press="._templateEventHandlers.onCallActionFromToolBar"
+                		type="Transparent"
+						fesr:press="fe:copy"
+                		visible="{= ${path: 'dataField>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : ${path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getActionButtonVisibility'}}"
+						enabled="{parts: [{path: 'dataField>'}, {path: 'facet>'}, {path: 'entityType>'}, {path: 'device>/system/phone'}, {path: 'tabItem>'},{path: 'chartItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildAnnotatedActionButtonEnablementExpression'}">
+                		<customData>
+                    		<core:CustomData key="Type" value="{dataField>RecordType}" />
+                    		<core:CustomData key="Action" value="{path: 'dataField>Action', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+                   			<core:CustomData key="Label" value="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+                    		<template:with path="dataField>Action" helper="sap.ui.model.odata.AnnotationHelper.gotoFunctionImport" var="action">
+	                   			<core:CustomData key="ActionFor" value="{action>sap:action-for}" />
+                    		</template:with>
+							<core:CustomData key="IsCopyAction" value="true" />
+                		</customData>
+					</Button>
+                </template:then>
+            </template:if>
+    	</template:repeat>
+	 </template:if>
+
+	<!-- Multi edit button-->
+	<template:if test="{= ${parameter>/settings/quickVariantSelectionX} ? ${tabItem>tableSettings>multiEdit/enabled} : ${parameter>/templateSpecific/tableSettings/multiEdit/enabled}}">
+		<customData>
+			<core:CustomData key="multiEditButtonId" value="{:= ${parameter>/stableId}.getStableId({type: 'ListReportAction', subType: 'MultiEdit', sQuickVariantKey: ${tabItem>key}})}" />
+		</customData>
+		<Button id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportAction', subType: 'MultiEdit', sQuickVariantKey: ${tabItem>key}})}"
+			text="{i18n>MULTI_EDIT}"
+			press="._templateEventHandlers.onMultiEditButtonPress"
+			ariaHasPopup="Dialog"
+			type="Transparent"
+			fesr:press="fe:multiEdit"
+			enabled="{_templPriv>/listReport/multiEditEnabled}">
+			<customData>
+				<core:CustomData key="Type" value="CRUDActionMultiEdit" />
+			</customData>
+		</Button>
+	</template:if>
+
+	<template:if test="{= ${tableSettings>type} === 'GridTable' || ${tableSettings>type} === 'ResponsiveTable' &amp;&amp; !${tableSettings>inlineDelete}}">
+		<template:if test="{parts: [{path: 'listEntitySet>Org.OData.Capabilities.V1.DeleteRestrictions'},{path: 'listEntitySet>'}, {value: 'Deletable'}], formatter: 'AH.areBooleanRestrictionsValidAndPossible'}">
+			<template:with path="tableSettings>commandExecution/Delete" var="deleteAction">
+				<template:if test="{= ${deleteAction>isStandardAction}}">
+					<customData>
+						<core:CustomData key="deleteButtonId" value="deleteEntry{= ${parameter>/settings/quickVariantSelectionX} ? ${path: 'tabItem>', formatter: 'AH.getSuffixFromIconTabFilterKey'} : ''}" />
+					</customData>
+				</template:if>
+				<Button id="{deleteAction>id}" text="{deleteAction>text}" press="{deleteAction>press}" type="Transparent" ariaHasPopup="Dialog" enabled="{deleteAction>enabled}"  fesr:press="fe:delete">
+					<template:if test="{= ${deleteAction>isStandardAction}}">
+						<customData>
+							<core:CustomData key="Type" value="CRUDActionDelete" />
+						</customData>
+					</template:if>
+				</Button>
+			</template:with>
+		</template:if>
+	</template:if>
+</core:FragmentDefinition>

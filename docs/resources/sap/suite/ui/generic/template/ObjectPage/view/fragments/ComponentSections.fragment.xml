@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns:uxap="sap.uxap" xmlns="sap.m">
+	<template:repeat list="{parameter>/treeNode/leadingComponents}" var="leadingComponent">
+		<uxap:ObjectPageSection id="{leadingComponent>sectionId}" title="{leadingComponent>title}" titleUppercase="false" titleLevel="H3">
+			<uxap:subSections>				
+				<template:repeat list="{leadingComponent>followingComponents}" var="followingComponent">
+					<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.EmbeddedSubSections" type="XML"/>
+				</template:repeat>
+			</uxap:subSections>
+		</uxap:ObjectPageSection>				
+	</template:repeat>
+</core:FragmentDefinition>

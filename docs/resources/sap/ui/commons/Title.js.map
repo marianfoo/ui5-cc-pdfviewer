@@ -1,0 +1,1 @@
+{"version":3,"file":"Title.js","names":["sap","ui","define","library","CoreTitle","Title","extend","metadata","deprecated"],"sources":["Title-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAC,YAAa,qBAC3B,SAASC,EAASC,GAClB,aAuBA,IAAIC,EAAQD,EAAUE,OAAO,uBAAqE,CAAEC,SAAW,CAE9GC,WAAa,KACbL,QAAU,oBAgCX,OAAOE,CAER"}

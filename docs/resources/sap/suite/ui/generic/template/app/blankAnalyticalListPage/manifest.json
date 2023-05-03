@@ -1,0 +1,145 @@
+{
+	"_version": "1.2.0",
+	"sap.app": {
+		"_version": "1.2.0",
+		"id": "sap.suite.ui.generic.template.app.blankAnalyticalListPage",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "",
+		"description": "",
+		"tags": {
+			"keywords": []
+		},
+		"resources": "resources.json",
+		"dataSources": {
+			"mainService": {
+				"uri": "replace with service uri",
+				"type": "OData",
+				"settings": {
+					"annotations": [
+						"mainServiceAnnotation"
+					]
+				}
+			},
+			"mainServiceAnnotation": {
+				"uri": "replace with annotation url",
+				"type": "ODataAnnotation"
+			},
+			"serverinfo": {
+				"uri": "/sap/bc/http/sap/bw_ina_serv_inf/",
+				"type": "OData"
+			},
+			"response": {
+				"uri": "/sap/bc/http/sap/bw_ina_response/",
+				"type": "OData"
+			},
+			"valuehelp": {
+				"uri": "/sap/bc/http/sap/bw_ina_val_help/",
+				"type": "OData"
+			},
+			"logoff": {
+				"uri": "/sap/bc/http/sap/bw_ina_logoff/",
+				"type": "OData"
+			},
+			"batch": {
+				"uri": "/sap/bc/http/sap/bw_ina_batch/",
+				"type": "OData"
+			},
+			"catalog": {
+				"uri": "/sap/bc/http/sap/bw_ina_catalog/",
+				"type": "OData"
+			}
+		},
+		"offline": false,
+		"embeddedBy": "../../"
+	},
+	"sap.ui": {
+		"_version": "1.2.0",
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": false
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"resources": {
+			"js": [],
+			"css": []
+		},
+		"dependencies": {
+			"minUI5Version": "1.42.0",
+			"libs": {
+				"sap.ui.core": {
+					
+				},
+				"sap.m": {
+					
+				},
+				"sap.ui.comp": {
+					
+				},
+				"sap.uxap": {
+					
+				},
+				"sap.suite.ui.generic.template": {
+					
+				}
+			},
+			"components": {
+				
+			}
+		},
+		"models": {
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline",
+					"refreshAfterChange": false
+				}
+			}
+		},
+		"extends": {
+			"extensions": {
+				
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		}
+	},
+	"sap.ui.generic.app": {
+		"_version": "1.3.0",
+		"pages": {
+			
+		}
+	},
+	"sap.fiori": {
+		"_version": "1.1.0",
+		"registrationIds": [],
+		"archeType": "analytical"
+	},
+	"sap.platform.hcp": {
+		"_version": "1.2.0",
+		"uri": ""
+	}
+}

@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["./ItemBaseFlex","./Util"],function(e,t){"use strict";var n=Object.assign({},e);n.findItem=function(e,t,n){return sap.ui.getCore().byId(n)};n.determineAggregation=function(e,t){return Promise.resolve().then(function(){return{name:"actions",items:t.getActions()}})};n._applyMove=function(e,n,i,r){var a=r===t.REVERT?true:false;if(n.getParent()){if(n.getParent().isA("sap.ui.mdc.Chart")){n=n.getParent()}else if(n.getParent().getParent().isA("sap.ui.mdc.Table")){n=n.getParent().getParent()}}this.beforeApply(e.getChangeType(),n,a);if(this._bSupressFlickering){this._delayInvalidate(n)}var g=i.modifier;var o=a?e.getRevertData():e.getContent();var s;var u;var f;var h=this.determineAggregation(g,n).then(function(e){u=e;return this._getExistingAggregationItem(o,i,n)}.bind(this)).then(function(e){s=e}).then(function(){if(!s){throw new Error("No corresponding item in "+u.name+" found. Change to move item cannot be "+this._getOperationText(a)+"at this moment")}return g.findIndexInParentAggregation(s)}.bind(this)).then(function(e){f=e;return g.removeAggregation(n,u.name,s).then(function(){return g.insertAggregation(n,u.name,s,o.index)})}).then(function(){if(a){e.resetRevertData()}else{e.setRevertData({name:o.name,index:f})}this.afterApply(e.getChangeType(),n,a)}.bind(this));return h};return{moveAction:n.createMoveChangeHandler()}});
+//# sourceMappingURL=ActionToolbar.flexibility.js.map

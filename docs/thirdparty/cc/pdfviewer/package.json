@@ -1,0 +1,21 @@
+{
+  "name": "ui5-cc-pdfviewer",
+  "version": "0.1.1",
+  "description": "A library with a PDF control that will show a PDF based on a base64 data uri",
+  "repository" : {
+      "type" : "git",
+      "url" : ""
+  },
+  "files": [
+    "ControlUtils.js",
+    "PdfViewer.js",
+    "ui5.yaml"
+  ],
+  "license" : "MIT",
+  "private": false,
+  "scripts": {
+  },
+  "dependencies": {
+    "pdfjs-dist": "3.5.141"
+  }
+}

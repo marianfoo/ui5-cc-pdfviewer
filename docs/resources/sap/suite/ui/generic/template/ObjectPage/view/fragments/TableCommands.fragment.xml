@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns:core="sap.ui.core">
+    <template:repeat list="{objectPageTableSettings>value/commandExecution}" var="commandExecution">
+        <core:CommandExecution execute="{commandExecution>callbackName}"
+            command="{commandExecution>action}"
+            visible="{path: 'commandExecution>id', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getActionCommandVisibility'}">
+
+            <template:if test="{= ${commandExecution>annotatedAction} || ${commandExecution>outboundAction}}">
+                <core:customData>
+                    <core:CustomData key="ActionId" value="{commandExecution>id}" />
+                </core:customData>
+            </template:if>
+        </core:CommandExecution>
+    </template:repeat>
+</core:FragmentDefinition>

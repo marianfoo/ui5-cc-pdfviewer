@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:w="sap.ui.integration.widgets">
+    <Page id="insightCardPage" showHeader="false" backgroundDesign="List" enableScrolling="false">
+        <FlexBox id="flexContainerCardsContent" class="flexContainerCards" alignItems="Start" justifyContent="Start" height="100%" width="100%" direction="Column">
+            <VBox id="insightCardMessageVBox" alignItems="Start" width="calc(100% - 2rem)" class="sapUiSmallMarginTop sapUiSmallMarginBegin" visible="{= ${view>/cardCount} === 0 ? false : true}">
+                <MessageStrip id="insightMaxCardMsg" text="{i18n>insightMaxCardText}" type="Warning" showIcon="true" visible="{= ${view>/visibleCardCount} &gt; 9 ? true : false}"/>
+                <Text id="insightCardText" text="{i18n>insightCardTabText}" class="sapUiSmallMarginTop" textAlign="Start"  width="100%" visible="{= (${view>/visibleCardCount} &lt; 10 &amp;&amp; ${view>/cards/length} &gt; 0) ? true : false}"/>
+                <HBox id="insightCardMessageHBox" class="sapUiTinyMarginTop" alignItems="Center" visible="{= ${view>/deleteAllEnabled} ? true : ${view>/DTCards/length} &gt; 0}">
+                    <Text id="insightsRefreshText" text="{i18n>refreshText}" />
+                    <Button
+                        id="insightsRefreshIcon"
+                        tooltip="{i18n>refresh}"
+                        icon="sap-icon://refresh"
+                        type="Transparent"
+                        press="refreshCardList" />
+                </HBox>
+            </VBox>
+            <VBox id="insightCardTitleVBox" width="calc(100% - 2rem)" class="sapUiSmallMarginTop sapUiSmallMarginBegin" visible="{= ${view>/cardCount} === 0 ? false : true}">
+                <Title id="availableInsightsCardsTitle" text="{i18n>availableCards} ({view>/visibleCardCount}/{view>/cardCount})" titleStyle="H5"/>
+                <SearchField id="editInsightsSearch" liveChange=".onCardSearch" width="100%"/>
+            </VBox>
+            <FlexBox id="editInsightsCardsFlex" class="sapUiSmallMarginBegin sapUiSmallMarginTop flexContainerCards" alignItems="Start" justifyContent="Start" height="100%" width="calc(100% - 2rem)" direction="Row" visible="{= ${view>/cardCount} === 0 ? false : true}">
+                <VBox id="insightsCardsVBox" height="100%" width="100%" justifyContent="Start" direction="Column">
+                    <ScrollContainer id="idCardsScrollContainer" vertical="true" horizontal="false" height="100%" width="100%">
+                        <Table id="insightsCardsListTable" class="sapContrastPlus" items="{path: 'view>/cards'}">
+                            <columns>
+                                <Column id="idTableCheckBoxColumn" hAlign="Center" width="10%"/>
+                                <Column id="idSectionTitleColumn" width="90%"/>
+                            </columns>
+                            <dragDropConfig>
+                                <dnd:DragInfo
+                                    id="idCardsDragInfo"
+                                    groupName="editInsightCards"
+                                    sourceAggregation="items" />
+                                <dnd:DropInfo
+                                    id="idCardsDropInfo"
+                                    groupName="editInsightCards"
+                                    targetAggregation="items"
+                                    dropPosition="On"
+                                    drop=".onEditInsightCardsDrop" />
+                            </dragDropConfig>
+                            <items>
+                                <ColumnListItem id="idCardsListItem" press=".handleCardListItemPress" class="insightsListItem insightsListMargin" type="Navigation">
+                                    <cells>
+                                        <HBox>
+                                            <core:Icon id="editInsightsCardsDnDIcon" src="sap-icon://BusinessSuiteInAppSymbols/icon-grip" class="insightsDndIcon" />
+                                            <CheckBox id="idSectionsSelect" selected="{view>visibility}" blocked="{= !${view>visibility} &amp;&amp; ${view>/visibleCardCount} === 10 ? true : false}" select=".handleCardVisibilityToggle" />
+                                        </HBox>
+                                    </cells>
+                                    <cells>
+                                        <ObjectIdentifier id="idCardTitle" title="{view>descriptorContent/sap.card/header/title}" text="{view>descriptorContent/sap.card/header/subTitle}" tooltip="{view>descriptorContent/sap.card/header/title}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </ScrollContainer>
+                </VBox>
+            </FlexBox>
+            <ScrollContainer id="idNoInsightsCardsScrollContainer" visible="{= ${view>/cardCount} === 0 ? true : false}" vertical="true" horizontal="false" height="100%" width="100%">
+                <f:IllustratedMessage id="editInsightNoInsightsCardsMsg" class="sapFIllustratedMessageAlign sapFFrequentIllustratedMessageAlign sapUiMargin-24Top" illustrationSize="Auto" illustrationType="sapIllus-SimpleEmptyList" title="{i18n>editInsightsEmptyCardTitle}" description="{i18n>editInsightsEmptyCardSubTitle}"/>
+            </ScrollContainer>
+        </FlexBox>
+    </Page>
+</core:FragmentDefinition>

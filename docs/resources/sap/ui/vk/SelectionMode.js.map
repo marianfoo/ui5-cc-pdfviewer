@@ -1,0 +1,1 @@
+{"version":3,"file":"SelectionMode.js","names":["sap","ui","define","SelectionMode","None","Exclusive","Sticky"],"sources":["SelectionMode-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAgB,CACnBC,KAAM,OACNC,UAAW,YACXC,OAAQ,UAIT,OAAOH,CAER,EAAkB"}

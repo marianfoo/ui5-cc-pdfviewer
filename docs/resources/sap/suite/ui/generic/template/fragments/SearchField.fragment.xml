@@ -1,0 +1,9 @@
+<core:FragmentDefinition
+		xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+
+	<SearchField search="._templateEventHandlers.onSearchObjectPage" id="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Table::Toolbar::SearchField">
+		<layoutData><OverflowToolbarLayoutData minWidth="200px" maxWidth="300px" shrinkable="true"/></layoutData>
+	</SearchField>
+
+</core:FragmentDefinition>

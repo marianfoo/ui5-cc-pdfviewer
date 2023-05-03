@@ -1,0 +1,104 @@
+<core:FragmentDefinition
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smartField="sap.ui.comp.smartfield"
+	xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core" xmlns:smc="sap.ui.comp.smartmicrochart" xmlns:navpopover="sap.ui.comp.navpopover">
+	<!-- @classdesc @name: Name: sap.suite.ui.generic.template.ListReport.view.fragments.TableColumnListItem.fragment.xml
+		@description: Visualizes columns (content) of a responsive table,
+		as part of a LR, OP or ALP. 
+		@param {UI.LineItem} [collection] 
+		@param {Edm.EntitySet} [listEntitySet] -->
+
+	<items>
+		<template:with path="listEntitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="listEntityType">
+			<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="columnListItemId">
+				<template:if test="{= ${facet>Target/AnnotationPath} }">
+					<template:then>
+						<!-- ObjectPage -->
+						<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="facetId">
+							<template:if test="{= ${facetId>}.buildStableId({type: 'ObjectPage', subType: 'Facet', sRecordType: ${facet>RecordType}, sAnnotationPath: ${facet>Target/AnnotationPath}, sAnnotationId: ${facet>ID/String}, bIsHeaderFacet: ${isHeaderFacet>value}})}"/>
+							<template:if test="{= ${columnListItemId>}.buildStableId({type: 'ObjectPageTable', subType: 'ColumnListItem', sFacet: ${facetId>id}})}" />
+						</template:with>
+					</template:then>
+					<template:else>
+						<!-- ListReport -->
+						<template:if test="{= ${columnListItemId>}.buildStableId({type: 'ListReportTable', subType: 'ColumnListItem', sQuickVariantKey: ${tabItem>key}})}" />
+					</template:else>
+				</template:if>
+				<ColumnListItem id="{columnListItemId>id}"
+								highlight="{parts: [{path: 'listEntityType>'}, {path: 'parameter>/treeNode'}, {path: 'listEntitySet>name'}, {path: 'parameter>/checkIsDraftEnabled'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.setRowHighlight'}"
+								vAlign="{appSettings>/tableColumnVerticalAlignment}"
+								type="{parts: [{path: 'listEntitySet>'}, {path: 'parameter>/settings/subPages/'}, {path: 'parameter>/manifest/'}, {path: 'parameter>/treeNode/'}, {path:'parameter>/isDraftEnabled'}, {path: 'facet>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getColumnListItemType'}"
+								navigated="{parts: [{path: &quot;_templPriv>/generic/currentActiveChildContext&quot;}, {path: &quot;&quot;}], formatter: &quot;sap.suite.ui.generic.template.js.RuntimeFormatters.setRowNavigated&quot;}" 
+								detailPress="._templateEventHandlers.onEdit">
+					<customData>
+						<core:CustomData key="CrossNavigation"
+							value="{parts: [{path: 'listEntitySet>name'}, {path: 'parameter>/settings/subPages/'}, {path: 'facet>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDisplayNavigationIntent'}" />
+					</customData>
+					<cells>
+						<template:repeat list="{collection>}" var="lineItems">
+							<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="columnId">
+								<template:if test="{= ${lineItems>RecordType} === 'com.sap.vocabularies.UI.v1.DataField' }">
+									<template:then>
+										<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataField', sSmartTableId: ${smartTableId>id}, sProperty: ${lineItems>Value/Path}})}" />
+									</template:then>
+									<template:elseif test="{= ${lineItems>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithNavigationPath' }">
+										<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldWithNavigationPath', sSmartTableId: ${smartTableId>id}, sProperty: ${lineItems>Value/Path}, sTarget: ${lineItems>Target/NavigationPropertyPath}})}" />
+									</template:elseif>
+									<template:elseif test="{= ${lineItems>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' }">
+										<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForAction', sSmartTableId: ${smartTableId>id}, sAction: ${lineItems>Action/String}})}" />
+									</template:elseif>
+									<template:elseif test="{= ${lineItems>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation' }">
+										<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sSemanticObject: ${lineItems>SemanticObject/String}, sAction: ${lineItems>Action/String}})}" />
+									</template:elseif>
+									<template:elseif test="{= ${lineItems>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithIntentBasedNavigation' }">
+										<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldWithIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sProperty: ${lineItems>Value/Path}, sSemanticObject: ${lineItems>SemanticObject/String}, sAction: ${lineItems>Action/String}})}" />
+									</template:elseif>
+									<template:elseif test="{= ${lineItems>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation'}">
+										<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${lineItems>Target/AnnotationPath}})}" />
+									</template:elseif>
+								</template:if>
+								<!-- Semantically Connected cells-->
+								<template:if test="{= ${lineItems>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation' &amp;&amp; ${lineItems>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.FieldGroup') >= 0}">
+									<template:then>
+										<VBox class="sapMTableContentMargin">
+											<items>
+												<template:with path="lineItems>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+													<template:repeat list="{dataFieldTarget>Data}" var="dataField">
+														<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.TableCell" type="XML"/>
+													</template:repeat>
+												</template:with>
+											</items>
+										</VBox>
+									</template:then>
+									<template:else>
+										<template:with path="lineItems>" var="dataField">
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.TableCell" type="XML"/>
+										</template:with>
+									</template:else>
+								</template:if>
+							</template:with>
+						</template:repeat>
+						
+						<!-- handle break-out columns -->
+						<template:if test="{= ${facet>Target/AnnotationPath} }">
+							<template:then>
+								<core:ExtensionPoint
+									name="ResponsiveTableCellsExtension|{listEntitySet>name}|{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}" />
+							</template:then>
+							<template:else>
+								<!--  ListReport: In case of multiple views, extension points have to be separated to allow providing stable ids in extensions - but for compatibility, also keep old extension point -->
+								<core:ExtensionPoint
+									name="ResponsiveTableCellsExtension|{parameter>/entitySet}" />
+								<template:if test="{= ${tabItem>} }">
+									<core:ExtensionPoint
+										name="ResponsiveTableCellsExtension|{parameter>/entitySet}|{path: 'tabItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}" />
+								</template:if>						 
+							</template:else>
+						</template:if>
+					</cells>
+				</ColumnListItem>
+			</template:with>
+		</template:with>
+	</items>
+</core:FragmentDefinition>

@@ -1,0 +1,1 @@
+{"version":3,"file":"HeaderExtensions.js","names":["sap","ui","define","EventHub","setHeaderCentralAreaElement","id","currentState","states","emit"],"sources":["HeaderExtensions-dbg.js"],"mappings":";AAMAA,IAAIC,GAAGC,OAAO,CACV,uBACD,SAAUC,GACT,aAcA,SAASC,EAA6BC,EAAIC,EAAcC,GACpDJ,EAASK,KAAK,8BAA+B,CACzCH,GAAIA,EACJC,aAAcA,EACdC,OAAQA,GAEhB,CAEA,MAAO,CACHH,4BAA6BA,EAErC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"PageReferencing.js","names":["sap","ui","define","PageReferencer","PageReferencing","prototype","createReferencePage","pageInfo","hasNoAdapter"],"sources":["PageReferencing-dbg.js"],"mappings":";AAMAA,IAAIC,GAAGC,OAAO,CACV,uDACD,SAAUC,GACT,aAcA,SAASC,IAAqB,CAY9BA,EAAgBC,UAAUC,oBAAsB,SAAUC,GACtD,OAAOJ,EAAeG,oBAAoBC,EAC9C,EAEAH,EAAgBI,aAAe,KAE/B,OAAOJ,CACX"}

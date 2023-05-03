@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build">
+
+	<OverflowToolbar id="{:= ${parameter>/stableId}.getStableId({type: 'ALPTable', subType: 'SmartTableToolbar', sQuickVariantKey: ${tabItem>key}})}" design="Solid">
+		<core:Fragment fragmentName="sap.suite.ui.generic.template.listTemplates.fragments.MultipleViewsSingleTableMode" type="XML"/>
+		<ToolbarSpacer/>
+		<!-- Custom Action Breakout -->
+		<template:repeat list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.AnalyticalListPage.view.AnalyticalListPage/sap.ui.generic.app}" var="tmpEntitySet">
+			<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.BreakoutActions"
+					type="XML"/>
+		</template:repeat>
+		<template:with path="tableAnnotationPath>" var="collection">
+            <core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.AnnotatedActionButtons" type="XML"/>
+			<customData>
+				<core:CustomData
+					key="annotatedActionIds"
+					value="{parts: [{path: 'collection>'}, {path: 'facet>'}, {path: 'parameter>/settings/quickVariantSelectionX'}, {path: 'tabItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildActionButtonsCustomData'}" />
+			</customData>
+		</template:with>
+		<template:if test="{= (!${parameter>/settings/quickVariantSelectionX}) &amp;&amp; (${parameter>/settings/showAutoHide} !== false) }">
+			<SegmentedButton
+				selectedKey="{_templPriv>/alp/autoHide}"
+				select="._templateEventHandlers.onAutoHideToggle">
+				<items>
+					<SegmentedButtonItem
+						tooltip="{i18n>CHARTTABLE_AUTOHIDE_OFF}"
+						key="highlight"
+						icon="sap-icon://show"/>
+					<SegmentedButtonItem
+						tooltip="{i18n>CHARTTABLE_AUTOHIDE_ON}"
+						key="filter"
+						icon="sap-icon://hide" />
+				</items>
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</SegmentedButton>
+		</template:if>
+	</OverflowToolbar>
+
+</core:FragmentDefinition>

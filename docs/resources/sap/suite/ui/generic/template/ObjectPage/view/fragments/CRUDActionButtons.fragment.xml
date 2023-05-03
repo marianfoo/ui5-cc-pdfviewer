@@ -1,0 +1,59 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core"
+	xmlns:fesr="http://schemas.sap.com/sapui5/extension/sap.ui.core.FESR/1"
+	template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+	<!-- @classdesc @name: Name: sap.suite.ui.generic.template.ObjectPage.view.fragments.CRUDActionButtons.fragment.xml -->
+	<template:if test="{parts: [ {path: 'listEntitySet>Org.OData.Capabilities.V1.InsertRestrictions'}, {path: 'listEntitySet>'}, {value: 'Insertable'}, {path: 'entitySet>name'}], formatter: 'AH.areBooleanRestrictionsValidAndPossible'}">
+	<template:if test="{parts: [ {path: 'facet>'}, {path: 'parameter>/settings/sections'}, {path: 'objectPageTableSettings>value/type'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.isCreateButtonVisibleWithInlineCreationRows'}">
+		<template:with path="objectPageTableSettings>value/commandExecution/Create" var="createAction">
+			<Button id="{createAction>id}"
+				text="{createAction>text}"
+				type="Transparent"
+				press="{createAction>press}"
+				fesr:press="fe:createItem"
+				enabled="{createAction>enabled}"
+				visible="{parts: [{path: 'entitySet>'}, {path: 'listEntitySet>'}, {path: 'parameter>/settings/subPages/'}, {path: 'facet>'}, {path: 'parameter>/settings/sections'}, {path: 'parameter>/isDraftEnabled'}, {path: 'createWithParameterDialog>'}], formatter: 'AH.isRelatedEntityCreatable'}">
+				<template:if test="!${createAction>isStandardAction}">
+					<layoutData>
+						<OverflowToolbarLayoutData priority = "{createAction>importance}"/>
+					</layoutData>
+				</template:if>
+			</Button>
+		</template:with>
+	</template:if>
+	</template:if>
+	<template:if test="{parts: [{path: 'listEntitySet>Org.OData.Capabilities.V1.DeleteRestrictions'}, {path: 'listEntitySet>'}, {value: 'Deletable'} ], formatter: 'AH.areBooleanRestrictionsValidAndPossible'}">
+		<template:with path="objectPageTableSettings>value/commandExecution/Delete" var="deleteAction">
+			<template:if test="${deleteAction>isStandardAction}">
+				<customData>
+					<core:CustomData key="deleteButtonId" value="{deleteAction>id}"/>
+				</customData>
+			</template:if>
+			<Button id="{deleteAction>id}"
+				text="{deleteAction>text}"
+				press="{deleteAction>press}"
+				fesr:press="fe:deleteItem"
+				type="Transparent"
+				ariaHasPopup="{deleteAction>ariaHasPopup}"
+				enabled="{deleteAction>enabled}"
+				visible="{= ${path: 'objectPageTableSettings>value/inlineDelete'} ? 'false' : ${parameter>/isDraftEnabled} ? '{= ${ui>/editable} }' : '{= !${ui>/editable} }'}">
+				<template:if test="${deleteAction>isStandardAction}">
+					<template:then>
+						<customData>
+							<core:CustomData key="Type" value="CRUDActionDelete"/>
+						</customData>
+					</template:then>
+					<template:else>
+						<template:if test="!${deleteAction>enabled}">
+							<core:CustomData key="Type" value="CRUDActionDelete"/>
+						</template:if>
+						<layoutData>
+							<OverflowToolbarLayoutData priority="{deleteAction>importance}"/>
+						</layoutData>
+					</template:else>
+				</template:if>
+			</Button>
+		</template:with>
+	</template:if>
+</core:FragmentDefinition>

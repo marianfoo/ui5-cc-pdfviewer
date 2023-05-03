@@ -1,0 +1,1 @@
+{"version":3,"file":"AnnotationStyle.js","names":["sap","ui","define","AnnotationStyle","Default","Explode","Square","Random","Expand"],"sources":["AnnotationStyle-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAkB,CAKrBC,QAAS,UAKTC,QAAS,UAKTC,OAAQ,SAKRC,OAAQ,SAKRC,OAAQ,UAGT,OAAOL,CAER,EAAkB"}

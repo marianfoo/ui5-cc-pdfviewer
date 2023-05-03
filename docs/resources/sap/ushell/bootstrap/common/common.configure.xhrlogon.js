@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/bootstrap/common/common.util","sap/base/Log"],function(n,e){"use strict";var r={start:i,initXhrLogonIgnoreList:t,createUi5ConnectedXhrLogger:o};return r;function o(){return["error","warning","info","debug"].reduce(function(n,r){n[r]=function(n){return e[r](n)};return n},{})}function t(e){var r=n.getLocationOrigin(),o=sap.ui.require.toUrl("");if(o&&o.indexOf(r+"/")===-1){e.ignore.add(o)}}function i(n,e){e.start();r.initXhrLogonIgnoreList(e.XHRLogonManager.getInstance());XMLHttpRequest.logger=o();n.oFrameLogonManager=e.FrameLogonManager.getInstance()}});
+//# sourceMappingURL=common.configure.xhrlogon.js.map

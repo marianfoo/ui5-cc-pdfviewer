@@ -1,0 +1,1 @@
+{"version":3,"file":"common.boot.script.js","names":["sap","ui","define","oConstants","oBootstrapScript","document","getElementById","bootScriptId","bwcBootScriptId"],"sources":["common.boot.script-dbg.js"],"mappings":";AAKAA,IAAIC,GAAGC,OAAO,CACV,sBACD,SAAUC,GACT,aAEA,IAAIC,EAAmBC,SAASC,eAAeH,EAAWI,cAC1D,IAAKH,EAAkB,CAEnBA,EAAmBC,SAASC,eAAeH,EAAWK,gBAC1D,CAEA,OAAOJ,CACX"}

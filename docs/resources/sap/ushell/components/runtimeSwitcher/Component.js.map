@@ -1,0 +1,1 @@
+{"version":3,"file":"Component.js","names":["sap","ui","define","UIComponent","extend","metadata","manifest","library"],"sources":["Component-dbg.js"],"mappings":";AAEAA,IAAIC,GAAGC,OAAO,CACX,2BAEA,SAAUC,GACT,aAEA,OAAOA,EAAYC,OAAO,kDAAmD,CACzEC,SAAU,CACNC,SAAU,OACVC,QAAS,eAIrB"}

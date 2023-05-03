@@ -1,0 +1,71 @@
+<core:FragmentDefinition
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:build="sap.build"
+    xmlns:smartList="sap.ui.comp.smartlist"
+    xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    height="100%"
+    template:require="{
+		AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',
+		AHListReport: 'sap/suite/ui/generic/template/ListReport/AnnotationHelper',
+        AHSmartList: 'sap/suite/ui/generic/template/ListReport/AnnotationHelperSmartList'}">
+    <Page showHeader="false">
+        <template:with path="parameter>/variables" helper="AH.getNewVariable" var="sortedDataPointsFields">
+            <template:if test="{:= ${sortedDataPointsFields>}.set(AHSmartList.getSortedDataPointsAndFields(${parameter>/workingContext/lineItem}, ${parameter>/workingContext/lineItemPath}, ${path: 'parameter>/metaModel'}, ${path: 'parameter>/entityType'})) }"/>
+            <smartList:SmartList
+                id="{:= ${parameter>/stableId}.getStableId({type: 'ListReportTable', subType: 'SmartList'})}"
+                entitySet="{entitySet>name}"
+                enableAutoBinding="true"
+                dataReceived="._templateEventHandlers.onSmartListDataReceived">
+                <OverflowToolbar visible="false"></OverflowToolbar>
+                <smartList:listItemTemplate>
+                    <template:if test="{= ${tableSettings>type} === 'ObjectList'}" >
+                        <template:with path="parameter>/variables" helper="AH.getNewVariable" var="objectListProperty">
+                            <template:if test="{= ${objectListProperty>}.set(${path: 'sortedDataPointsFields>', formatter: 'AHSmartList.getObjectListProperty'}) }"/>
+                            <ObjectListItem
+                                title="{= ${objectListProperty>title} }"
+                                number="{= ${objectListProperty>number} }"
+                                numberState="{= ${objectListProperty>numberState} }"
+                                type="Navigation"
+                                press="._templateEventHandlers.onListNavigate"
+                                navigated="{path: '_templPriv>/generic/currentActiveChildContext', formatter: 'sap.suite.ui.generic.template.js.RuntimeFormatters.setRowNavigated'}">
+                                <attributes>
+                                    <!-- Middle left -->
+                                    <ObjectAttribute text="{= ${objectListProperty>firstAttribute} }" />
+                                    <!-- Bottom left -->
+                                    <ObjectAttribute text="{= ${objectListProperty>secondAttribute} }"/>
+                                </attributes>
+                                <!-- Middle right -->
+                                <firstStatus>
+                                    <ObjectStatus text="{= ${objectListProperty>firstStatus} }" state="{= ${objectListProperty>firstStatusState} }"/>
+                                </firstStatus>
+                                <!-- Bottom right -->
+                                <secondStatus>
+                                    <ObjectStatus text="{= ${objectListProperty>secondStatus} }" state="{= ${objectListProperty>secondStatusState} }"/>
+                                </secondStatus>
+                            </ObjectListItem>
+                        </template:with>
+                    </template:if>
+                    <template:if test="{= ${tableSettings>type} === 'StandardList'}" >
+                        <template:then>
+                            <template:with path="parameter>/variables" helper="AH.getNewVariable" var="appropriateRecordForInfo">
+                                <template:if test="{= ${appropriateRecordForInfo>}.set(${sortedDataPointsFields>dataPoints}.length > 0 ? ${sortedDataPointsFields>dataPoints/0} : ${sortedDataPointsFields>dataFields/2}) }"/>
+                                <StandardListItem
+                                    title="{path:'sortedDataPointsFields>dataFields/0', formatter: 'AHSmartList.formatDataPointOrField'}"
+                                    description="{path:'sortedDataPointsFields>dataFields/1', formatter: 'AHSmartList.formatDataPointOrField'}"
+                                    info="{= ${path: 'appropriateRecordForInfo>', formatter: 'AHSmartList.formatDataPointOrField'} }"
+                                    infoState="{= ${path: 'appropriateRecordForInfo>', formatter: 'AH.buildExpressionForProgressIndicatorCriticality'} }"
+                                    icon="{path:'sortedDataPointsFields>imageDataField', formatter: 'AHSmartList.formatDataPointOrField'}"
+                                    type="Navigation"
+                                    press="._templateEventHandlers.onListNavigate"
+                                    navigated="{path: '_templPriv>/generic/currentActiveChildContext', formatter: 'sap.suite.ui.generic.template.js.RuntimeFormatters.setRowNavigated'}">
+                                </StandardListItem>
+                            </template:with>
+                        </template:then>
+                    </template:if>
+                </smartList:listItemTemplate>
+            </smartList:SmartList>
+        </template:with>
+    </Page>
+</core:FragmentDefinition>

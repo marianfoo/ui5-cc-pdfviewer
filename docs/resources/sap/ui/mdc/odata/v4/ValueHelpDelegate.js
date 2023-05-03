@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["../../ValueHelpDelegate","sap/ui/model/FilterType","sap/ui/mdc/odata/v4/TypeUtil","sap/ui/mdc/condition/ConditionConverter"],function(e,n,t,r){"use strict";var i=Object.assign({},e);i.isSearchSupported=function(e,n,t){return!!t.changeParameters};var a=function(e){return new Promise(function(n){var t=false;var r=function(i){if(i.mParameters.detailedReason){return}if(!t){t=true;e.detachEvent("change",r);n(e)}};e.attachEvent("change",r);e.attachEventOnce("dataReceived",r)})};i.executeSearch=function(e,n,t){if(t){n.changeParameters({$search:t})}else{n.changeParameters({$search:undefined})}return a(n)};i.executeFilter=function(e,t,r,i){t.initialize();t.filter(r,n.Application);t.getContexts(0,i);return a(t)};i.checkBindingsPending=function(e,n){var t=[];for(var r=0;r<n.length;r++){var i=n[r];if(i&&i.requestValue){t.push(i.requestValue())}}if(t.length>0){return Promise.all(t)}return null};i.checkListBindingPending=function(e,n,t){if(!n||n.isSuspended()){return false}return n.requestContexts(0,t&&t.length).then(function(e){return e.length===0})};i.getInitialFilterConditions=function(e,n,t){var r={};return r};i.getTypeUtil=function(e){return t};return i});
+//# sourceMappingURL=ValueHelpDelegate.js.map

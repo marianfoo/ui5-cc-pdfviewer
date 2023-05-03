@@ -1,0 +1,44 @@
+{
+  "_version": "1.21.0",
+  "sap.app": {
+    "id": "sap.fe.navigation",
+    "type": "library",
+    "embeds": [],
+    "applicationVersion": {
+      "version": "1.108.10"
+    },
+    "title": "UI5 library: sap.fe.navigation",
+    "description": "UI5 library: sap.fe.navigation",
+    "ach": "CA-UI5-FE-NAV",
+    "resources": "resources.json",
+    "offline": true
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "supportedThemes": []
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.108",
+      "libs": {
+        "sap.ui.core": {
+          "minVersion": "1.108.8"
+        }
+      }
+    },
+    "library": {
+      "i18n": false,
+      "css": false,
+      "content": {
+        "controls": [],
+        "elements": [],
+        "types": [
+          "sap.fe.navigation.NavType",
+          "sap.fe.navigation.ParamHandlingMode",
+          "sap.fe.navigation.SuppressionBehavior"
+        ],
+        "interfaces": []
+      }
+    }
+  }
+}

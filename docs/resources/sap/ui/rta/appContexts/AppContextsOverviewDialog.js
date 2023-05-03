@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/core/ComponentContainer","sap/m/Button","sap/m/Dialog","sap/m/DialogRenderer","sap/ui/rta/appContexts/Component","sap/ui/rta/Utils"],function(t,e,s,n,o,a){"use strict";var i=s.extend("sap.ui.rta.appContexts.AppVariantOverviewDialog",{metadata:{library:"sap.ui.rta",events:{cancel:{}},properties:{layer:"string"}},constructor:function(){s.prototype.constructor.apply(this,arguments);this._oTextResources=sap.ui.getCore().getLibraryResourceBundle("sap.ui.rta");this._oManageAppContextsComponent=new o("sap.ui.rta.appContexts",{layer:this.getLayer()});this._oManageAppsComponentContainer=new t({component:this._oManageAppContextsComponent});this.addContent(this._oManageAppsComponentContainer);this._createButton();this.setContentWidth("650px");this.setContentHeight("450px");this.setHorizontalScrolling(false);this.setTitle(this._oTextResources.getText("APP_CONTEXTS_OVERVIEW_DIALOG_TITLE"));this.addStyleClass(a.getRtaStyleClassName())},destroy:function(){s.prototype.destroy.apply(this,arguments)},renderer:n});i.prototype._createButton=function(){this.addButton(new e({text:this._oTextResources.getText("APP_VARIANT_DIALOG_CLOSE"),press:function(){this.close();this.fireCancel()}.bind(this)}))};return i});
+//# sourceMappingURL=AppContextsOverviewDialog.js.map

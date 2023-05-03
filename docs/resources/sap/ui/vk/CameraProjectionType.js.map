@@ -1,0 +1,1 @@
+{"version":3,"file":"CameraProjectionType.js","names":["sap","ui","define","CameraProjectionType","Perspective","Orthographic"],"sources":["CameraProjectionType-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,GAAI,WACjB,aASA,IAAIC,EAAuB,CAK1BC,YAAa,cAKbC,aAAc,gBAGf,OAAOF,CAER,EAAkB"}

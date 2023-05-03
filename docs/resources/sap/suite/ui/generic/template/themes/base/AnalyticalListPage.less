@@ -1,0 +1,483 @@
+
+@import "ALPConstants.less";
+
+.sapSmartTemplatesAnalyticalListPageContentContainer{
+	.sapMBtnTransparent.sapMSegBBtnSel>.sapMBtnIcon {
+		color: @sapHighlightTextColor;
+	}
+    .sapMIBar>.sapMBarChild.sapMSegB:last-child{
+		margin-right: 0;
+    }
+}
+
+.sapSmartTemplatesAnalyticalListPageMasterExtension {
+	overflow: hidden;
+}
+
+.sapSmartTemplatesAnalyticalListPageFilterContainer.sapUiVlt{
+	display:block;
+	overflow:inherit;
+}
+
+.sapSmartTemplatesAnalyticalListPageChartContainer {
+	min-height: @_sap_suite_ui_generic_template_ALPConstants_PageChartMinHeight;
+}
+.sapSmartTemplatesAnalyticalListPageInheritHeight{
+	height:inherit;
+}
+.sapSmartTemplatesAnalyticalListPageCompactFilter {
+	border-bottom: none;
+}
+.sapSmartTemplatesAnalyticalListPageVFDialogChartTitle {
+	padding-left: 0.4rem;
+}
+.sap-desktop .sapSmartTemplatesAnalyticalListPageVFDialogChartTitle {
+	padding-left: 0.4rem;
+	max-width: 60%;
+}
+
+.sapSmartTemplatesAnalyticalListPageVFDialogGroupTitle {
+	font-family: @sapUiFontHeaderFamily; 
+	font-size: @sapMFontHeader5Size !important;
+	font-weight: @sapUiFontHeaderWeight; 
+	color: @sapUiGroupTitleTextColor;
+}
+
+.sapSmartTemplatesAnalyticalListPageDynamicPageTitle>.sapFDynamicPageTitleMain.sapFDynamicPageTitleMainNoContent>.sapFDynamicPageTitleMainLeft {
+	width: 59% !important;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageDynamicPageTitleMargin>.sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainLeft {
+	margin-top: 3px;
+	.sapUiCompVarMngmt {
+		margin-right: 1rem;
+		height: 2.4365rem;
+	}
+}
+.sapSmartTemplatesAnalyticalListPageDynamicPageTitle>.sapFDynamicPageTitleMain.sapFDynamicPageTitleMainNoContent>.sapFDynamicPageTitleMainRight {
+	width: 41% !important;
+}
+/***** Required end *****/
+
+/***** UI Tweaks start *****/
+
+.sapUiCompSmartFullScreenDialog{
+	.sapSmartTemplatesAnalyticalListPageContentContainer{
+		.sapMTB{
+			border-bottom-color: @sapUiChartBackgroundColor;
+ 		}
+	}
+}
+
+.sapSmartTemplatesAnalyticalListPageFilterDialogToolbar.sapMTB{
+	border-bottom-color: @sapUiChartBackgroundColor;
+}
+
+.sapSmartTemplatesAnalyticalListPageSmartChart{
+	.sapMTB{
+		border-bottom-color: @sapUiChartBackgroundColor;
+	}
+}
+.sapMListBGTranslucent{
+	.sapSmartTemplatesAnalyticalListPageRowHighlighted.sapMLIB.sapMListTblRow{
+		background-color: @sapUiListSelectionBackgroundColor !important;
+		> td{ 
+			border-bottom: .0625rem solid @sapUiListSelectionBorderColor;
+		}
+	}
+}
+.sapSmartTemplatesAnalyticalListPageRowHighlighted{
+	background-color: @sapUiListSelectionBackgroundColor !important;
+	.sapUiTableCell{
+		border-bottom: .0625rem solid @sapUiListSelectionBorderColor;
+		&.sapUiTableRowSelectionCell{
+			box-shadow: none !important;
+		}
+	}
+}
+
+.sapSmartTemplatesAnalyticalListPageDropdownDialogCancelButton.sapUiIcon{
+    margin-right: @_sap_suite_ui_generic_template_ALPConstants_ShowSelectedPadding !important;
+	padding: @_sap_suite_ui_generic_template_ALPConstants_ShowSelectedPadding !important;
+}
+.sapSmartTemplatesAnalyticalListPageShowSelectedSelectAllDisabled{
+	opacity: @_sap_suite_ui_generic_template_ALPConstants_BackgroundOpacity;
+	background: @sapUiButtonLiteBackground;
+}
+.sapSmartTemplatesAnalyticalListPageSelectedLinkDialog .sapMTB-Info-CTX.sapMTB{
+	padding: 0 0.25rem !important;
+}
+.sapSmartTemplatesAnalyticalListPageSelectedLinkDialog .sapMLIB{
+	padding:0 .75rem 0 .75rem;
+}
+.sapUiTableCtrl{
+	.sapUiTableGroupHeader.sapSmartTemplatesAnalyticalListPageRowHighlighted{
+		background-color: @sapUiListSelectionBackgroundColor;
+	}
+}
+
+.sapUiTableRowHdr.sapUiTableGroupHeader.sapSmartTemplatesAnalyticalListPageRowHighlighted{
+	background-color: @sapUiListSelectionBackgroundColor;
+}
+
+.sapUiTable{
+	.sapUiTableCtrl{
+		.sapUiTableRowHvr.sapSmartTemplatesAnalyticalListPageRowHighlighted{
+			> td{
+				background-color: @sapUiListSelectionBackgroundColor;
+			}
+	   	}
+	}
+	.sapUiTableRowHdr.sapUiTableGroupHeader.sapUiTableRowHvr.sapSmartTemplatesAnalyticalListPageRowHighlighted{
+		background-color: @sapUiListSelectionBackgroundColor;
+	}
+}
+
+.sapSmartTemplatesAnalyticalListPageTableContainer>.sapUiCompSmartTable{
+    .sapMTB{
+		margin-bottom: @_sap_suite_ui_generic_template_ALPConstants_ToolbarMarginBottom;
+		border-bottom-color: @sapUiChartBackgroundColor;
+	}
+}
+.sapSmartTemplatesAnalyticalListPageVisualFilterBar{
+    .ui5-viz-controls-viz-frame{
+    	.v-datapoint-group{
+        	.v-datapoint{
+            	> rect{
+                    rx: 3px;
+                    ry: 3px;
+                }
+            }
+        }
+    }
+    .sapMHdrCntrItemCntr.sapMHrdrCntrInner {
+    	vertical-align: top;
+    	height: 11rem;
+    }
+    height: 11rem !important;
+}
+
+.sapSmartTemplatesAnalyticalListPageVisualFilterBarCozy {
+   .ui5-viz-controls-viz-frame{
+    	.v-datapoint-group{
+        	.v-datapoint{
+            	> rect{
+                    rx: 3px;
+                    ry: 3px;
+                }
+            }
+        }
+    }
+    .sapMHdrCntrItemCntr.sapMHrdrCntrInner {
+    	vertical-align: top;
+    	height: 14rem;
+    }
+    height: 14rem !important;
+}
+.sapSmartTemplatesAnalyticalListPageVisualFilterBarCozyPhone {
+   .ui5-viz-controls-viz-frame{
+    	.v-datapoint-group{
+        	.v-datapoint{
+            	> rect{
+                    rx: 3px;
+                    ry: 3px;
+                }
+            }
+        }
+    }
+}
+.sapSmartTemplatesAnalyticalListPageVisualFilterToolbar{
+	margin-right: @_sap_suite_ui_generic_template_ALPConstants_VisualFilterToolbarMargin;
+}
+
+.sapSmartTemplatesAnalyticalListPageVisualFilterTitleToolbar.sapMTB { /* not possible to hide the line at the bottom of the toolbar via settings, have to do this via CSS*/
+	border-bottom: none;
+	padding: @_sap_suite_ui_generic_template_ALPConstants_PageChartTitlePadding;
+
+}
+
+.sapUiSizeCompact .sapFDynamicPageTitleWrapper>.sapSmartTemplatesAnalyticalListPageDynamicPageTitle{
+	padding: @_sap_suite_ui_generic_template_ALPConstants_PageHeadingPadding;
+	border: none;
+}
+
+.sapUiSizeCompact .sapFDynamicPageTitleWrapper>.sapSmartTemplatesAnalyticalListPageDynamicPageTitle .sapFDynamicPageTitleSnapped>.sapSmartTemplatesAnalyticalListPageSnappedContentText{
+	margin-left: @_sap_suite_ui_generic_template_ALPConstants_KpiTagContainerMarginLeft;
+	cursor: pointer;
+}
+
+.sapFDynamicPageContent .sapSmartTemplatesAnalyticalListPageContentContainer {
+	padding: @_sap_suite_ui_generic_template_ALPConstants_ZeroPadding;
+}
+.sapMFlexBox.sapMFlexBoxAlignContentStretch.sapMFlexBoxAlignItemsEnd {
+	padding: @_sap_suite_ui_generic_template_ALPConstants_ZeroPadding;
+}
+.sapSmartTemplatesAnalyticalListPageFilterDialogTitleToolbar {
+	border-bottom: none !important;
+	padding-left: 0rem !important;
+}
+.sapSmartTemplatesAnalyticalListPageDynamicPage.sapFDynamicPage-Std-Phone .sapFDynamicPageContentFitContainer {
+	padding: 2rem 1rem 0 1rem !important;
+}
+// .sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageDynamicPage .sapFDynamicPageHeader.sapFDynamicPageHeaderWithContent {
+// 	padding-top: 0.5rem !important;
+// 	padding-bottom: 1.5rem !important;
+// }
+
+.sapSmartTemplatesAnalyticalListPageDynamicPage {
+	.sapFDynamicPageHeader.sapFDynamicPageHeaderWithContent {
+		padding: 0rem 2rem 1rem 2rem !important;
+	}
+}
+/***** UI Tweaks end *****/
+
+/***** new controls start *****/
+
+/**************** KPI TAG START ****************/
+
+.sapSmartTemplatesAnalyticalListPageAlignVariantTitle{
+	margin-left: @_sap_suite_ui_generic_template_ALPConstants_KpiTagContainerMarginLeft;
+}
+
+.sapSmartTemplatesAnalyticalListPageErrorPopOver{
+	padding: @_sap_suite_ui_generic_template_ALPConstants_KpiErrorPopOverContainerPadding;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageAlignVariantTitle{
+	margin-left: 0rem;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageKpiTagContainer {
+	height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagContainerHeightCozy;
+}
+.sapUiSizeCompact .sapSmartTemplatesAnalyticalListPageKpiTagContainer {
+	height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagContainerHeightCompact;
+}
+.sapUiSizeCompact .sapSmartTemplatesAnalyticalListPageKpiTag {
+	height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagHeightCompact;
+	padding-top:@_sap_suite_ui_generic_template_ALPConstants_KpiTagCompactPaddingTopBottom;
+	padding-bottom:@_sap_suite_ui_generic_template_ALPConstants_KpiTagCompactPaddingTopBottom;
+	margin-top:@_sap_suite_ui_generic_template_ALPConstants_KpiTagMarginTopBottom;
+	margin-bottom:@_sap_suite_ui_generic_template_ALPConstants_KpiTagMarginTopBottom;
+	border-width:@_sap_suite_ui_generic_template_ALPConstants_KpiTagBorderWidth;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageKpiTag {
+	height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagHeightCozy;
+	margin-top:@_sap_suite_ui_generic_template_ALPConstants_KpiTagCozyMarginTopBottom;
+	margin-bottom:@_sap_suite_ui_generic_template_ALPConstants_KpiTagCozyMarginTopBottom;
+	padding-top:@_sap_suite_ui_generic_template_ALPConstants_KpiTagCozyPaddingTopBottom;
+	padding-bottom:@_sap_suite_ui_generic_template_ALPConstants_KpiTagCozyPaddingTopBottom;
+	margin-top:@_sap_suite_ui_generic_template_ALPConstants_KpiTagMarginTopBottom;
+	border-width:@_sap_suite_ui_generic_template_ALPConstants_KpiTagBorderWidth;
+}
+.sapSmartTemplatesAnalyticalListPageKpiTag{
+	align-items: center !important;
+	background-color: @sapUiListBackground;
+	border-left-width: 3px;
+	border-style: solid;
+	border-right-style: none;
+	margin-top: 2px;
+	margin-bottom: 1px;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
+	border-color: @sapUiListBorderColor;
+	padding-left:@_sap_suite_ui_generic_template_ALPConstants_KpiTagPaddingLeftRight;
+	padding-right:@_sap_suite_ui_generic_template_ALPConstants_KpiTagPaddingLeftRight;
+	cursor: pointer;
+	min-width: @_sap_suite_ui_generic_template_ALPConstants_KpiTagMinWidth;
+	display: flex !important;
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontMediumSize;
+	font-weight: @sapUiFontHeaderWeight;
+	box-shadow: @sapUiShadowLevel0;
+}
+.sapSmartTemplatesAnalyticalListPageKpiTag:hover {
+	background-color: @sapUiListHoverBackground;
+}
+.sapSmartTemplatesAnalyticalListPageKpiTagValue{
+	text-align: right;
+	line-height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLineHeight;
+	padding-left: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftPadding;
+	padding-right: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftMargin;
+}
+.sapSmartTemplatesAnalyticalListPageKpiTagName{
+	color: @sapUiContentLabelColor;
+	line-height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLineHeight;
+	text-align: left;
+	padding-left: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftMargin;
+}
+.sapSmartTemplatesAnalyticalListPageKPIErrorIcon {
+	color: @sapUiNegativeText;
+	text-align: right;
+	line-height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLineHeight;
+	padding-left: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftPadding;
+	padding-right: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftMargin;
+}
+.sapSmartTemplatesAnalyticalListPageKPIWarningIcon {
+  color: @sapUiCriticalText;
+  text-align: right;
+  line-height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLineHeight;
+  padding-left: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftPadding;
+  padding-right: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftMargin;
+}
+.sapSmartTemplatesAnalyticalListPageKPIInformationIcon {
+	color: @sapUiNeutralText;
+	text-align: right;
+	line-height: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLineHeight;
+	padding-left: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftPadding;
+	padding-right: @_sap_suite_ui_generic_template_ALPConstants_KpiTagLeftMargin;
+  }
+.sapSmartTemplatesAnalyticalListPageKPINeutral{
+	color: @sapUiNeutralText;
+	border-left-color: @sapUiNeutralBorder;
+}
+.sapSmartTemplatesAnalyticalListPageKPICritical{
+	color: @sapUiCriticalText;
+	border-left-color: @sapUiWarningBorder;
+}
+.sapSmartTemplatesAnalyticalListPageKPIPositive{
+	color: @sapUiPositiveText;
+	border-left-color: @sapUiSuccessBorder;
+}
+.sapSmartTemplatesAnalyticalListPageKPINegative{
+	color: @sapUiNegativeText;
+	border-left-color: @sapUiErrorBorder;
+}
+
+.sapSmartTemplatesAnalyticalListPageKPIUndetermined{
+	color: @sapUiBaseText;
+	border-left-color: @sapUiBaseText;
+}
+.sapSmartTemplatesAnalyticalListPageKpiCardStyle{
+	min-height: @_sap_suite_ui_generic_template_ALPConstants_KpiCardMinHeight;
+	min-width: @_sap_suite_ui_generic_template_ALPConstants_KpiCardMinWidth;
+}
+.sapMOverflowToolbarMenu-CTX .sapSmartTemplatesAnalyticalListPageKpiTag {
+	margin: @_sap_suite_ui_generic_template_ALPConstants_KpiTagMarginInOverflow !important
+}
+.sapMOverflowToolbarMenu-CTX .sapSmartTemplatesAnalyticalListPageKpiTagValue {
+	text-align: end;
+	padding-left: 1.8rem;
+}
+.sapSmartTemplatesAnalyticalListPageVFTitle {
+	margin: 0.5rem 1.5rem 0.5rem 1rem !important;
+	width: 20rem !important;
+}
+
+@media screen and (max-width: 600px) {
+	.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageDynamicPage .sapFDynamicPageHeader.sapFDynamicPageHeaderWithContent {
+		padding: 0rem 1rem 1rem 1rem !important;
+	}
+
+	.sapSmartTemplatesAnalyticalListPageVFTitle {
+		margin-top: 0.75rem !important;
+		margin-bottom: 0.75rem !important;
+	}
+
+	.sapSmartTemplatesAnalyticalListPageVisualFilterTitleText {
+		font-family: @sapUiFontFamily; 
+		font-size: @sapMFontLargeSize;
+		line-height: 1.5; 
+		color: @sapUiBaseText; 
+	}
+}
+
+.sapSmartTemplatesAnalyticalListPageVFChart {
+	margin: 0rem 1.5rem 0.5rem 1rem !important;
+	width: 20rem !important;
+}
+
+/**************** KPI TAG END ****************/
+
+.sapSmartTemplatesAnalyticalListPageVFOverflow {
+	background-color: @sapUiTileBackground;
+	opacity: @_sap_suite_ui_generic_template_ALPConstants_VFOverflowOpacity;
+	border-color: fade(@sapUiBrand, 20%);
+	font-size: @_sap_suite_ui_generic_template_ALPConstants_VFOverflowFontSize;
+	border-width: 1px;
+	border-style: solid;
+	white-space: pre-line;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom:initial;
+	text-align: center;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageKpiTagCozy {
+	height: 2.4365rem;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageVFOverflowCozy {
+	margin-top: 0.25rem;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageVFDShowInFilterBarCozy.sapMCb {
+	padding-left: 38px !important;
+}
+.sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageVFDShowInFilterBarCozy .sapMCbBg {
+	left: 0.4375rem !important;
+}
+.sapSmartTemplatesAnalyticalListPageSelectedLinkDialog{
+	min-width:	@_sap_suite_ui_generic_template_ALPConstants_SelectedLinkDialogWidth;
+}
+
+ .sapUiSizeCompact .sapSmartTemplatesAnalyticalListPageFilterableKPIContainer{
+ 	width: inherit;
+	padding: 0.5rem 1rem;
+	height: 3rem;
+	border-bottom: none;
+ }
+
+ .sapUiSizeCozy .sapSmartTemplatesAnalyticalListPageFilterableKPIContainer{
+ 	width: inherit;
+	padding: 0.5rem 1rem;
+	height: 3rem;
+	border-bottom: none;
+ }
+
+ .sapSmartTemplatesAnalyticalListPageFilterableKPITitle{
+ 	font-family: @sapUiFontHeaderFamily;
+	font-size: @sapMFontHeader2Size;
+	font-weight: @sapUiFontHeaderWeight;
+	color: @sapUiGroupTitleTextColor;
+	line-height: 2rem;
+	padding-right: 1rem;
+	max-width: 25rem;
+ }
+
+ .sapSmartTemplatesAnalyticalListPageKpiTagDisable{
+	z-index: -1;
+	opacity: 0.5;
+	background-color: transparent;
+ }
+
+ .sapSmartTemplatesAnalyticalListPageKpiTagOverflow {
+	border-bottom: none;
+}
+
+.sapSmartTemplatesAnalyticalListPageHeaderContainerBorder {
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.10), inset 0 -1px 0 0 #d9d9d9 !important;
+}
+
+
+.sapUiTheme-sap_fiori_3 .sapSmartTemplatesAnalyticalListPageDynamicPage .sapFDynamicPageContentWrapper {
+    background: #f7f7f7;
+}
+
+.sapUiTheme-sap_belize .sapSmartTemplatesAnalyticalListPageDynamicPage .sapFDynamicPageContentWrapper {
+    background: #fafafa;
+}
+
+.sapUiTheme-sap_belize_plus .sapSmartTemplatesAnalyticalListPageDynamicPage .sapFDynamicPageContentWrapper {
+    background: #fafafa;
+}
+
+.sapSmartTemplatesAnalyticalListPageRequired:before {
+	content:"*";
+	color: @sapUiFieldRequiredColor;
+	font-family: @sapUiFontFamily;
+	font-size: @sapMFontLargeSize;
+	font-weight: bold;
+	position: relative;
+	vertical-align: middle;
+	line-height: 0;
+}
+

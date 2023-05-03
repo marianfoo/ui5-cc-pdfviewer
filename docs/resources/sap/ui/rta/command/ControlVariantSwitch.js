@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/rta/command/BaseCommand","sap/ui/core/util/reflection/JsControlTreeModifier","sap/ui/fl/Utils"],function(e,t,r){"use strict";var n=e.extend("sap.ui.rta.command.ControlVariantSwitch",{metadata:{library:"sap.ui.rta",properties:{targetVariantReference:{type:"string"},sourceVariantReference:{type:"string"}},associations:{},events:{}}});n.prototype._getAppComponent=function(){var e=this.getElement();return e?r.getAppComponentForControl(e):this.getSelector().appComponent};n.prototype.execute=function(){var e=this.getElement();var n=this._getAppComponent();var a=this.getTargetVariantReference();this.oModel=n.getModel(r.VARIANT_MODEL_NAME);this.sVariantManagementReference=t.getSelector(e,n).id;return this._updateModelVariant(a,n)};n.prototype.undo=function(){var e=this.getSourceVariantReference();var t=this._getAppComponent();return this._updateModelVariant(e,t)};n.prototype._updateModelVariant=function(e,t){if(this.getTargetVariantReference()!==this.getSourceVariantReference()){return this.oModel.updateCurrentVariant({variantManagementReference:this.sVariantManagementReference,newVariantReference:e,appComponent:t})}return Promise.resolve()};return n});
+//# sourceMappingURL=ControlVariantSwitch.js.map

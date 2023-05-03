@@ -1,0 +1,141 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						 xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core"
+						 xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+						 xmlns:fe="sap.suite.ui.generic.template.genericUtilities">
+
+	<VBox id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::ContactWithDetails"
+		  visible="{= ${path: 'headerFacet>com.sap.vocabularies.UI.v1.Hidden'} ? ${path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getBindingForHiddenPath'} : true}"
+		  displayInline="true"  binding="{parts: [{path: 'headerFacet>Target'}, {path: 'entitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getNavigationPathWithExpand'}"
+		  class="sapSmartTemplatesObjectPageHeaderForm sapSmartTemplatesObjectPageHeaderContact">
+		<template:if test="{headerFacet>Label}">
+			<Title id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+				   text="{path: 'headerFacet>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+				   class="sapSmartTemplatesObjectPageHeaderContactLabel"/>
+		</template:if>
+		<HBox>
+			<core:Icon id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Link::Icon"
+					   src="sap-icon://person-placeholder" tooltip="{i18n>CONTACT_INFO}"
+					   visible="false"
+					   class="sapUiTinyMarginEnd sapSmartTemplatesObjectPageHeaderContactLinkIcon" />
+			<fe:Link id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Link"
+ 				  text="{path: 'contact>fn', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+ 				  press="._templateEventHandlers.onContactDetails"
+				  ariaLabelledBy="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+				  class="sapSmartTemplatesObjectPageHeaderContactLink">
+				<fe:customData>
+					<core:CustomData key="Location" value="Header"/>
+					<core:CustomData key="contactDetails" value="{= ${path: 'contact>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getCustomDataForContactPopup'}}"/>
+				</fe:customData>
+			</fe:Link>
+		</HBox>
+		<HBox>
+			<core:Icon id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::LinkSmall::Icon"
+					   src="sap-icon://person-placeholder" tooltip="{i18n>CONTACT_INFO}"
+					   visible="false"
+					   class="sapUiTinyMarginEnd sapSmartTemplatesObjectPageHeaderFormLabel" />
+			<fe:Link id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::LinkSmall"
+				  text="{path: 'contact>fn', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+				  press="._templateEventHandlers.onContactDetails"
+				  ariaLabelledBy="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+				  visible="false"
+				  class="sapSmartTemplatesObjectPageHeaderFormField sapSmartTemplatesObjectPageHeaderContactLink">
+				<fe:customData>
+					<core:CustomData key="Location" value="Header"/>
+				</fe:customData>
+			</fe:Link>
+		</HBox>
+		<HBox>
+			<core:Icon id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Fn::Icon"
+					   src="sap-icon://person-placeholder" tooltip="{i18n>CONTACT_INFO}"
+					   visible="false"
+					   class="sapUiTinyMarginEnd sapSmartTemplatesObjectPageHeaderFormLabel" />
+			<Text id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Fn"
+				  text="{path: 'contact>fn', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+				  visible="false"
+				  class="sapSmartTemplatesObjectPageHeaderFormField"/>
+		</HBox>
+		<template:if test="{= !!${contact>title}}">
+			<Text id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Title"
+				  text="{path: 'contact>title', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+				  visible="false"
+				  class="sapSmartTemplatesObjectPageHeaderFormField"/>
+		</template:if>
+		<template:if test="{= !!${contact>org}}">
+			<Text id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Org"
+				  text="{path: 'contact>org', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+				  visible="false"
+				  class="sapSmartTemplatesObjectPageHeaderFormField"/>
+		</template:if>
+		<template:if test="{= !!${path: 'contact>email/[${type/EnumMember}.indexOf(\'ContactInformationType/work\')>=0]/address', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} }">
+			<HBox>
+				<core:Icon id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Email::Work::Icon"
+						   src="sap-icon://email" tooltip="{i18n>CONTACT_EMAIL}"
+						   visible="false"
+						   class="sapUiTinyMarginEnd sapSmartTemplatesObjectPageHeaderFormLabel" />
+				<fe:Link id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Email::Work"
+					  text="{path: 'contact>email/[${type/EnumMember}.indexOf(\'ContactInformationType/work\')>=0]/address', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+					  href="mailto:{path: 'contact>email/[${type/EnumMember}.indexOf(\'ContactInformationType/work\')>=0]/address', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+					  visible="false"
+					  ariaLabelledBy="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+					  class="sapSmartTemplatesObjectPageHeaderFormField"/>
+			</HBox>
+		</template:if>
+		<template:if test="{= !!${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/work\')>=0]/uri'} }">
+			<HBox>
+				<core:Icon id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Phone::Work::Icon"
+						   src="sap-icon://phone" tooltip="{i18n>CONTACT_PHONE}"
+						   visible="false"
+						   class="sapUiTinyMarginEnd sapSmartTemplatesObjectPageHeaderFormLabel" />
+				<fe:Link id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Phone::Work"
+					  text="{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/work\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+					  href="tel:{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/work\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+					  visible="false"
+					  ariaLabelledBy="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+					  class="sapSmartTemplatesObjectPageHeaderFormField"/>
+			</HBox>
+		</template:if>
+		<template:if test="{= !!${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/cell\')>=0]/uri'} }">
+			<HBox>
+				<core:Icon id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Cell::Work::Icon"
+						   src="sap-icon://iphone" tooltip="{i18n>CONTACT_MOBILE}"
+						   visible="false"
+						   class="sapUiTinyMarginEnd sapSmartTemplatesObjectPageHeaderFormLabel" />
+				<fe:Link id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Cell::Work"
+					  text="{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/cell\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+					  href="tel:{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/cell\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+					  visible="false"
+					  ariaLabelledBy="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+					  class="sapSmartTemplatesObjectPageHeaderFormField"/>
+			</HBox>
+		</template:if>
+		<template:if test="{= !!${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/fax\')>=0]/uri'} }">
+			<HBox>
+				<core:Icon id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Fax::Work::Icon"
+						   src="sap-icon://fax-machine" tooltip="{i18n>CONTACT_FAX}"
+						   visible="false"
+						   class="sapUiTinyMarginEnd sapSmartTemplatesObjectPageHeaderFormLabel" />
+				<Text id="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Fax::Work"
+					  text="{= ${path: 'contact>tel/[${type/EnumMember}.indexOf(\'PhoneType/fax\')>=0]/uri', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}.replace('tel:','') }"
+					  visible="false"
+					  ariaLabelledBy="header::{path: 'headerFacet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromFacet'}::Label"
+					  class="sapSmartTemplatesObjectPageHeaderFormField"/>
+			</HBox>
+		</template:if>
+		<template:if test="{= !!${contact>adr}}">
+			<HBox>
+				<Label text="{i18n>CONTACT_ADDRESS}"/>
+				<template:if test="{= !!${path: 'contact>adr/[${type/EnumMember}.indexOf(\'ContactInformationType\')>=0]/label'} }">
+					<template:then>
+						<Text text="{path: 'contact>adr/[${type/EnumMember}.indexOf(\'ContactInformationType\')>=0]/label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+							wrapping="true"/>
+					</template:then>
+					<template:else>
+						<Text text="{path: 'contact>adr', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getFormattedAddress'}"
+							wrapping="true"/>
+					</template:else>
+				</template:if>
+			</HBox>
+		</template:if>
+	</VBox>
+
+</core:FragmentDefinition>

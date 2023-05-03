@@ -1,0 +1,246 @@
+<core:FragmentDefinition
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smartField="sap.ui.comp.smartfield" xmlns="sap.m" xmlns:build="sap.build"
+	xmlns:table="sap.ui.table" xmlns:core="sap.ui.core"
+	xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
+	template:require="{AH:'sap/suite/ui/generic/template/js/AnnotationHelper'}"
+	xmlns:fe="sap.suite.ui.generic.template.genericUtilities">
+
+    <template:repeat list="{collection>}" var="dataField">
+		<template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataField')}">
+			<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+				<template:if test="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.checkMultiplicityForDataFieldAssociationInTable'}">
+					<table:Column id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataField', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}})}"
+							width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}">
+						<table:customData>
+							<core:CustomData key="p13nData" value="{parts: [{path: 'listEntitySet>'}, {path: 'dataFieldValue>'}, {path: 'dataField>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13N'}" />
+						</table:customData>
+						<template:if test="{dataField>Label}">
+							<template:then>
+								<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+							</template:then>
+							<template:else>
+								<Text text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+							</template:else>
+						</template:if>	
+						<table:template>
+							<smartMultiInput:SmartMultiInput visible="true" editable="{tableobserver>/editable}"
+								enableODataSelect="true"
+								clientSideMandatoryCheck="false"
+								tokenUpdate="._templateEventHandlers.submitChangesForSmartMultiInput"
+								selectionFinish="._templateEventHandlers.submitChangesForSmartMultiInput"
+								value="{path:'dataField>Value',formatter:'sap.ui.model.odata.AnnotationHelper.simplePath'}"
+								textLabel="{parts:[{path:'dataFieldValue>'},{path:'dataField>'}],formatter:'sap.suite.ui.generic.template.js.AnnotationHelper.getDataFieldLabel'}"
+								fetchValueListReadOnly="false"/>
+						</table:template>
+					</table:Column>
+				</template:if>
+			</template:with>
+		</template:if>		
+		<template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Inline/Bool} === 'true'}">
+			<template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="columnId">
+				<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' }">
+					<template:then>
+						<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForAction', sSmartTableId: ${smartTableId>id}, sAction: ${dataField>Action/String}})}" />
+					</template:then>
+					<template:else>
+						<template:if test="{= ${columnId>}.buildStableId({type: 'TableColumn', subType: 'DataFieldForIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sSemanticObject: ${dataField>SemanticObject/String}, sAction: ${dataField>Action/String}})}" />
+					</template:else>
+				</template:if>
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<table:Column 
+							id="{columnId>id}"
+							sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getSortProperty'}" 
+							filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getFilterProperty'}"
+							showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+							customData:p13nData="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}"
+							width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {value: ''}, {path: 'appSettings>/enableAutoColumnWidthForSmartTable'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+							hAlign="Center">
+						<template:if test="{dataField>Label}">
+							<template:then>
+								<core:InvisibleText text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+							</template:then>
+							<template:else>
+								<core:InvisibleText text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+							</template:else>
+						</template:if>
+						<table:template>
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.InlineButton" type="XML" />
+						</table:template>
+					</table:Column>
+				</template:with>
+			</template:with>
+	 	</template:if>
+		<!-- Implementation DataFieldWithIntentBasedNavigation: Begin -->
+		<template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithIntentBasedNavigation')}">
+			<template:then>
+				<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+					<table:Column 
+						id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldWithIntentBasedNavigation', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}, sSemanticObject: ${dataField>SemanticObject/String}, sAction: ${dataField>Action/String}})}"
+						sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getSortProperty'}" 
+						filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getFilterProperty'}"
+						showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+						width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+						customData:p13nData="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}">
+						<Text
+							text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}" />
+						<table:template>
+							<fe:Link
+								text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLinkTextForDFwithIBN'}"
+								press="._templateEventHandlers.onDataFieldWithIntentBasedNavigation"
+								wrapping="false">
+								<fe:customData>
+									<core:CustomData key="SemanticObject" value="{path: 'dataField>SemanticObject', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+									<core:CustomData key="Action" value="{path: 'dataField>Action', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+								</fe:customData>
+							</fe:Link>
+						</table:template>
+					</table:Column>
+				</template:with>
+			</template:then>
+		</template:if>
+		<!-- Implementation DataFieldWithIntentBasedNavigation: End -->
+		<!--Not required in ALP -->
+		<template:if test="{= ${parameter>/templateSpecific/isSelflinkRequired}}">
+			<!-- ObjectPage Self-Linking -->
+			<template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithNavigationPath')}">
+				<template:then>
+					<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+						<table:Column 
+							id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldWithNavigationPath', sSmartTableId: ${smartTableId>id}, sProperty: ${dataField>Value/Path}, sTarget: ${dataField>Target/NavigationPropertyPath}})}"
+							sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getSortProperty'}" 
+							filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'AH.getFilterProperty'}"
+							showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+							width="{parts: [{path: 'dataFieldValue>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+							customData:p13nData="{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForAction'}">
+							<Text
+								text="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getLabelForDFwithIBN'}" />
+							<table:template>
+								<smartField:SmartField
+									value="{path: 'dataField>Value', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDataFieldValueSimplePath'}"
+									editable="{ui>/editable}" press="._templateEventHandlers.onDataFieldWithNavigationPath">
+									<smartField:customData>
+										<core:CustomData key="Target" value="{dataField>Target/NavigationPropertyPath}" />
+									</smartField:customData>
+									<smartField:configuration>
+										<smartField:Configuration
+											displayBehaviour="{parts: [{path: 'dataField>'}, {value: ''}, {path: 'listEntitySet>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getTextArrangementForSmartControl'}" />
+									</smartField:configuration>
+								</smartField:SmartField>
+							</table:template>
+						</table:Column>
+					</template:with>
+				</template:then>
+			</template:if>
+		</template:if>
+		<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAnnotation'}">
+			<template:then>
+				<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTarget">
+					<!--	Implementation ContactPopUpOver:Begins	 -->
+					<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') >= 0}">
+						<template:then>
+							<table:Column
+									id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+									sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getSortProperty'}"
+									filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getFilterProperty'}"
+									showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+									width="{parts: [{path: 'dataFieldTarget>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+									customData:p13nData="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForContactPopUp'}">
+								<template:if test="{dataField>Label}">
+									<template:then>
+										<Text
+											text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+									</template:then>
+								</template:if>
+								<table:template>
+									<template:if test="{= ${dataField>Target/AnnotationPath}.indexOf('com.sap.vocabularies.Communication.v1.Contact') >= 0}">
+										<template:with path="dataField>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="contact">
+												<VBox>
+													<fe:Link binding="{= ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/') > -1 ? '{' + ${path: 'dataField>Target/AnnotationPath'}.slice(0, ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/')) + '}' : null}"
+															text="{path: 'contact>fn', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+															press="._templateEventHandlers.onContactDetails">
+														<fe:customData>
+															<core:CustomData key="Location" value="SmartTable"/>
+															<core:CustomData key="contactDetails" value="{= ${path: 'contact>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getCustomDataForContactPopup'}}"/>
+														</fe:customData>
+													</fe:Link>
+												</VBox>
+											</template:with>
+									</template:if>
+								</table:template>
+							</table:Column>
+						</template:then>
+					</template:if>
+					<!--	Implementation ContactPopUpOver:Ends	 -->
+					<!-- Not Supported in ALP -->
+					<template:if test="{= ${parameter>/templateSpecific/isIndicatorRequired}}">
+						<!--	Implementation Progress and Rating Indicator:Begins	 -->
+						<template:if test="{= ${dataFieldTarget>Visualization}}">
+							<template:then>
+								<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue"> <!-- only needed to pass to p13n to be able to switch to old implementation (DataFieldForAnnotation does not contain Value) -->
+									<template:with path="dataFieldTarget>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldTargetValue">
+										<table:Column
+												id="{:= ${parameter>/stableId}.getStableId({type: 'TableColumn', subType: 'DataFieldForAnnotation', sSmartTableId: ${smartTableId>id}, sTarget: ${dataField>Target/AnnotationPath}})}"
+												sortProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getSortProperty'}"
+												filterProperty="{parts: [{path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataFieldTarget>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'AH.getFilterProperty'}"
+												showFilterMenuEntry="{= (${parameter>/settings/smartVariantManagement} &amp;&amp; !${parameter>/settings/enableTableFilterInPageVariant} &amp;&amp; !${parameter>/settings/isWorklist}) ? 'false' : 'true'}"
+												width="{parts: [{path: 'dataFieldTarget>'}, {path: 'dataField>'}, {path: 'listEntitySet>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getDefaultWidthForTableColumn'}"
+												customData:p13nData="{parts: [{path: 'listEntitySet>'}, {path: 'dataField>'}, {path: 'dataFieldTarget>'}, {path: 'dataFieldTargetValue>'}, {path: 'dataField>Target/AnnotationPath'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.createP13NColumnForIndicator'}" >
+											<template:if test="{dataField>Label}">
+												<template:then>
+													<Text
+															text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+															visible="true" />
+												</template:then>
+												<template:elseif test="{dataFieldTarget>Title}">
+													<Text
+															text="{path: 'dataFieldTarget>Title', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+												</template:elseif>
+												<template:elseif
+														test="{dataFieldTargetValue>com.sap.vocabularies.Common.v1.Label}">
+													<Text
+															text="{path: 'dataFieldTargetValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+												</template:elseif>
+											</template:if>
+											<table:template>
+												<!--	Rating Indicator generation	 -->
+												<template:if test="{= ${dataFieldTarget>Visualization/EnumMember} === 'com.sap.vocabularies.UI.v1.VisualizationType/Rating'}">
+													<template:then>
+														<template:with path="dataFieldTarget>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="value">
+															<!--Due to SideEffect issues the RatingIndicator is not	editable -->
+															<RatingIndicator enabled="true" editable="false" maxValue="{path: 'dataFieldTarget>TargetValue', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+																binding="{= ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/') > -1 ? '{' + ${path: 'dataField>Target/AnnotationPath'}.slice(0, ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/')) + '}' : null}"
+																value="{path: 'dataFieldTarget>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" />
+														</template:with>
+													</template:then>
+													<!--	Progress Indicator generation	 -->
+													<template:elseif test="{= ${dataFieldTarget>Visualization/EnumMember} === 'com.sap.vocabularies.UI.v1.VisualizationType/Progress'}">
+														<template:with path="dataFieldTarget>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="value">
+																<ProgressIndicator
+																		binding="{= ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/') > -1 ? '{' + ${path: 'dataField>Target/AnnotationPath'}.slice(0, ${ path: 'dataField>Target/AnnotationPath'}.indexOf('/')) + '}' : null}"
+																		percentValue="{ parts: [{path:'dataFieldTarget>'}, {path:'value>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildExpressionForProgressIndicatorPercentValue' }"
+																		displayValue="{ parts: [{path:'dataFieldTarget>'}, {path:'value>Org.OData.Measures.V1.Unit'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildExpressionForProgressIndicatorDisplayValue'}"
+																		state="{path:'dataFieldTarget>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildExpressionForProgressIndicatorCriticality'}">
+																	<customData>
+																		<core:CustomData key="Target" value="{= ${path: 'dataFieldTarget>TargetValue', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} }" />
+																		<core:CustomData key="UoM" value="{= ${path: 'value>Org.OData.Measures.V1.Unit', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} }" />
+																	</customData>
+																</ProgressIndicator>
+														</template:with>
+													</template:elseif>
+												</template:if>
+											</table:template>
+										</table:Column>
+									</template:with>
+								</template:with>
+							</template:then>
+						</template:if>
+						<!--	Implementation Progress and Rating Indicator:Ends	 -->
+					</template:if>
+				</template:with>
+			</template:then>
+		</template:if>
+	</template:repeat>
+
+</core:FragmentDefinition>

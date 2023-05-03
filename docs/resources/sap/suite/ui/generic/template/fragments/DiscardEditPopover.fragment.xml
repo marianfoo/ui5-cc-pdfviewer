@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover id="DiscardDraftPopover" placement="{discard>/placement}" showHeader="false" class="sapUiContentPadding" ariaLabelledBy="DiscardDraftText" beforeClose="beforeClose" afterClose="afterClose">
+		<VBox id="DiscardDraftBox">
+			<Text id="DiscardDraftText" width="16rem" text="{= ${discard>/isCreate} ? ${i18n>CANCEL_AND_DISCARD} : ${i18n>DISCARD_EDIT} }" />
+			<Button id="DiscardDraftConfirmButton" text="{i18n>DISCARD}" width="100%" press="onDiscardConfirm" />	
+		</VBox>	
+	</Popover>
+</core:FragmentDefinition>

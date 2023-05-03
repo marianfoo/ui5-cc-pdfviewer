@@ -1,0 +1,1 @@
+{"version":3,"file":"BaseType.js","names":["sap","ui","define","BaseType","String","Numeric","Boolean","Date","Time","DateTime","Unit"],"sources":["BaseType-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,WACb,aAeA,IAAIC,EAAW,CAMdC,OAAQ,SAQRC,QAAS,UAOTC,QAAS,UAOTC,KAAM,OAONC,KAAM,OAONC,SAAU,WAQVC,KAAM,QAGP,OAAOP,CAER,EAAkB"}

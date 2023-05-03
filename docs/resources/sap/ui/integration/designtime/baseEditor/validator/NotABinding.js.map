@@ -1,0 +1,1 @@
+{"version":3,"file":"NotABinding.js","names":["sap","ui","define","isValidBindingString","async","errorMessage","validate","sValue"],"sources":["NotABinding-dbg.js"],"mappings":";;;;;AAKAA,IAAIC,GAAGC,OAAO,CACb,sEACE,SACFC,GAEA,aAcA,MAAO,CACNC,MAAO,MACPC,aAAc,0CAWdC,SAAU,SAAUC,GACnB,OAAQJ,EAAqBI,EAAQ,MACtC,EAEF"}

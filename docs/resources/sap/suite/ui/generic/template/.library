@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library xmlns="http://www.sap.com/sap.ui.library.xsd">
+
+	<name>sap.suite.ui.generic.template</name>
+	<vendor>SAP SE</vendor>
+	<copyright>SAP UI development toolkit for HTML5 (SAPUI5)
+
+		(c) Copyright 2009-2015 SAP SE. All rights reserved
+	</copyright>
+	<version>1.108.9</version>
+
+	<documentation>Library with generic Suite UI templates.</documentation>
+
+	<dependencies>
+		<dependency>
+			<libraryName>sap.ui.core</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.table</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.comp</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.uxap</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.layout</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.suite.ui.microchart</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.insights</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.viz</libraryName>
+			<lazy>true</lazy>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.fl</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.generic.app</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ushell</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.m</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.f</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.ui.rta</libraryName>
+		</dependency>
+		<dependency>
+			<libraryName>sap.fe.placeholder</libraryName>
+		</dependency>
+	</dependencies>
+
+	<appData>
+		<!-- excludes for the JSDoc -->
+		<jsdoc xmlns="http://www.sap.com/ui5/buildext/jsdoc">
+			<exclude name="sap.suite.ui.generic.template.js."/>
+		</jsdoc>
+		<!-- excludes for the JSCoverage -->
+		<jscoverage xmlns="http://www.sap.com/ui5/buildext/jscoverage">
+			<exclude name="sap.collaboration." external="true"/>
+			<exclude name="sap.f." external="true"/>
+			<exclude name="sap.ovp." external="true"/>
+			<exclude name="jquery.sap.xml." external="true"/>
+			<exclude name="sap.chart." external="true"/>
+			<exclude name="sap.m." external="true"/>
+			<exclude name="sap.suite.ui.commons." external="true"/>
+			<exclude name="sap.suite.ui.microchart." external="true"/>
+			<exclude name="sap.ui." external="true"/>
+			<exclude name="sap.ushell." external="true"/>
+			<exclude name="sap.uxap." external="true"/>
+			<exclude name="sap.viz." external="true"/>
+			<exclude name="sap.esh." external="true"/>
+			<exclude name="sap.base." external="true"/>
+                	<exclude name="sap.fe." external="true"/>
+                	<exclude name="sap.tnt." external="true"/>
+			<exclude name="*" external="true"/> <!-- exclude files within current folder -->
+		</jscoverage>
+		<releasenotes
+			xmlns="http://www.sap.com/ui5/buildext/releasenotes"
+			url="../../../../../../test-resources/sap/suite/ui/generic/template/relnotes/changes-{major}.{minor}.json"
+			resolve="lib" />
+		<documentation xmlns="http://www.sap.com/ui5/buildext/documentation"
+			indexUrl="../../../../../../test-resources/sap/suite/ui/generic/template/demokit/docuindex.json"
+			resolve="lib"/>
+	</appData>
+
+</library>

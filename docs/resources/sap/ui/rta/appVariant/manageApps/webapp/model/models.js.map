@@ -1,0 +1,1 @@
+{"version":3,"file":"models.js","names":["sap","ui","define","JSONModel","createModel","oData","oModel","setDefaultBindingMode"],"sources":["models-dbg.js"],"mappings":";;;;;AAKAA,IAAIC,GAAGC,OAAO,CACb,+BACE,SAASC,GACX,aAEA,MAAO,CAENC,YAAa,SAASC,GACrB,IAAIC,EAAS,IAAIH,EAAUE,GAC3BC,EAAOC,sBAAsB,UAC7B,OAAOD,CACR,EAGF"}

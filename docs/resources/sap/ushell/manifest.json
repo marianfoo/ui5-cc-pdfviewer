@@ -1,0 +1,211 @@
+{
+  "_version": "1.21.0",
+  "sap.app": {
+    "id": "sap.ushell",
+    "type": "library",
+    "embeds": [
+      "appRuntime/ui5/plugins/rtaAgent",
+      "appRuntime/ui5/plugins/rtaShell",
+      "appRuntime/ui5/plugins/scriptAgent",
+      "components/appfinder",
+      "components/contentFinderAppSearch",
+      "components/homeApp/error",
+      "components/homepage",
+      "components/pages",
+      "components/runtimeSwitcher",
+      "components/shell/MenuBar",
+      "components/shell/Search",
+      "components/shell/Settings/userDefaults",
+      "components/tiles/cdm/applauncher",
+      "components/tiles/cdm/applauncherdynamic",
+      "components/workPageBuilder",
+      "components/workPageRuntime",
+      "plugins/appwarmup",
+      "plugins/ghostapp",
+      "plugins/rta",
+      "plugins/rta-personalize",
+      "renderers/fiori2/search/searchComponent"
+    ],
+    "applicationVersion": {
+      "version": "1.108.12"
+    },
+    "title": "SAP library: sap.ushell",
+    "description": "SAP library: sap.ushell",
+    "ach": "CA-FLP-FE-UI",
+    "resources": "resources.json",
+    "offline": true
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "supportedThemes": [
+      "base",
+      "sap_belize",
+      "sap_belize_hcb",
+      "sap_belize_hcw",
+      "sap_belize_plus",
+      "sap_bluecrystal",
+      "sap_fiori_3",
+      "sap_fiori_3_dark",
+      "sap_fiori_3_hcb",
+      "sap_fiori_3_hcw",
+      "sap_hcb",
+      "sap_horizon",
+      "sap_horizon_dark",
+      "sap_horizon_hcb",
+      "sap_horizon_hcw"
+    ]
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.108",
+      "libs": {
+        "sap.f": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.m": {
+          "minVersion": "1.108.8"
+        },
+        "sap.ui.core": {
+          "minVersion": "1.108.8"
+        },
+        "sap.ui.layout": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.suite.ui.commons": {
+          "minVersion": "1.108.4",
+          "lazy": true
+        },
+        "sap.suite.ui.microchart": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.ui.comp": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.ui.export": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.collaboration": {
+          "minVersion": "1.108.0",
+          "lazy": true
+        },
+        "sap.ui.table": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.ui.integration": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.ui.generic.app": {
+          "minVersion": "1.108.0",
+          "lazy": true
+        },
+        "sap.esh.search.ui": {
+          "minVersion": "1.108.1",
+          "lazy": true
+        }
+      }
+    },
+    "library": {
+      "i18n": false,
+      "content": {
+        "controls": [
+          "sap.ushell.components.container.ApplicationContainer",
+          "sap.ushell.components.factsheet.controls.PictureTile",
+          "sap.ushell.components.factsheet.controls.PictureViewer",
+          "sap.ushell.components.factsheet.controls.PictureViewerItem",
+          "sap.ushell.components.shell.Settings.userDefaults.UserDefaultsForm",
+          "sap.ushell.components.tiles.sbtilecontent",
+          "sap.ushell.components.workPageBuilder.controls.WorkPage",
+          "sap.ushell.components.workPageBuilder.controls.WorkPageButton",
+          "sap.ushell.components.workPageBuilder.controls.WorkPageCell",
+          "sap.ushell.components.workPageBuilder.controls.WorkPageColumn",
+          "sap.ushell.components.workPageBuilder.controls.WorkPageColumnResizer",
+          "sap.ushell.components.workPageBuilder.controls.WorkPageRow",
+          "sap.ushell.components.workPageBuilder.controls.WorkPageSection",
+          "sap.ushell.components.workPageBuilder.controls.WorkPageWidgetContainer",
+          "sap.ushell.services._VisualizationInstantiation.VizInstance",
+          "sap.ushell.services._VisualizationInstantiation.VizInstanceAbap",
+          "sap.ushell.services._VisualizationInstantiation.VizInstanceCdm",
+          "sap.ushell.services._VisualizationInstantiation.VizInstanceLaunchPage",
+          "sap.ushell.services._VisualizationInstantiation.VizInstanceLink",
+          "sap.ushell.ui.AppContainer",
+          "sap.ushell.ui.ContentNodeSelector",
+          "sap.ushell.ui.ContentNodeTreeItem",
+          "sap.ushell.ui.CustomGroupHeaderListItem",
+          "sap.ushell.ui.ShellHeader",
+          "sap.ushell.ui.appfinder.AppBox",
+          "sap.ushell.ui.appfinder.PinButton",
+          "sap.ushell.ui.contentFinder.AppBox",
+          "sap.ushell.ui.footerbar.AboutButton",
+          "sap.ushell.ui.footerbar.AddBookmarkButton",
+          "sap.ushell.ui.footerbar.ContactSupportButton",
+          "sap.ushell.ui.footerbar.JamDiscussButton",
+          "sap.ushell.ui.footerbar.JamShareButton",
+          "sap.ushell.ui.footerbar.LogoutButton",
+          "sap.ushell.ui.footerbar.SendAsEmailButton",
+          "sap.ushell.ui.footerbar.SettingsButton",
+          "sap.ushell.ui.footerbar.UserPreferencesButton",
+          "sap.ushell.ui.launchpad.ActionItem",
+          "sap.ushell.ui.launchpad.AnchorItem",
+          "sap.ushell.ui.launchpad.AnchorNavigationBar",
+          "sap.ushell.ui.launchpad.CatalogEntryContainer",
+          "sap.ushell.ui.launchpad.CatalogsContainer",
+          "sap.ushell.ui.launchpad.DashboardGroupsContainer",
+          "sap.ushell.ui.launchpad.GroupHeaderActions",
+          "sap.ushell.ui.launchpad.GroupListItem",
+          "sap.ushell.ui.launchpad.LinkTileWrapper",
+          "sap.ushell.ui.launchpad.LoadingDialog",
+          "sap.ushell.ui.launchpad.Page",
+          "sap.ushell.ui.launchpad.PlusTile",
+          "sap.ushell.ui.launchpad.Section",
+          "sap.ushell.ui.launchpad.Tile",
+          "sap.ushell.ui.launchpad.TileContainer",
+          "sap.ushell.ui.launchpad.TileState",
+          "sap.ushell.ui.launchpad.section.CompactArea",
+          "sap.ushell.ui.shell.FloatingContainer",
+          "sap.ushell.ui.shell.NavigationMiniTile",
+          "sap.ushell.ui.shell.OverflowListItem",
+          "sap.ushell.ui.shell.RightFloatingContainer",
+          "sap.ushell.ui.shell.ShellAppTitle",
+          "sap.ushell.ui.shell.ShellFloatingAction",
+          "sap.ushell.ui.shell.ShellFloatingActions",
+          "sap.ushell.ui.shell.ShellHeadItem",
+          "sap.ushell.ui.shell.ShellLayout",
+          "sap.ushell.ui.shell.ShellNavigationMenu",
+          "sap.ushell.ui.shell.ToolArea",
+          "sap.ushell.ui.shell.ToolAreaItem",
+          "sap.ushell.ui.tile.DynamicTile",
+          "sap.ushell.ui.tile.ImageTile",
+          "sap.ushell.ui.tile.StaticTile",
+          "sap.ushell.ui.tile.TileBase"
+        ],
+        "elements": [
+          "sap.ushell.ui.launchpad.AccessibilityCustomData"
+        ],
+        "types": [
+          "sap.ushell.AllMyAppsState",
+          "sap.ushell.AllMyAppsProviderType",
+          "sap.ushell.AppTitleState",
+          "sap.ushell.ContentNodeType",
+          "sap.ushell.components.container.ApplicationType",
+          "sap.ushell.DisplayFormat",
+          "sap.ushell.NavigationState",
+          "sap.ushell.ui.launchpad.ViewPortState",
+          "sap.ushell.ui.tile.State",
+          "sap.ushell.ui.tile.StateArrow",
+          "sap.ushell.VisualizationLoadState",
+          "sap.ushell.AppType",
+          "sap.ushell.AppBoxPreviewSize",
+          "sap.ushell.FloatingNumberType"
+        ],
+        "interfaces": []
+      }
+    }
+  }
+}

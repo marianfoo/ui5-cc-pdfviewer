@@ -1,0 +1,31 @@
+.sapCepWorkPageWidgetContainer {
+  position: relative;
+
+  .sapCepWorkPageWidgetContainerInner {
+    z-index: 0;
+    position: relative;
+  }
+
+  .sapCepWidget {
+    flex: 1 1 auto;
+  }
+
+  .sapCepWidgetToolbar {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.25rem;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.25rem;
+  }
+}
+
+.sapCepEditMode .sapCepWidget {
+  pointer-events: none;
+}
+
+
+
+
+

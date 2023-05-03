@@ -1,0 +1,108 @@
+{
+  "_version": "1.21.0",
+  "sap.app": {
+    "id": "sap.suite.ui.generic.template",
+    "type": "library",
+    "embeds": [
+      "AnalyticalListPage",
+      "Canvas",
+      "ListReport",
+      "ObjectPage",
+      "QuickCreate",
+      "QuickView",
+      "app/blankAnalyticalListPage"
+    ],
+    "applicationVersion": {
+      "version": "1.108.9"
+    },
+    "title": "Library with generic Suite UI templates.",
+    "description": "Library with generic Suite UI templates.",
+    "resources": "resources.json",
+    "offline": true
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "supportedThemes": [
+      "base",
+      "sap_belize",
+      "sap_belize_hcb",
+      "sap_belize_hcw",
+      "sap_belize_plus",
+      "sap_bluecrystal",
+      "sap_fiori_3",
+      "sap_fiori_3_dark",
+      "sap_fiori_3_hcb",
+      "sap_fiori_3_hcw",
+      "sap_hcb",
+      "sap_horizon",
+      "sap_horizon_dark",
+      "sap_horizon_hcb",
+      "sap_horizon_hcw"
+    ]
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.108",
+      "libs": {
+        "sap.ui.core": {
+          "minVersion": "1.108.8"
+        },
+        "sap.ui.table": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.ui.comp": {
+          "minVersion": "1.108.8"
+        },
+        "sap.uxap": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.ui.layout": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.suite.ui.microchart": {
+          "minVersion": "1.108.8"
+        },
+        "sap.insights": {
+          "minVersion": "1.108.4"
+        },
+        "sap.viz": {
+          "minVersion": "1.108.8",
+          "lazy": true
+        },
+        "sap.ui.fl": {
+          "minVersion": "1.108.8"
+        },
+        "sap.ui.generic.app": {
+          "minVersion": "1.108.0"
+        },
+        "sap.ushell": {
+          "minVersion": "1.108.12"
+        },
+        "sap.m": {
+          "minVersion": "1.108.8"
+        },
+        "sap.f": {
+          "minVersion": "1.108.8"
+        },
+        "sap.ui.rta": {
+          "minVersion": "1.108.8"
+        },
+        "sap.fe.placeholder": {
+          "minVersion": "1.108.10"
+        }
+      }
+    },
+    "library": {
+      "i18n": false,
+      "content": {
+        "controls": [],
+        "elements": [],
+        "types": [],
+        "interfaces": []
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+	<Dialog class="sapUiNoContentPadding" id="ShowConfirmationOnDraftActivate" state="{model>/state}" afterClose="afterClose" type="Message" initialFocus="Close" 
+		showHeader="true" horizontalScrolling="false" draggable="true"
+		contentHeight="440px" contentWidth="440px" verticalScrolling="false">
+		<content>
+			<MessageView  id="messageView" items="{msg>/}" showDetailsPageHeader="false" itemSelect="onMessageSelect" activeTitlePress="titlePressed" groupItems="{msg>/grouping}">
+				<MessageItem id="messageItem" type="{msg>type}" title="{msg>message}" description="{msg>description}" subtitle="{msg>additionalText}" 
+						longtextUrl="{msg>descriptionUrl}" activeTitle="{path: 'msg>controlIds', formatter: '.isPositionable'}" groupName="{= ${msg>/messageToGroupName}[${msg>id}] }" />
+			</MessageView>
+		</content>
+		<customHeader>
+			<Bar>
+				<contentMiddle>
+					<Text text="{model>/title}"/>
+				</contentMiddle>
+				<contentLeft>
+					<Button icon="sap-icon://nav-back" visible="{model>/backbtnvisibility}" press="onBackButtonPress" tooltip="{i18n>BACK}" />
+					<core:Icon
+						src="{path: 'model>/messageType', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSeverityIconFromIconPool'}"
+						color="{path: 'model>/messageType', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconColor'}"/>
+				</contentLeft>
+			</Bar>
+		</customHeader>
+		<beginButton>
+			<Button text="{model>/CRUDAction}" visible="{= ${model>/situation} === 4}"  press="onAccept" type="Emphasized"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>CANCEL}" press="onReject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

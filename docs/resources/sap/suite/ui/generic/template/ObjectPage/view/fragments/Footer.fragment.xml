@@ -1,0 +1,128 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fesr="http://schemas.sap.com/sapui5/extension/sap.ui.core.FESR/1"
+	template:require="{AHActionButtons: 'sap/suite/ui/generic/template/ObjectPage/annotationHelpers/AnnotationHelperActionButtons',
+	AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+
+	<OverflowToolbar id="template::ObjectPage::FooterToolbar">
+
+		<Button id="showMessages"
+				text="{_templPriv>/generic/errorMessageCount}"
+				tooltip="{_templPriv>/generic/messageButtonTooltip}"
+				ariaHasPopup="Dialog"
+				fesr:press="fe:showMessages"
+				ariaLabelledBy="showMessagesButtonInvisibleText"
+				press="._templateEventHandlers.onShowMessages" type="{_templPriv>/generic/messageSeverity}" icon="{_templPriv>/generic/messageBtnIcon}"
+				visible="{= ${ui>/editable} &amp;&amp; ${_templPriv>/generic/messageCount} > 0 }"/>
+		<core:InvisibleText id="showMessagesButtonInvisibleText" text="{i18n>MESSAGE_BUTTON_TYPE}"/>
+		<ToolbarSpacer/>
+
+		<template:if test="{= ${parameter>/isDraftEnabled} }">
+			<!-- Draft Indicator is only visible in edit mode. In FCL it is invisible in the third column (unless in fullscreen mode). -->
+			<DraftIndicator id="draftStatus" state="{_templPrivGlobal>/generic/draftIndicatorState}"
+							visible="{:= ${appSettings>/flexibleColumnLayout} ? '{= ${ui>/editable} &amp;&amp; ${_templPrivGlobal>/generic/FCL/lowestDetailViewLevel} === ' + ${parameter>/treeNode/level} + ' }' : '{ui>/editable}' }"/>
+		</template:if>
+
+		<template:if test="{= ${parameter>/isDraftEnabled} &amp;&amp; ${entitySet>com.sap.vocabularies.Common.v1.DraftRoot} }">
+			<template:with path="parameter>/templateSpecific/pageLevelActions/commandExecution/Save" var="saveAction">
+				<Button id="{saveAction>id}"
+					text="{saveAction>text}"
+					type="{saveAction>type}"
+					enabled="{ui>/enabled}"
+					fesr:press="fe:save"
+					press="{saveAction>press}"
+					visible="{saveAction>visible}" />
+					<template:if test="!${saveAction>isStandardAction}">
+						<layoutData>
+							<OverflowToolbarLayoutData priority="{saveAction>importance}"/>
+						</layoutData>
+					</template:if>
+			</template:with>
+
+			<Button id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageAction', subType: 'CommonAction', sAction: 'discard'})}"
+				text="{i18n>ST_DISCARD_DRAFT_BTN}"
+				press="cmd:Cancel"
+				visible="{ui>/editable}"
+				fesr:press="fe:discardDraft"
+				enabled="{= ${ui>/enabled} &amp;&amp; ${_templPriv>/objectPage/cancelEnabled} }"
+				type="Transparent" />
+			<Button id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageAction', subType: 'SaveAndNext'})}"
+				text="{i18n>SAVE_AND_NEXT}"
+				type="Transparent"
+				fesr:press="fe:saveAndNext"
+				press="._templateEventHandlers.onSaveAndEditNext"
+				visible="{path: 'parameter>/manifest', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSaveAndNextButtonVisibility'}"/>
+		</template:if>
+
+		<template:if test="{= !${parameter>/isDraftEnabled} }">
+			<template:with path="parameter>/templateSpecific/pageLevelActions/commandExecution/Save" var="saveAction">
+				<Button id="{saveAction>id}"
+					text="{saveAction>text}"
+					type="{saveAction>type}"
+					fesr:press="fe:save"
+					press="{saveAction>press}"
+					visible="{saveAction>visible}" />
+				<template:if test="!${saveAction>isStandardAction}">
+					<layoutData>
+						<OverflowToolbarLayoutData priority = "{saveAction>importance}"/>
+					</layoutData>
+				</template:if>
+			</template:with>
+
+			<template:if test="{= ${parameter>/treeNode/level} === 1}">
+				<Button id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageAction', subType: 'SaveAndEdit'})}"
+					text="{i18n>SAVE_AND_EDIT}"
+					fesr:press="fe:saveAndEdit"
+					type="Transparent"
+					press="._templateEventHandlers.onSaveAndContinueEdit"
+					visible="false" />
+			</template:if>
+			<Button id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageAction', subType: 'SaveAndNext'})}"
+				text="{i18n>SAVE_AND_NEXT}"
+				fesr:press="fe:saveAndNext"
+				type="Transparent"
+				press="._templateEventHandlers.onSaveAndEditNext"
+				visible="{path: 'parameter>/manifest', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getSaveAndNextButtonVisibility'}"/>
+			<Button id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageAction', subType: 'CommonAction', sAction: 'cancel'})}"
+				text="{i18n>CANCEL}"
+				fesr:press="fe:cancel"
+				press="cmd:Cancel"
+				visible="{ui>/editable}"
+				enabled="{= ${ui>/enabled} &amp;&amp; ${_templPriv>/objectPage/cancelEnabled} }"
+				type="Transparent" />
+		</template:if>
+
+		<template:repeat list="{parameter>/templateSpecific/pageLevelActions/extensionActions}" var="customAction">
+			<template:if test="{= ${customAction>determining} === true}">
+				<Button id="{customAction>id}"
+					text="{customAction>text}"
+					visible="{path: 'customAction>applicablePath', formatter: 'AHActionButtons.getActionControlBreakoutVisibility'}"
+					press="{customAction>press}"
+					type="Default">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="{customaction>importance}" />
+					</layoutData>
+				</Button>
+			</template:if>
+		</template:repeat>
+
+		<core:InvisibleText id="canvasFooterInvisibleText" text="{i18n>MESSAGE_BUTTON_TYPE}"/>
+        <template:with path="entitySet>dummy" var="facet">
+            <template:repeat list="{entityType>com.sap.vocabularies.UI.v1.Identification}" var="dataField">
+                <template:if test="{= (${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForAction' || ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation') &amp;&amp; ${dataField>Determining/Bool} === 'true'}">
+                    <core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.DeterminingButton" type="XML"/>
+                </template:if>
+            </template:repeat>
+        </template:with>
+
+		<template:if test="{= ${parameter>/isDraftEnabled} &amp;&amp; ${parameter>/treeNode/level} > 1 }">
+			<!-- Apply-button only for draft sub objects and visible only in edit mode -->
+		    <Button id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageAction', subType: 'CommonAction', sAction: 'footerObjectPageBackTo'})}"
+					text="{i18n>APPLY}"
+					fesr:press="fe:apply"
+					type="{path: 'entityType>com.sap.vocabularies.UI.v1.Identification', formatter: '.AH.buildEmphasizedButtonExpression'}"
+					visible="{ui>/editable}"
+					press="._templateEventHandlers.applyAndUp"/>
+		</template:if>
+	</OverflowToolbar>
+
+</core:FragmentDefinition>

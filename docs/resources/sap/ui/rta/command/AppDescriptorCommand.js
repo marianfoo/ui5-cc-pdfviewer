@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/rta/command/BaseCommand","sap/ui/fl/write/_internal/appVariant/AppVariantInlineChangeFactory","sap/ui/fl/descriptorRelated/api/DescriptorChangeFactory"],function(e,t,r){"use strict";var n=e.extend("sap.ui.rta.command.AppDescriptorCommand",{metadata:{library:"sap.ui.rta",properties:{reference:{type:"string"},appComponent:{type:"object"},layer:{type:"string"},changeType:{type:"string"},parameters:{type:"object"},texts:{type:"object"}},events:{}}});n.prototype.needsReload=true;n.prototype.prepare=function(e){this.setLayer(e.layer);return true};n.prototype.getPreparedChange=function(){return this._oPreparedChange};n.prototype.setCompositeId=function(e){this._sCompositeId=e};n.prototype.createAndStoreChange=function(){return t.createDescriptorInlineChange({changeType:this.getChangeType(),content:this.getParameters(),texts:this.getTexts(),support:{compositeCommand:this._sCompositeId||""}}).then(function(e){return(new r).createNew(this.getReference(),e,this.getLayer(),this.getAppComponent(),"sap.ui.rta.AppDescriptorCommand")}.bind(this)).then(function(e){var t=e.store();this._oPreparedChange=t}.bind(this))};return n});
+//# sourceMappingURL=AppDescriptorCommand.js.map

@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define(["sap/ushell/Config","sap/ui/thirdparty/jquery"],function(e,jQuery){"use strict";function t(){this.attachSizeBehaviorUpdate=function(t){var n=e.on("/core/home/sizeBehavior");n.do(t);return{detach:n.off}};this.getAppsSystems=function(){var e=new jQuery.Deferred;sap.ushell.Container.getServiceAsync("CommonDataModel").then(function(t){t.getSiteWithoutPersonalization().done(function(t){var n;n=t&&t.systemAliases&&JSON.parse(JSON.stringify(t.systemAliases))||{};e.resolve(n)}).catch(function(){e.resolve({})})}).catch(function(){e.resolve({})});return e.promise()}}t.hasNoAdapter=true;return t},true);
+//# sourceMappingURL=Configuration.js.map

@@ -1,0 +1,50 @@
+<!-- This fragment is used inside SmartTableToolbar.fragment. It handles the case of multiple views in a single table. -->
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	template:require="sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews"
+	xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:build="sap.build">
+	<!-- -->
+	<template:if test="{= ${parameter>/settings/quickVariantSelection}}">
+		<template:then>
+			<template:if test="{path: 'parameter>/settings/quickVariantSelection/variants', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.useSegmentedButton'}">
+				<template:then>
+					<SegmentedButton id="{:= ${parameter>/stableId}.getStableId({type: 'QuickVariantSelection', subType: 'SegmentedButton'})}"
+						selectedKey="{_templPriv>/alp/multipleViews/selectedKey}"
+						enabled="{= !${_templPriv>/alp/filterChanged} }">
+						<items>
+							<template:repeat list="{parameter>/settings/quickVariantSelection/variants}" var="viewItem">
+								<SegmentedButtonItem id="{:= ${parameter>/stableId}.getStableId({type: 'AnalyticalListPageTable', subType: 'SegmentedButtonItem', sQuickVariantKey: ${viewItem>key}})}"
+									text="{parts: [{path: 'parameter>/settings/quickVariantSelection'}, {path: 'viewItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getTextForItemAnalyticalListPage'}"
+									key="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}">
+									<customData>
+										<core:CustomData key="variantAnnotationPath" value="{viewItem>annotationPath}"/>
+										<core:CustomData key="text" value="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterText'}"/>
+									</customData>
+								</SegmentedButtonItem>
+							</template:repeat>
+						</items>
+					</SegmentedButton>
+				</template:then>
+				<template:else>
+					<Select id="{:= ${parameter>/stableId}.getStableId({type: 'QuickVariantSelection', subType: 'VariantSelect'})}"
+						selectedKey="{_templPriv>/alp/multipleViews/selectedKey}"
+						enabled="{= !${_templPriv>/alp/filterChanged} }"
+						autoAdjustWidth="true"
+						forceSelection="true">
+						<items>
+							<template:repeat list="{parameter>/settings/quickVariantSelection/variants}" var="viewItem">
+								<core:Item id="{:= ${parameter>/stableId}.getStableId({type: 'AnalyticalListPageTable', subType: 'SegmentedButtonItem', sQuickVariantKey: ${viewItem>key}})}"
+									text="{parts: [{path: 'parameter>/settings/quickVariantSelection'}, {path: 'viewItem>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getTextForItemAnalyticalListPage'}"
+									key="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}">
+									<core:customData>
+										<core:CustomData key="variantAnnotationPath" value="{viewItem>annotationPath}"/>
+										<core:CustomData key="text" value="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterText'}"/>
+									</core:customData>
+								</core:Item>
+							</template:repeat>
+						</items>
+					</Select>
+				</template:else>
+			</template:if>
+		</template:then>
+	</template:if>
+</core:FragmentDefinition>

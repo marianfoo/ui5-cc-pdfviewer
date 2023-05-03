@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/fl/apply/_internal/flexObjects/FlexObjectFactory","sap/ui/fl/apply/_internal/flexObjects/States","sap/ui/fl/apply/_internal/flexObjects/UpdatableChange","sap/ui/fl/apply/_internal/flexState/compVariants/CompVariantMerger"],function(e,a,n,t){"use strict";function r(e,a){e[a]=e[a]||{byId:{},variants:[],nonPersistedVariants:[],changes:[],defaultVariants:[],standardVariantChange:undefined,standardVariant:undefined};return e[a]}function i(e,a,n){n=n||[];var i=r(e,a);i.nonPersistedVariants.forEach(function(e){delete i.byId[e.getId()]});i.nonPersistedVariants=n.map(function(e){var n=Object.assign({id:e.id,persisted:false},e);n=t.createVariant(a,n);i.byId[e.id]=n;return n});return i}function s(t,i,s){var d=t[i].map(function(t){var r;if(i==="variants"){r=e.createCompVariant(t)}else{r=new n(t)}r.setState(a.PERSISTED);return r});d.forEach(function(e){var a=e.getPersistencyKey?e.getPersistencyKey():e.getSelector().persistencyKey;r(s,a).byId[e.getId()]=e;switch(i){case"standardVariants":r(s,a).standardVariantChange=e;break;default:r(s,a)[i].push(e)}})}return function(e){var a={};a._getOrCreate=r.bind(undefined,a);a._initialize=i.bind(undefined,a);if(e.storageResponse.changes.comp){["variants","changes","defaultVariants","standardVariants"].forEach(function(n){s(e.storageResponse.changes.comp,n,a)})}return a}});
+//# sourceMappingURL=prepareCompVariantsMap.js.map

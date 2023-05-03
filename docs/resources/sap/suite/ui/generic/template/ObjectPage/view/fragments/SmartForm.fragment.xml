@@ -1,0 +1,96 @@
+<core:FragmentDefinition
+		xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		xmlns:smartlink="sap.ui.comp.navpopover" xmlns:sfo="sap.ui.comp.smartform"
+		xmlns:core="sap.ui.core"
+		template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',
+											 AHStableId: 'sap/suite/ui/generic/template/js/StableIdHelper',
+											 AHModel: 'sap/ui/model/odata/AnnotationHelper'}">
+	<!-- @classdesc @name: Name: sap.suite.ui.generic.template.ObjectPage.view.fragments.SmartForm.fragment.xml 
+		@param {Object} [block] structured object. Needed properties: controlProperties.id, 
+		aggregation.groups[] (Array of groups to be put into the smartform. Each 
+		entry should have a property metaModelPath, containing the path in the metaModel 
+		of the corresponding referenceFacet.) -->
+
+	<sfo:SmartForm
+			id="{block>controlProperties/id}"
+			editable="{ui>/editable}"
+			class="sapSmartTemplatesSmartForm sapUxAPObjectPageSubSectionAlignContent"
+			flexEnabled="true" validationMode="Async">
+		<sfo:semanticObjectController>
+			<smartlink:SemanticObjectController
+					replaceSmartLinkNavigationTargetsObtained="true"
+					beforePopoverOpens="._templateEventHandlers.onBeforeSemanticObjectLinkPopoverOpens"
+					navigationTargetsObtained="._templateEventHandlers.onSemanticObjectLinkNavigationTargetObtained"
+					beforeNavigationCallback="._templateEventHandlers.onBeforeSemanticObjectLinkNavigationCallback"
+					forceLinkRendering="{parts: [{path: 'entitySet>'},{path: 'parameter>/templateSpecific/targetEntities'}], formatter: 'AH.hasQuickViewFacet'}" />
+		</sfo:semanticObjectController>
+		<sfo:customData>
+			<core:CustomData key="defaultInputFieldDisplayBehaviour" value="descriptionAndId" />
+			<core:CustomData key="defaultDropDownDisplayBehaviour" value="descriptionOnly" />
+			<core:CustomData key="dateFormatSettings" value='\{"UTC":true,"style":"medium"\}' />
+		</sfo:customData>
+		<sfo:layout>
+			<template:if test="{= ${appSettings>/useColumnLayoutForSmartForm} !== false}">
+				<template:then>
+					<sfo:ColumnLayout columnsM="2" columnsL="3" columnsXL="{= ${appSettings>/objectPageColumns/screenSizeXL} === 4 ? '4' : '6'}" labelCellsLarge="12" />
+				</template:then>
+				<template:else>
+					<sfo:Layout columnsM="2" columnsL="3" columnsXL="{= ${appSettings>/objectPageColumns/screenSizeXL} === 4 ? '4' : '6'}" labelSpanS="12" labelSpanM="12" labelSpanL="12" labelSpanXL="12" singleGroupFullSize="false" />
+				</template:else>
+			</template:if>
+		</sfo:layout>
+		<template:repeat list="{block>aggregations/groups}" var="group">
+
+			<template:with path="group>metaModelPath" helper="AH.getMetaModelBinding" var="facet">
+				<template:with path="parameter>/" helper="AHStableId.preparePathForStableId" var="facetId">
+
+					<template:if test="{= ${facetId>}.buildStableId({ type:'ObjectPage', subType:'Facet', sRecordType: ${facet>RecordType}, sAnnotationPath: ${facet>Target/AnnotationPath} , sAnnotationId: ${facet>ID/String}, bIsHeaderFacet: ${isHeaderFacet>value}}) }" />
+
+					<template:with path="facet>" var="groupFacet">
+						<template:with path="facet>Target" helper="AHModel.resolvePath" var="target">
+							<!--  sfo:group treats visible="true" (which is the default value) different then not providing visible - in the latter case, the group visibility is decided depending on its content.
+							Therefore, we check first, whether we can take the decision, i.e. whether a hidden annotation is provided - if not, we create the group without providing visible property. -->
+							<template:if test="{facet>com.sap.vocabularies.UI.v1.Hidden}">
+								<template:then>
+									<sfo:Group
+										id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageSection', subType: 'Group', sFacet: ${facetId>id}, sIsPartOfPreview:  ${facet>com.sap.vocabularies.UI.v1.PartOfPreview/Bool}})}"
+										visible="{path: 'facet>', formatter: 'AH.getBindingForHiddenPath'}"
+										binding="{parts: [{path: 'facet>Target'}, {path: 'entitySet>'}], formatter: 'AH.getFormGroupBindingString'}">
+										<template:if test="{= ${groupFacet>Label}}">
+											<template:if test="{parts: [{path: 'subSectionData>'}, {path: 'groupFacet>Label'}], formatter: 'AH.isGroupFacetTitleRequired'}">
+												<sfo:title>
+													<core:Title text="{= ${path: 'groupFacet>Label', formatter: 'AHModel.format'}}" level="H5"/>
+												</sfo:title>
+											</template:if>
+										</template:if>
+										<sfo:groupElements>
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.FormGroupContent" type="XML" />
+										</sfo:groupElements>
+									</sfo:Group>
+								</template:then>
+								<template:else>
+									<sfo:Group
+										id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageSection', subType: 'Group', sFacet: ${facetId>id}, sIsPartOfPreview:  ${facet>com.sap.vocabularies.UI.v1.PartOfPreview/Bool}})}"
+										binding="{parts: [{path: 'facet>Target'}, {path: 'entitySet>'}], formatter: 'AH.getFormGroupBindingString'}">
+										<template:if test="{= ${groupFacet>Label}}">
+											<template:if test="{parts: [{path: 'subSectionData>'}, {path: 'groupFacet>Label'}], formatter: 'AH.isGroupFacetTitleRequired'}">
+												<sfo:title>
+													<core:Title text="{= ${path: 'groupFacet>Label', formatter: 'AHModel.format'}}" level="H5"/>
+												</sfo:title>
+											</template:if>
+										</template:if>
+										<sfo:groupElements>
+											<core:Fragment fragmentName="sap.suite.ui.generic.template.ObjectPage.view.fragments.FormGroupContent" type="XML" />
+										</sfo:groupElements>
+									</sfo:Group>
+								</template:else>
+							</template:if>
+						</template:with>
+					</template:with>
+				</template:with>
+			</template:with>
+		</template:repeat>
+
+	</sfo:SmartForm>
+
+</core:FragmentDefinition>

@@ -1,0 +1,10 @@
+<mvc:View displayBlock="true" controllerName="sap.insights.selection.Selection" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+    <Dialog id="insightsSelectionDialog" title="{i18n>CARD_SELECTION_DIALOG_HEADER}" contentHeight="65rem" contentWidth="32rem" verticalScrolling="false" class="sapContrastPlus" resizable="true" draggable="true">
+        <content>
+            <core:Fragment fragmentName="sap.insights.selection.Selection" type="XML" />
+        </content>
+        <buttons>
+            <Button id="idSectionsCancelBtn" text="{i18n>INT_DIALOG_Close}" type="Transparent" press=".closeDialog" />
+        </buttons>
+    </Dialog>
+</mvc:View>

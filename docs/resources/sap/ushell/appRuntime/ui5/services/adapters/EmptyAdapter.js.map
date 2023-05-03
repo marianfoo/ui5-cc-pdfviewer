@@ -1,0 +1,1 @@
+{"version":3,"file":"EmptyAdapter.js","names":["sap","ui","define","jQuery","EmptyAdapter","this","getSite","Deferred","resolve","promise"],"sources":["EmptyAdapter-dbg.js"],"mappings":";AACAA,IAAIC,GAAGC,OAAO,CACV,4BACD,SACCC,QAEA,aAEA,IAAIC,EAAe,WACfC,KAAKC,QAAU,WACX,OAAO,IAAIH,OAAOI,UAAWC,QAAQ,CAAC,GAAGC,SAC7C,CACJ,EAEA,OAAOL,CACX"}

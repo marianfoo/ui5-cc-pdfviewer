@@ -1,0 +1,1 @@
+{"version":3,"file":"sap-ui-integration-config.js","names":["window","bindingSyntax","compatVersion","async"],"sources":["sap-ui-integration-config-dbg.js"],"mappings":";;;;;AAQAA,OAAO,iBAAmBA,OAAO,kBAAoB,CAAC,EACtDA,OAAO,iBAAiBC,cAAgB,UACxCD,OAAO,iBAAiBE,cAAgB,OACxCF,OAAO,iBAAiBG,MAAQ,KAChCH,OAAO,iBAAiB,mBAAqB"}

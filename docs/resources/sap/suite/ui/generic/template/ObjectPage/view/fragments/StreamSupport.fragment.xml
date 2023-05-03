@@ -1,0 +1,29 @@
+<core:FragmentDefinition
+		xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		xmlns:core="sap.ui.core"
+		xmlns="sap.m" 
+		template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',  AHModel: 'sap/ui/model/odata/AnnotationHelper', AHStream:'sap/suite/ui/generic/template/js/AnnotationHelperStreamSupport'}">
+	
+	<template:repeat list="{block>aggregations/groups}" var="group">
+		<template:with path="group>metaModelPath" helper="AH.getMetaModelBinding" var="facet">
+			<template:with path="facet>Target" helper="AHModel.resolvePath" var="target">
+				<template:if test="{target>Data}">
+					<template:then>
+					<template:repeat list="{target>Data}" var="dataField">
+						<template:if test="{parts: [{path: 'entitySet>'}, {path: 'dataField>'}], formatter: 'AHStream.checkIfEntityOrAssociationHasStreamEnabled'}">
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.FileUploader" type="XML"/>	
+						</template:if>	
+					</template:repeat>
+				</template:then>
+				<template:else>
+					<template:repeat list="{target>}" var="dataField">
+						<template:if test="{parts: [{path: 'entitySet>'}, {path: 'dataField>'}], formatter: 'AHStream.checkIfEntityOrAssociationHasStreamEnabled'}">
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.FileUploader" type="XML"/>	
+						</template:if>	
+					</template:repeat>
+				</template:else>
+				</template:if>
+			</template:with>
+		</template:with>
+	</template:repeat>
+</core:FragmentDefinition>

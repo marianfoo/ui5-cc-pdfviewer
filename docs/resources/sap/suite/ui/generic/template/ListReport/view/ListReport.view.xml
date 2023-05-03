@@ -1,0 +1,20 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+		  template:require="sap.suite.ui.generic.template.js.StableIdHelper"
+		    xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:semantic="sap.m.semantic" xmlns:ushell="sap.ushell.ui"
+		   xmlns:build="sap.build" xmlns:st="sap.suite.ui.generic.template">
+	<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.FullscreenPage" type="XML"/>
+	<!-- create with dialog fragment load if manifest setting is there -->
+	<template:with path="parameter>/templateSpecific/tableSettings/createWithParameterDialog" var="createWithParameterDialog">
+		<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.CreateWithDialog" type="XML"/>
+	</template:with>
+	<!-- multi edit fragment load -->
+	<template:if test="{= !${parameter>/settings/quickVariantSelectionX} }">
+		<template:with path="parameter>/templateSpecific/routeConfig/entitySet" var="entitySetName">
+			<template:with path="parameter>/templateSpecific/tableSettings/multiEdit" var="multiEdit">
+				<template:with path="entitySet>dummy" var="tabItem">
+					<core:Fragment fragmentName="sap.suite.ui.generic.template.ListReport.view.fragments.MultiEditDialog" type="XML"/>
+				</template:with>
+			</template:with>
+		</template:with>
+	</template:if>
+</mvc:View>

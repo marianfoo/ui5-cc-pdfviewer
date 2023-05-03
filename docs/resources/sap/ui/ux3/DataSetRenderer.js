@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/thirdparty/jquery"],function(jQuery){"use strict";var e={};e.render=function(e,r){var i=null;r.prepareRendering();e.write("<div");e.writeControlData(r);e.addClass("sapUiUx3DS");e.writeClasses();e.writeStyles();e.write(">");e.write("<div id='"+r.getId()+"-toolbar'");e.addClass("sapUiUx3DSToolbar");if(!r.getShowToolbar()){e.addClass("noPadding")}e.writeClasses();e.write(">");this.renderToolbar(e,r);e.write("</div>");e.write("<div id='"+r.getId()+"-filter'");e.addClass("sapUiUx3DSFilterArea");if(!r.getShowFilter()){e.addClass("noPadding")}e.writeClasses();e.write(">");this.renderFilterArea(e,r);e.write("</div>");e.write("<div");e.writeAttribute("id",r.getId()+"-items");e.addClass("sapUiUx3DSItems");e.writeClasses();e.write(">");i=sap.ui.getCore().byId(r.getSelectedView());e.renderControl(i);e.write("</div>");e.write("</div>")};e.renderToolbar=function(e,r){if(r.getShowToolbar()){e.renderControl(r._getToolbar())}};e.renderFilterArea=function(e,r){var i=r.getFilter();if(r.getShowFilter()){jQuery.each(i,function(r,i){e.renderControl(i)})}};return e},true);
+//# sourceMappingURL=DataSetRenderer.js.map

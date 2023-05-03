@@ -1,0 +1,1 @@
+{"version":3,"file":"AnalyticalTableRenderer.js","names":["sap","ui","define","Table","getMetadata","getRenderer"],"sources":["AnalyticalTableRenderer-dbg.js"],"mappings":";;;;;AAOAA,IAAIC,GAAGC,OAAO,CAAC,gCAAiC,SAASC,GACxD,aAEA,OAAOA,EAAMC,cAAcC,aAC5B,EAAkB"}

@@ -1,0 +1,13 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core">
+	<template:if test="{= ${tmpEntitySet>EntitySet} === ${parameter>/entitySet} }">
+				<Button id="{customaction>id}"
+					text="{customaction>text}"
+					press="{customaction>press}" type="Default">
+					<layoutData>
+						<OverflowToolbarLayoutData priority = "{customaction>importance}"/>
+					</layoutData>
+				</Button>
+	</template:if>
+</core:FragmentDefinition>

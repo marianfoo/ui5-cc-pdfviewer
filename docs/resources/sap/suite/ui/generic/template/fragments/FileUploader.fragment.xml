@@ -1,0 +1,99 @@
+<core:FragmentDefinition
+    xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+    xmlns="sap.m" xmlns:build="sap.build" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:sfo="sap.ui.comp.smartform" xmlns:fe="sap.suite.ui.generic.template.genericUtilities"
+    template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',  AHModel: 'sap/ui/model/odata/AnnotationHelper', AHStream:'sap/suite/ui/generic/template/js/AnnotationHelperStreamSupport'}">
+
+    <!-- We are consuming the private property of model the "__metadata" (edit_media and content_type) to access the value of the stream content, As per the mail 
+        communication with model colleagues, they promised that these will not be changed and we request these to be made public later once Model team has 
+        capacity. Till then we use this in our XML templating.
+    -->
+    <template:if test="{= ${entityType>Org.OData.Core.V1.MediaType/Path}}">
+        <template:if test="{= !!${listEntitySet>}}">
+            <template:then>
+                <template:with path="listEntitySet>" helper="AHModel.resolvePath" var="entitySet">
+                    <HBox alignItems="Center" justifyContent="SpaceBetween" width="20%" wrap="Wrap" >
+                        <template:with path="parameter>/variables" helper="AH.getNewVariable" var="displayType">
+                            <template:with path="parameter>/variables" helper="AH.getNewVariable" var="streamContent">
+                                <template:if test="{:= ${displayType>}.set('image')}"/>
+                                <Avatar src="{__metadata/edit_media}" displaySize="S" class="sapUiSmallMarginEnd" displayShape="Square" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'displayType>'}, {path: 'entitySet>'}], formatter:'AHStream.isMimeTypeImage'}"/>
+                                <HBox>
+                                    <template:if test="{:= ${displayType>}.set('icon')}"/>
+                                    <HBox alignItems="Center" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'displayType>'}, {path: 'entitySet>'}], formatter:'AHStream.isMimeTypeImage'}">
+                                        <template:if test="{:= ${streamContent>}.set('available')}"/>
+                                        <core:Icon src="{parts: [{path: '__metadata/content_type'}], formatter: 'sap.ui.core.IconPool.getIconForMimeType'}" class="sapUiSmallMarginEnd" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'streamContent>'}, {path: 'entitySet>'}], formatter: 'AHStream.isStreamPresent'}"/>
+                                            <fe:Link
+                                            text="{path: 'entitySet>', formatter: 'AHStream.getFileName'}"
+                                            href="{__metadata/edit_media}"
+                                            target="_blank"
+                                            wrapping="true"
+                                            visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'streamContent>'}, {path: 'entitySet>'}], formatter: 'AHStream.isStreamPresent'}"/>
+                                    </HBox>
+                                    <template:if test="{:= ${streamContent>}.set('notAvailable')}"/>
+                                    <Text emptyIndicatorMode="On" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'streamContent>'}, {path: 'entitySet>'}], formatter: 'AHStream.isStreamPresent'}" /> 
+                                </HBox>
+                                <customData>
+                                    <core:CustomData key="sNavigationProperty" value="{parts: [{path: 'dataField>'}], formatter: 'AHStream.getStreamEntitySet'}" /> 
+                                </customData>
+                            </template:with>
+                        </template:with>
+                    </HBox>
+                </template:with>
+            </template:then>
+            <template:else>
+                <HBox alignItems="Center" justifyContent="SpaceBetween" width="20%" wrap="Wrap" >
+                    <template:with path="parameter>/variables" helper="AH.getNewVariable" var="displayType">
+                        <template:with path="parameter>/variables" helper="AH.getNewVariable" var="streamContent">
+                        <VBox>
+                            <template:if test="{dataField>Label}">
+                                <template:then>
+                                    <Label text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" showColon="true"/>
+                                </template:then>
+                                <template:elseif test="{dataFieldValue>com.sap.vocabularies.Common.v1.Label}">
+                                    <Label text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" showColon="true"/>
+                                </template:elseif>
+                            </template:if>
+                            <HBox>
+                                <HBox>
+                                    <template:if test="{:= ${displayType>}.set('image')}"/>
+                                    <Avatar src="{parts: [{path: 'entitySet>'}, {path: 'dataField>'}], formatter: 'AHStream.getURLForStream'}" displaySize="S" class="sapUiSmallMarginEnd" displayShape="Square" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'displayType>'}, {path: 'entitySet>'}], formatter:'AHStream.isMimeTypeImage'}"/> 
+                                    <template:if test="{:= ${displayType>}.set('icon')}"/>
+                                    <HBox alignItems="Center" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'displayType>'}, {path: 'entitySet>'}], formatter:'AHStream.isMimeTypeImage'}">
+                                        <template:if test="{:= ${streamContent>}.set('available')}"/>
+                                        <core:Icon src="{parts: [{path: 'entitySet>'}, {path: 'dataField>'}], formatter: 'AHStream.getIconForStream'}" class="sapUiSmallMarginEnd" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'streamContent>'}, {path: 'entitySet>'}], formatter: 'AHStream.isStreamPresent'}"/>
+                                        <fe:Link
+                                        text="{path: 'entitySet>', formatter: 'AHStream.getFileName'}"
+                                        href="{parts: [{path: 'entitySet>'}, {path: 'dataField>'}], formatter: 'AHStream.getURLForStream'}"
+                                        target="_blank"
+                                        wrapping="true"
+                                        visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'streamContent>'}, {path: 'entitySet>'}], formatter: 'AHStream.isStreamPresent'}"/>
+                                    </HBox>
+                                    <template:if test="{:= ${streamContent>}.set('notAvailable')}"/>
+                                    <Text emptyIndicatorMode="On" visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path: 'streamContent>'}, {path: 'entitySet>'}], formatter: 'AHStream.isStreamPresent'}" /> 
+                                </HBox>
+                                <HBox alignItems="Center" class="sapUiLargeMarginBegin">
+                                    <u:FileUploader
+                                    buttonOnly="true" iconOnly="true" multiple="false" icon="sap-icon://upload" style="Transparent"
+                                    sendXHR="true" useMultipart="false" sameFilenameAllowed="true" uploadOnChange="false" httpRequestMethod="Put"
+                                    uploadUrl="{parts: [{path: 'entitySet>'}, {path: 'dataField>'}], formatter: 'AHStream.getURLForStream'}"
+                                    change="._templateEventHandlers.uploadStream" uploadComplete="._templateEventHandlers.handleUploadComplete"
+                                    visible="{parts: [{path:'parameter>/isDraftEnabled'}, {path: 'entitySet>'}], formatter: 'AHStream.getFileUploaderVisibility'}"
+                                    mimeType="{parts: [{path: 'entitySet>'}], formatter: 'AHStream.getAcceptableMimeTypes'}">
+                                    </u:FileUploader>
+                                    <Button
+                                    icon="sap-icon://sys-cancel"
+                                    type="Transparent"
+                                    press="._templateEventHandlers.removeStream"
+                                    visible="{parts: [{path: 'entityType>Org.OData.Core.V1.MediaType/Path'}, {path:'parameter>/isDraftEnabled'}, {path: 'entitySet>'}], formatter: 'AHStream.getDeleteStreamVisibility'}"/>
+                                </HBox>
+                                <customData>
+                                    <core:CustomData key="sNavigationProperty" value="{parts: [{path: 'dataField>'}], formatter: 'AHStream.getStreamEntitySet'}" /> 
+                                </customData>
+                            </HBox>
+                         </VBox>
+                        </template:with>
+                    </template:with>
+                </HBox>
+            </template:else>
+        </template:if>
+    </template:if>
+</core:FragmentDefinition>

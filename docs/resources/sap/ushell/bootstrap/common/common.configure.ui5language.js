@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define([],function(){"use strict";function e(e){var a=e&&e.services&&e.services.Container&&e.services.Container.adapter&&e.services.Container.adapter.config&&e.services.Container.adapter.config.userProfile;var r=a&&a.defaults&&a.defaults.languageBcp47;var i=a&&a.defaults&&a.defaults.language;if(r){sap.ui.getCore().getConfiguration().setLanguage(r,i)}}return e});
+//# sourceMappingURL=common.configure.ui5language.js.map

@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" xmlns:core="sap.ui.core"
+  template:require="{ AH: 'sap/suite/ui/generic/template/js/AnnotationHelper'}">
+
+  <core:CommandExecution execute="._templateEventHandlers.onShareListReportActionButtonPress" command="Share"/>
+  <core:CommandExecution execute="._templateEventHandlers.onSearchButtonPressed" command="Search"/>
+  
+  <template:repeat list="{parameter>/manifest/sap.ui5/extends/extensions/sap.ui.controllerExtensions/sap.suite.ui.generic.template.ListReport.view.ListReport/sap.ui.generic.app}" var="extensionActionsEntitySet">
+      <template:if test="{= ${extensionActionsEntitySet>EntitySet} === ${parameter>/entitySet} }">
+        <template:repeat list="{extensionActionsEntitySet>Actions}" var="customAction">
+          <template:if test="{= ${customAction>global} &amp;&amp; ${customAction>command} }">
+            <template:with path="parameter>/variables" helper="AH.getNewVariable" var="actionId">
+              <template:if test="{= ${actionId>}.set('action::' + ${customAction>id}) }"/>
+              <core:CommandExecution execute="{customAction>press}"
+                  command="{customAction>command}"
+                  visible="{path: 'actionId>value', formatter: 'AH.getActionCommandVisibility'}" />
+            </template:with>
+          </template:if>
+        </template:repeat>
+      </template:if>
+    </template:repeat>
+</core:FragmentDefinition>

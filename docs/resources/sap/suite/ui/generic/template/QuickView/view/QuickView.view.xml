@@ -1,0 +1,199 @@
+<core:View
+	xmlns:core="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+	controllerName="sap.suite.ui.generic.template.QuickView.view.QuickView"
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:smart="sap.ui.comp.smartfield"
+	xmlns:fiori="sap.f"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:fe="sap.suite.ui.generic.template.genericUtilities">
+
+	<!-- <FlexBox class="sapQuickViewTitle" width="100%" alignItems="Start" justifyContent="Start">
+		<template:with path="entitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="entityType">
+			<template:with path="entityType>com.sap.vocabularies.UI.v1.QuickViewFacets" helper="sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.resolveFieldGroupTarget" var="target">
+				<Text text="{path: 'target>Label', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatWithExpandSimple'}" class="sapQuickViewTextTitle"/>
+			</template:with>
+		</template:with>
+	</FlexBox> -->
+
+	<FlexBox visible="{= ${badge>/fallbackBadgeVisible}}" width="100%" alignItems="Start" justifyContent="Start">
+		<template:with path="entitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="entityType">
+			<template:with path="entityType>" helper="sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.resolveBadgeTarget" var="badge">
+				<HBox alignItems="Left" justifyContent="Left" width="100%">
+					<template:if test="{badge>ImageUrl}">
+						<template:then>
+							<FlexBox alignItems="Start" justifyContent="Center">
+								<Avatar 
+									src="{path: 'badge>ImageUrl', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+									class="sapUiSmallMarginEnd sapQuickViewBadgeImageBorder"
+									displaySize="L"
+									displayShape="Square">
+								</Avatar>
+							</FlexBox>
+						</template:then>
+					</template:if>
+					<template:if test="{badge>TypeImageUrl}">
+						<template:then>
+							<FlexBox alignItems="Start" justifyContent="Center" class="sapQuickViewBadgeIconPadding">
+								<c:Icon src="{path: 'badge>TypeImageUrl', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" class="sapUiSmallMarginEnd sapQuickViewBadgeIcon"/>
+							</FlexBox>
+						</template:then>
+					</template:if>
+					<VBox alignItems="Start" justifyContent="Center" class="sapUiTinyMarginEnd">
+						<Text text="{path: 'badge>Title', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" class="sapQuickViewBadgeTitle"/>
+						<Text text="{path: 'badge>TypeName', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" class="sapQuickViewBadgeSubtitle sapQuickViewBadgeTinyMarginTop"/>
+						<Text text="{path: 'badge>SubTitle', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" class="sapQuickViewBadgeSubtitle sapQuickViewBadgeTinyMarginTop"/>
+					</VBox>
+				</HBox>
+			</template:with>
+		</template:with>
+	</FlexBox>
+
+	<FlexBox visible="{=${badge>/badgeVisible}}" width="100%" alignItems="Start" justifyContent="Start">
+		<HBox alignItems="Left" justifyContent="Left" width="100%">
+			<FlexBox visible="{=${badge>/imgUrlDefined}}" alignItems="Start" justifyContent="Center">
+				<Avatar 
+					src="{badge>/imgUrl}"
+					class="sapUiSmallMarginEnd sapQuickViewBadgeImageBorder"
+					displaySize="L"
+					displayShape="Square">
+				</Avatar>
+			</FlexBox>
+			<FlexBox visible="{=${badge>/typeImgUrlDefined}}" alignItems="Start" justifyContent="Center" class="sapQuickViewBadgeIconPadding">
+				<c:Icon src="{badge>/typeImgUrl}" class="sapUiSmallMarginEnd sapQuickViewBadgeIcon"/>
+			</FlexBox>
+			<VBox alignItems="Start" justifyContent="Center" class="sapUiTinyMarginEnd">
+				<Text text="{badge>/title}" class="sapQuickViewBadgeTitle"/>
+				<Text text="{badge>/typeName}" class="sapQuickViewBadgeSubtitle sapQuickViewBadgeTinyMarginTop"/>
+				<Text text="{badge>/subtitle}" class="sapQuickViewBadgeSubtitle sapQuickViewBadgeTinyMarginTop"/>
+			</VBox>
+		</HBox>
+	</FlexBox>
+
+	<VBox class="quickTemplateVBox quickViewParent">
+		<template:with path="entitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="entityType">
+			<template:with path="entityType>com.sap.vocabularies.UI.v1.QuickViewFacets" helper="sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.resolveFieldGroupTarget" var="target">
+				<f:SimpleForm
+					layout="ResponsiveGridLayout"
+					labelSpanXL="4"
+					labelSpanL="4"
+					labelSpanM="12"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="0"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsXL="2"
+					columnsL="1"
+					columnsM="1"
+					singleContainerFullSize="false">
+					<f:content>
+						<template:repeat list="{target>Data}" var="dataField">
+							<template:if test="{dataField>Label}">
+								<template:then>
+									<Label
+										labelFor="field::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}"
+										
+										text="{path: 'dataField>Label', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.formatWithExpandSimple'}" class="sapQuickViewSmartFieldLabel"/>
+								</template:then>
+								<template:else>
+									<smart:SmartLabel labelFor="field::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}" class="sapQuickViewSmartFieldLabel"/>
+								</template:else>
+							</template:if>
+							
+							<template:if test="{= ${dataField>RecordType} === 'com.sap.vocabularies.UI.v1.DataFieldWithUrl'}">
+								<template:then>
+									<fe:Link id="field::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}"
+										target="_blank"
+										text="{path: 'dataField>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+										href="{= ${dataField>Url} ? ${path: 'dataField>Url', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} : ''}"
+										class="sapQuickViewTextTitle"/>
+								</template:then>
+								<template:else>
+									<smart:SmartField
+										id="field::{path: 'dataField>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getStableIdPartFromDataField'}"
+										editable="false"
+										enabled="true"
+										contextEditable="false"
+										clientSideMandatoryCheck="false"
+										value="{path: 'dataField>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+										url="{= ${dataField>Url} ? ${path: 'dataField>Url', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} : ''}"
+										innerControlsCreated="onSmartFieldsCreated"
+										class="sapQuickViewTextTitle"/>
+								</template:else>
+							</template:if>
+						</template:repeat>
+					</f:content>
+                </f:SimpleForm>
+			</template:with>
+
+			<template:with path="entityType>com.sap.vocabularies.UI.v1.QuickViewFacets" helper="sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.resolveLineItemFacet" var="facet">
+				<template:if test="{path: 'facet>Target', formatter: 'sap.ui.model.odata.AnnotationHelper.isMultiple'}">
+					<template:then>
+						<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="target">
+							<HBox width="100%" alignItems="Center" justifyContent="Center" class="sapQuickViewLineItemTable">
+								<Table
+									id="LineItemsSmartTable"
+									backgroundDesign="Translucent"
+									items="{parts:[{path:'entitySet>entityType'}, {path: 'parameter>/isDraftEnabled'}], formatter: 'sap.suite.ui.generic.template.js.QuickTemplates.AnnotationHelper.formatBindingPathForLineItems'}">
+									<headerToolbar>
+										<Toolbar>
+											<template:with path="facet>Target" helper="sap.ui.model.odata.AnnotationHelper.gotoEntitySet" var="listEntitySet">
+												<template:with path="listEntitySet>entityType" helper="sap.ui.model.odata.AnnotationHelper.gotoEntityType" var="listEntityType">
+													<Title text="{listEntityType>com.sap.vocabularies.UI.v1.HeaderInfo/TypeNamePlural/String}" level="h6"/>
+												</template:with>
+											</template:with>
+										</Toolbar>
+									</headerToolbar>
+									<columns>
+										<template:repeat list="{target>}" var="dataField">
+											<template:with path="dataField>Value" helper="sap.ui.model.odata.AnnotationHelper.resolvePath" var="dataFieldValue">
+												<Column>
+													<template:if test="{dataField>Label}">
+														<template:then>
+															<Text text="{path: 'dataField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+														</template:then>
+														<template:else>
+															<Text text="{path: 'dataFieldValue>com.sap.vocabularies.Common.v1.Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+														</template:else>
+													</template:if>
+												</Column>
+											</template:with>
+										</template:repeat>
+										<!-- <template:repeat list="{target>}" var="columnItemField">
+							 													 <Column>
+							 														 			<Text text="{path: 'columnItemField>Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/>
+							 													 </Column>
+							 												 </template:repeat> -->
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<template:repeat list="{target>}" var="columnItemFieldValue">
+													<smart:SmartField
+														editable="false"
+														clientSideMandatoryCheck="false"
+														enabled="true"
+														contextEditable="false"
+														value="{path: 'columnItemFieldValue>Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"
+														url="{= ${columnItemFieldValue>Url} ? ${path: 'columnItemFieldValue>Url', formatter: 'sap.ui.model.odata.AnnotationHelper.format'} : ''}"
+														innerControlsCreated="onSmartFieldsCreated"/>
+												</template:repeat>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</HBox>
+						</template:with>
+
+					</template:then>
+				</template:if>
+			</template:with>
+		</template:with>
+	</VBox>
+
+</core:View>

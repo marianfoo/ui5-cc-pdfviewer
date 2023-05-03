@@ -1,0 +1,1 @@
+{"version":3,"file":"LayerProxy.js","names":["sap","ui","define","BaseObject","LayerProxy","extend","metadata","library","abstract"],"sources":["LayerProxy-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,CACb,sBACE,SACFC,GAEA,aAuBA,IAAIC,EAAaD,EAAWE,OAAO,uBAAqE,CACvGC,SAAU,CACTC,QAAS,YACTC,SAAY,QAoDd,OAAOJ,CACR"}

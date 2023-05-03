@@ -1,0 +1,83 @@
+<core:FragmentDefinition
+	xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:sfo="sap.ui.comp.smartform" 
+	xmlns:core="sap.ui.core"
+	template:require="{AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',
+										 AHModel: 'sap/ui/model/odata/AnnotationHelper'}">
+				
+	<!-- @classdesc @name: Name: sap.suite.ui.generic.template.ObjectPage.view.fragments.FormGroupContent.fragment.xml 
+		Content to be put into FormGroup by SmartForm.fragment, to enable SmartForm using visible as default if not provided via annotations 
+		@param {Annotation} [target] The annotation the reference facet is pointing to (e.g. FieldGroup or Identification)
+		@param {edm.entitySet} [entitySet] The entitySet identifying the ObjectPage
+		@param {UI.ReferenceFacet} [groupFacet] The reference facet annotation
+		@param {object} [manifestViewExtensions] The definition of view extensions in manifest
+		Additionally used in used fragment SmartFormDataField: 
+		@param {UI.ReferenceFacet} [facet] The reference facet annotation - identical to groupFacet, todo: get rid of this one
+		@param {JSONModel} [parameter] Parameter model for templating
+		@param {JSONModel} [ui] runtime model (to define editing state: display, edit, or create)
+		Additionally used in used fragment SmartFormDataField, but not provided here 
+		@param {JSONModel} [quickView]
+	-->
+		
+	<template:if test="{target>Data}">
+		<template:then>
+			<template:repeat list="{target>Data}" var="dataField">
+				<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'groupFacet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'AH.extensionPointReplaceSimpleHeaderFacetExists' }">
+					<template:then>
+						<sfo:GroupElement
+								id="header::{path: 'groupFacet>', formatter: 'AH.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'AH.getStableIdPartFromDataField'}::ReplaceFGExtensionEdit"
+								visible="{parts: [{path: 'entitySet>name'}, {path: 'groupFacet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'AH.getVisibilityForExtensionPointReplaceSimpleHeaderFacet' }">
+							<core:ExtensionPoint name="ReplaceSimpleHeaderFacet|{entitySet>name}|{path: 'groupFacet>' , formatter:'AH.getStableIdPartFromFacet'}::{path:'dataField>', formatter: 'AH.getStableIdPartFromDataField'}" />
+						</sfo:GroupElement>
+					</template:then>
+					<template:else>
+						<template:if test="{= ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForAction' &amp;&amp; ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation'}">
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.SmartFormDataField" type="XML" />
+						</template:if>
+					</template:else>
+				</template:if>
+			</template:repeat>
+		</template:then>
+		<template:elseif test="{= ${groupFacet>Target/AnnotationPath}.indexOf('com.sap.vocabularies.UI.v1.DataPoint') > -1 }">
+			<template:with path="groupFacet>Target" helper="AHModel.resolvePath" var="dataPoint">
+				<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'groupFacet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'AH.extensionPointReplaceSimpleHeaderFacetExists' }">
+					<template:then>
+						<sfo:GroupElement
+								id="header::{path: 'groupFacet>', formatter: 'AH.getStableIdPartFromFacet'}::{path: 'dataPoint>', formatter: 'AH.getStableIdPartFromDataPoint'}::ReplaceDPExtensionEdit"
+								visible="{parts: [{path: 'entitySet>name'}, {path: 'groupFacet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataPoint>'}], formatter: 'AH.getVisibilityForExtensionPointReplaceSimpleHeaderFacet' }">
+							<core:ExtensionPoint name="ReplaceSimpleHeaderFacet|{entitySet>name}|{path: 'groupFacet>' , formatter:'AH.getStableIdPartFromFacet'}::{path:'dataPoint>', formatter: 'AH.getStableIdPartFromDataPoint'}" />
+						</sfo:GroupElement>
+					</template:then>
+					<template:else>
+						<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.SmartFormDataField" type="XML" />
+					</template:else>
+				</template:if>
+			</template:with>
+		</template:elseif>
+		<template:else>
+			<template:repeat list="{target>}" var="dataField">
+				<template:if test="{parts: [{path: 'entitySet>name'}, {path: 'groupFacet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'AH.extensionPointReplaceSimpleHeaderFacetExists' }">
+					<template:then>
+						<sfo:GroupElement
+								id="header::{path: 'groupFacet>', formatter: 'AH.getStableIdPartFromFacet'}::{path: 'dataField>', formatter: 'AH.getStableIdPartFromDataField'}::ReplaceIdentificationExtensionEdit"
+								visible="{parts: [{path: 'entitySet>name'}, {path: 'groupFacet>'}, {path: 'manifestViewExtensions>'}, {path: 'dataField>'}], formatter: 'AH.getVisibilityForExtensionPointReplaceSimpleHeaderFacet' }">
+							<core:ExtensionPoint name="ReplaceSimpleHeaderFacet|{entitySet>name}|{path: 'groupFacet>' , formatter:'AH.getStableIdPartFromFacet'}::{path:'dataField>', formatter: 'AH.getStableIdPartFromDataField'}" />
+						</sfo:GroupElement>
+					</template:then>
+					<template:else>
+						<template:if test="{= ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForAction' &amp;&amp; ${dataField>RecordType} !== 'com.sap.vocabularies.UI.v1.DataFieldForIntentBasedNavigation'}">
+							<core:Fragment fragmentName="sap.suite.ui.generic.template.fragments.SmartFormDataField" type="XML" />
+						</template:if>
+					</template:else>
+				</template:if>
+			</template:repeat>
+		</template:else>
+	</template:if>
+	<template:if test="{group>extensionPointNamePrefix}">
+		<template:then>
+			<core:ExtensionPoint name="{group>extensionPointName}" />
+		</template:then>
+	</template:if>
+
+ </core:FragmentDefinition>
+					

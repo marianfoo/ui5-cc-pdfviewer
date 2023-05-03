@@ -1,0 +1,27 @@
+<!-- dataField> points to a non-determing dataFieldForAction -->
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+	xmlns:core="sap.ui.core"
+	xmlns:uxap="sap.uxap"
+	template:require="{
+		AH: 'sap/suite/ui/generic/template/js/AnnotationHelper',
+		AHModel: 'sap/ui/model/odata/AnnotationHelper',
+		AHActionButtons: 'sap/suite/ui/generic/template/ObjectPage/annotationHelpers/AnnotationHelperActionButtons'}">
+	<template:with path="dataField>Action"	helper="AHModel.gotoFunctionImport"	var="action">
+		<template:with path="parameter>/variables" helper="AH.getNewVariable" var="actionId">
+			<template:if test="{= ${actionId>}.set('action::' + ${path: 'dataField>', formatter: 'AH.getStableIdPartFromDataField'}) }"/>
+			<template:with path="parameter>/variables" helper="AH.getNewVariable" var="callAction">
+				<template:if test="{= ${callAction>}.set(${parts: [{path: 'dataField>'}, {path: 'actionId>value'}], formatter: 'AHActionButtons.getCallAction'})}"/>
+				<uxap:ObjectPageHeaderActionButton
+					id="{actionId>value}"
+					text="{path: 'dataField>Label', formatter: 'AHModel.format'}"
+					hideText="false"
+					importance="Medium"
+					press="{parts: [{path: 'parameter>/settings'}, {path: 'dataField>'}, {path: 'parameter>/manifest'}, {value: false}, {path: 'callAction>value'}], formatter: 'AH.getAnnotatedActionPress'}"
+					enabled="{ui>/enabled}"
+					visible="{parts: [{path: 'action>sap:applicable-path'}, {path: 'entitySet>entityType'}, {path: 'dataField>'}, {path: 'parameter>/isDraftEnabled'}], formatter: 'AHActionButtons.getDatafieldForActionVisibility'}"
+					type="{path:'dataField>', formatter: '.AH.buildExpressionForButtonCriticality'}">
+				</uxap:ObjectPageHeaderActionButton>
+			</template:with>
+		</template:with>
+	</template:with>
+</core:FragmentDefinition>

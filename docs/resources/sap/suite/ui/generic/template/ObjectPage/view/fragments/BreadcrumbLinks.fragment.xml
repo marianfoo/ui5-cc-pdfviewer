@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1"
+						xmlns:fe="sap.suite.ui.generic.template.genericUtilities"
+						 xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:uxap="sap.uxap">
+
+    <template:repeat list="{parameter>/treeNodeAncestors}" var="ancestorNode">
+		<template:if test="{= ${ancestorNode>level} > 0 }">    	
+            <fe:Link text="{path: 'ancestorNode>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.buildBreadCrumbExpression'}" 
+                press="._templateEventHandlers.onBreadCrumbUrlPressed"
+                visible="{:= ${appSettings>/flexibleColumnLayout} ? '{_templPrivGlobal>/generic/FCL/isVisuallyFullScreen}' : 'true' }" >
+            </fe:Link>
+		</template:if>
+    </template:repeat>
+
+</core:FragmentDefinition>

@@ -1,0 +1,3 @@
+// Copyright (c) 2009-2022 SAP SE, All Rights Reserved
+sap.ui.define([],function(){"use strict";function e(e,r,t,n){return new Promise(function(i,d){function o(e){e.target.removeEventListener("load",o);e.target.removeEventListener("error",o);if(e.type==="error"){d()}i()}var a=document.createElement("script");a.src=e;a.async=!!n;a.addEventListener("load",o);a.addEventListener("error",o);if(r){a.id=r}if(t){a.defer=t}document.head.appendChild(a)})}return e});
+//# sourceMappingURL=common.load.script.js.map

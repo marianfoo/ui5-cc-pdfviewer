@@ -1,0 +1,58 @@
+<!-- This fragment is used inside SmartTableToolbar.fragment. It handles the case of multiple views in a single table for Object Page sections. -->
+<core:FragmentDefinition xmlns:template="http://schemas.sap.com/sapui5/extension/sap.ui.core.template/1" template:require="sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews" 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:build="sap.build">
+    <template:if test="{= ${parts: [{path: 'facet>'}, {path: 'parameter>/settings'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.hasQuickVariantSelectionInObjectPageSection'} === true}">
+        <template:with path="parameter>/settings/sections" var="sections">
+            <template:with path="parameter>/" helper="sap.suite.ui.generic.template.js.StableIdHelper.preparePathForStableId" var="facetId">
+                <template:if test="{= ${facetId>}.buildStableId({type: 'ObjectPage', subType: 'Facet', sRecordType: ${facet>RecordType}, sAnnotationPath: ${facet>Target/AnnotationPath}, sAnnotationId: ${facet>ID/String}, bIsHeaderFacet: ${isHeaderFacet>value}})}"/>
+                <template:if test="{= ${parts: [{path: 'facet>'}, {path: 'parameter>/settings'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.useSegmentedButtonInOP'} === true}">
+                <template:then>
+                    <SegmentedButton id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageTable', subType: 'SegmentedButton', sFacet: ${facetId>id}})}" selectedKey="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getSelectedKeyBinding'}">
+                        <items>
+                            <template:repeat list="{sections>}" var="viewItem">
+                                <template:if test="{= ${parts: [{path: 'viewItem>'}, {path: 'facet>'}, {path: 'sections>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.isCurrentSection'} === true}">
+                                    <template:repeat list="{viewItem>quickVariantSelection/variants}">
+                                        <SegmentedButtonItem id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageTable', subType: 'SegmentedButtonItem', sFacet: ${facetId>id}, sQuickVariantKey: ${viewItem>key}})}"
+                                                            text="{parts: [{path: 'parameter>/settings/sections'}, {path: 'viewItem>'}, {path: 'facet>'}, {path: 'facet>Target'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getTextForItemObjectPage'}"
+                                                            key="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}">
+                                            <customData>
+                                                <core:CustomData key="variantAnnotationPath" value="{viewItem>annotationPath}"/>
+			                                    <core:CustomData key="text" value="{parts: [{path: 'viewItem>'}, {path: 'facet>Target'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterText'}"/>
+                                            </customData>
+                                        </SegmentedButtonItem>
+                                    </template:repeat>
+                                </template:if>
+                            </template:repeat>
+                        </items>
+                    </SegmentedButton>
+                </template:then>
+                <template:else>
+					<Select id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageTable', subType: 'VariantSelection', sFacet: ${facetId>id}})}"
+							selectedKey="{path: 'facet>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getSelectedKeyBinding'}"
+							autoAdjustWidth="true"
+							forceSelection="true">
+						<items>
+							<template:repeat list="{sections>}" var="viewItem">
+                                <template:if test="{= ${parts: [{path: 'viewItem>'}, {path: 'facet>'}, {path: 'sections>'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.isCurrentSection'} === true}">
+                                    <template:repeat list="{viewItem>quickVariantSelection/variants}">
+                                        <core:Item id="{:= ${parameter>/stableId}.getStableId({type: 'ObjectPageTable', subType: 'VariantSelectionItem', sFacet: ${facetId>id}, sQuickVariantKey: ${viewItem>key}})}"
+                                                    text="{parts: [{path: 'parameter>/settings/sections'}, {path: 'viewItem>'}, {path: 'facet>'}, {path: 'facet>Target'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelperMultipleViews.getTextForItemObjectPage'}"
+                                                    key="{path: 'viewItem>', formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterKey'}">
+                                            <core:customData>
+                                                <core:CustomData key="variantAnnotationPath" value="{viewItem>annotationPath}"/>
+			                                    <core:CustomData key="text" value="{parts: [{path: 'viewItem>'}, {path: 'facet>Target'}], formatter: 'sap.suite.ui.generic.template.js.AnnotationHelper.getIconTabFilterText'}"/>
+                                            </core:customData>
+                                        </core:Item>
+                                    </template:repeat>
+                                </template:if>        
+							</template:repeat>
+						</items>
+					</Select>
+				</template:else>
+            </template:if> 
+            </template:with>
+        </template:with>
+    </template:if>
+</core:FragmentDefinition>

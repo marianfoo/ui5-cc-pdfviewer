@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<Dialog id="actionConfirmationDialog" title="{list>/dialogTitle}" class="sapUiContentPadding" state="Warning" ariaLabelledBy="warningText">
+		<content>
+			<Text id="warningText" text="{list>/warningText}" />
+			<VBox> 
+				<List items = "{path: 'list>/aInApplicableItems'}" >
+					<items>
+						<StandardListItem title = "{list>sKey}" class="sapSmartTemplatesSLIBold" />
+					</items>
+					<headerToolbar>
+						<Toolbar>
+							<Title text="{i18n>ST_GENERIC_LIST_TITLE}" level="H2" id="listTitle"/>
+						</Toolbar>
+					</headerToolbar>
+				</List>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>ST_GENERIC_DIALOG_CONTINUE_BUT}" press="onContinue" visible="true" type="Emphasized"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>CANCEL}" press="onCancel"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

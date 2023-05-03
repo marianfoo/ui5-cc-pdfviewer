@@ -1,0 +1,31 @@
+@_sap_ui_mdc_PersonalizationDialog_Border_LightColor : @sapUiContentContrastFocusColor;  				//#fff
+@_sap_ui_mdc_PersonalizationDialog_Border_DarkColor : @sapUiContentFocusColor;
+
+.sapUiMdcPersonalizationDialog {
+
+}
+
+.sapUiMdcPersonalizationDialog .sapMMsgStrip {
+	margin: 10px;
+}
+
+.sapUiMdcPersonalizationDialog .sapUiMdcFieldBase {
+	width: 100%
+}
+
+.sapUiMdcPersonalizationDialog.sapMPopover .sapMPopoverScroll {
+	overflow-y: initial;
+}
+
+.sapUiMdcPersonalizationDialog.sapUiRTABorder {
+	border: 3px solid @_sap_ui_mdc_PersonalizationDialog_Border_LightColor;
+	border-image: repeating-linear-gradient( -45deg, @_sap_ui_mdc_PersonalizationDialog_Border_DarkColor, @_sap_ui_mdc_PersonalizationDialog_Border_DarkColor 5px, @_sap_ui_mdc_PersonalizationDialog_Border_LightColor 5px, @_sap_ui_mdc_PersonalizationDialog_Border_LightColor 10px) 4;
+}
+
+.sapUiMdcPersonalizationDialog .sapMMenuBtn{
+    max-width: none;
+}
+
+.sapUiMdcPersonalizationDialog.sapMDialog:not(.sapMDialogWithSubHeader) > header:first-of-type .sapUiMdcContainerBar{
+	box-shadow: none;
+}

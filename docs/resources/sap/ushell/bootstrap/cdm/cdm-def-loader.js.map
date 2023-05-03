@@ -1,0 +1,1 @@
+{"version":3,"file":"cdm-def-loader.js","names":["sAsyncLoader","document","getElementById","getAttribute","toLowerCase","sap","ui","require","requireSync"],"sources":["cdm-def-loader-dbg.js"],"mappings":";AACA,IAAIA,aAAeC,SAASC,eAAe,oBAAoBC,aAAa,qBAC5E,GAAIH,cAAgBA,aAAaI,gBAAkB,OAAQ,CACvDC,IAAIC,GAAGC,QAAQ,CAAC,oCACpB,KAAO,CACHF,IAAIC,GAAGE,YAAY,mCACvB"}

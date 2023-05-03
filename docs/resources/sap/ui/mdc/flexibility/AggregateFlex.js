@@ -1,0 +1,7 @@
+/*!
+ * OpenUI5
+ * (c) Copyright 2009-2023 SAP SE or an SAP affiliate company.
+ * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
+ */
+sap.ui.define(["sap/ui/mdc/p13n/Engine","sap/ui/mdc/flexibility/Util"],function(e,t){"use strict";var n=function(t){var n=t&&t.isA&&t.isA("sap.ui.mdc.Table")&&t.isTableBound();var r=t&&t.isA&&t.isA("sap.ui.mdc.Chart");if(n||r){if(!t._bWaitForBindChanges){t._bWaitForBindChanges=true;e.getInstance().waitForChanges(t).then(function(){if(n){t.rebind()}else if(r){t.rebind()}delete t._bWaitForBindChanges})}}};var r=function(e,t,r,a){if(a){e.resetRevertData()}else{e.setRevertData(r)}n(t)};var a=function(e,n,a,i){return new Promise(function(o,s){var g=i===t.REVERT;var d=a.modifier;var v=g?e.getRevertData():e.getContent();Promise.resolve().then(d.getProperty.bind(d,n,"aggregateConditions")).then(function(t){var a=t?t:{};a[v.name]={};var i={name:v.name};d.setProperty(n,"aggregateConditions",a);r(e,n,i,g);o()}).catch(function(e){s(e)})})};var i=function(e,n,a,i){return new Promise(function(o,s){var g=i===t.REVERT;var d=a.modifier;var v=g?e.getRevertData():e.getContent();Promise.resolve().then(d.getProperty.bind(d,n,"aggregateConditions")).then(function(t){var a=t?t:{};if(!a){s()}delete a[v.name];d.setProperty(n,"aggregateConditions",a);r(e,n,v,g);o()}).catch(function(e){s(e)})})};var o={};o.addAggregate=t.createChangeHandler({apply:a,revert:i});o.removeAggregate=t.createChangeHandler({apply:i,revert:a});return o});
+//# sourceMappingURL=AggregateFlex.js.map

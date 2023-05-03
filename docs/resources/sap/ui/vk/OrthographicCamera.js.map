@@ -1,0 +1,1 @@
+{"version":3,"file":"OrthographicCamera.js","names":["sap","ui","define","Camera","OrthographicCamera","extend","metadata","library","properties","zoomFactor","type"],"sources":["OrthographicCamera-dbg.js"],"mappings":";;;;;;AAQAA,IAAIC,GAAGC,OAAO,CACb,YACE,SACFC,GAEA,aAgBA,IAAIC,EAAqBD,EAAOE,OAAO,+BAAqF,CAC3HC,SAAU,CACTC,QAAS,YACTC,WAAY,CAIXC,WAAc,CACbC,KAAM,aAMV,OAAON,CACR"}

@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>WARNING}" state="Warning" type="Message" ariaLabelledBy="dataLossText">
+		<content>
+			<Text id="dataLossText" text="{= ${dataLoss>/isLeaving} ? ${i18n>DATA_LOSS_MESSAGE} : ${i18n>DATA_LOSS_GENERAL_MESSAGE} }" />
+		</content>
+		<buttons>
+			<Button text="{= ${dataLoss>/isLeaving} ? ${i18n>DATA_LOSS_LEAVE_BTN} : ${i18n>PROCEED} }"
+				press="onDataLossOK" type="Emphasized" />
+			<Button text="{i18n>CANCEL}"
+				press="onDataLossCancel" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

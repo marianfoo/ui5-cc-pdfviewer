@@ -1,0 +1,1 @@
+{"version":3,"file":"ShellFloatingActionRenderer.js","names":["sap","ui","define","Renderer","ButtonRenderer","ShellFloatingActionRenderer","extend","apiVersion"],"sources":["ShellFloatingActionRenderer-dbg.js"],"mappings":";AAQAA,IAAIC,GAAGC,OAAO,CACV,uBACA,wBACD,SACCC,EACAC,GAEA,aAMA,IAAIC,EAA8BF,EAASG,OAAOF,GAElDC,EAA4BE,WAAa,EAEzC,OAAOF,CAEX,EAAkB"}

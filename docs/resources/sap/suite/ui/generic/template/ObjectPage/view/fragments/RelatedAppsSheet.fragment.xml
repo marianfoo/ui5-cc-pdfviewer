@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ActionSheet id="realtedAppsSheet" buttons="{buttons>/buttons}" showCancelButton="true" class="sapSmartTemplatesObjectPageRelatedAppsPopover sapSmartTemplatesObjectPageActionSheetButton">
+		<buttons>
+			<Button id="relatedAppsButton" enabled="{buttons>enabled}" text="{buttons>text}" press="buttonPressed" class="sapMFlexBox" width="100%" />
+		</buttons>
+	</ActionSheet>
+</core:FragmentDefinition>

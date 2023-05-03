@@ -1,0 +1,774 @@
+/**
+ * This Less file contains the source of the corresponding CSS file.
+ * As the CSS file is not loaded by SAPUI5, it has to be generated with this source.
+ */
+
+@_sap_ushell_LoadingFlower_LeafBackgroundColor: #009de0;
+@_sap_ushell_LoadingFlower_LeafBorderColor: #fff;
+@_sap_ushell_LoadingFlower_ColorOfLeavesForSandbox: #259183;
+
+.fiori2-blossom {
+  position: absolute;
+  width: 1.88rem;
+  height: 1.88rem;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: rotateBlossom;
+  animation-name: rotateBlossom;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+}
+
+.fiori2-leafContainer {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
+
+.fiori2-leaf {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border: 1px solid @_sap_ushell_LoadingFlower_LeafBorderColor;
+  border-radius: 6.25rem 6.25rem 0 6.25rem;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+  -webkit-animation-direction: alternate;
+  animation-direction: alternate;
+}
+
+#fiori2-startup-flower {
+  position: absolute;
+  top: 42%;
+  left: 42%;
+  display: block;
+  width: 1.88rem;
+  height: 1.88rem;
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  filter: alpha(opacity=50);
+
+  @media (min-width: 1024px) {
+    top: 48%;
+    left: 48%;
+  }
+}
+
+#fiori2-loader {
+  display: block;
+  width: 1.57rem;
+  height: 1.57rem;
+  padding-right: 1.57rem;
+  margin: 0 auto;
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  filter: alpha(opacity=50);
+}
+
+.fiori2-leafContainer1 {
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+  -webkit-animation-name: fadeLeaf2-1;
+  animation-name: fadeLeaf2-1;
+}
+
+.fiori2-leafContainer2 {
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
+  -webkit-animation-name: fadeLeaf2-2;
+  animation-name: fadeLeaf2-2;
+}
+
+.fiori2-leafContainer3 {
+  -webkit-animation-duration: 9s;
+  animation-duration: 9s;
+  -webkit-animation-name: fadeLeaf2-3;
+  animation-name: fadeLeaf2-3;
+}
+
+.fiori2-leafContainer4 {
+  -webkit-animation-duration: 6s;
+  animation-duration: 6s;
+  -webkit-animation-name: fadeLeaf2-4;
+  animation-name: fadeLeaf2-4;
+}
+
+.fiori2-leafContainer5 {
+  -webkit-animation-duration: 10s;
+  animation-duration: 10s;
+  -webkit-animation-name: fadeLeaf2-5;
+  animation-name: fadeLeaf2-5;
+}
+
+.fiori2-leaf1 {
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-animation-duration: .75s;
+  animation-duration: .75s;
+  -webkit-animation-name: scaleLeaf2-1;
+  animation-name: scaleLeaf2-1;
+}
+
+.fiori2-leaf2 {
+  -webkit-transform: rotate(72deg);
+  transform: rotate(72deg);
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-name: scaleLeaf2-2;
+  animation-name: scaleLeaf2-2;
+}
+
+.fiori2-leaf3 {
+  -webkit-transform: rotate(144deg);
+  transform: rotate(144deg);
+  -webkit-animation-duration: .6s;
+  animation-duration: .6s;
+  -webkit-animation-name: scaleLeaf2-3;
+  animation-name: scaleLeaf2-3;
+}
+
+.fiori2-leaf4 {
+  -webkit-transform: rotate(216deg);
+  transform: rotate(216deg);
+  -webkit-animation-duration: .9s;
+  animation-duration: .9s;
+  -webkit-animation-name: scaleLeaf2-4;
+  animation-name: scaleLeaf2-4;
+}
+
+.fiori2-leaf5 {
+  -webkit-transform: rotate(288deg);
+  transform: rotate(288deg);
+  -webkit-animation-duration: 1.3s;
+  animation-duration: 1.3s;
+  -webkit-animation-name: scaleLeaf2-5;
+  animation-name: scaleLeaf2-5;
+}
+
+@-webkit-keyframes rotateBlossom {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotateBlossom {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateBlossom {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes fadeLeaf2-1 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-moz-keyframes fadeLeaf2-1 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@keyframes fadeLeaf2-1 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-webkit-keyframes fadeLeaf2-2 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-moz-keyframes fadeLeaf2-2 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@keyframes fadeLeaf2-2 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-webkit-keyframes fadeLeaf2-3 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-moz-keyframes fadeLeaf2-3 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@keyframes fadeLeaf2-3 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-webkit-keyframes fadeLeaf2-4 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-moz-keyframes fadeLeaf2-4 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@keyframes fadeLeaf2-4 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-webkit-keyframes fadeLeaf2-5 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-moz-keyframes fadeLeaf2-5 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@keyframes fadeLeaf2-5 {
+  0% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+  50% {
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    -webkit-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
+    filter: alpha(opacity=100);
+  }
+  100% {
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
+    filter: alpha(opacity=20);
+  }
+}
+
+@-webkit-keyframes scaleLeaf2-1 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(0deg);
+    -moz-transform: scale(1.25) rotate(0deg);
+    -o-transform: scale(1.25) rotate(0deg);
+    -ms-transform: scale(1.25) rotate(0deg);
+    transform: scale(1.25) rotate(0deg);
+  }
+}
+
+@-moz-keyframes scaleLeaf2-1 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(0deg);
+    -moz-transform: scale(1.25) rotate(0deg);
+    -o-transform: scale(1.25) rotate(0deg);
+    -ms-transform: scale(1.25) rotate(0deg);
+    transform: scale(1.25) rotate(0deg);
+  }
+}
+
+@keyframes scaleLeaf2-1 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(0deg);
+    -moz-transform: scale(1.25) rotate(0deg);
+    -o-transform: scale(1.25) rotate(0deg);
+    -ms-transform: scale(1.25) rotate(0deg);
+    transform: scale(1.25) rotate(0deg);
+  }
+}
+
+@-webkit-keyframes scaleLeaf2-2 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(72deg);
+    -moz-transform: scale(1.25) rotate(72deg);
+    -o-transform: scale(1.25) rotate(72deg);
+    -ms-transform: scale(1.25) rotate(72deg);
+    transform: scale(1.25) rotate(72deg);
+  }
+}
+
+@-moz-keyframes scaleLeaf2-2 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(72deg);
+    -moz-transform: scale(1.25) rotate(72deg);
+    -o-transform: scale(1.25) rotate(72deg);
+    -ms-transform: scale(1.25) rotate(72deg);
+    transform: scale(1.25) rotate(72deg);
+  }
+}
+
+@keyframes scaleLeaf2-2 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(72deg);
+    -moz-transform: scale(1.25) rotate(72deg);
+    -o-transform: scale(1.25) rotate(72deg);
+    -ms-transform: scale(1.25) rotate(72deg);
+    transform: scale(1.25) rotate(72deg);
+  }
+}
+
+@-webkit-keyframes scaleLeaf2-3 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(144deg);
+    -moz-transform: scale(1.25) rotate(144deg);
+    -o-transform: scale(1.25) rotate(144deg);
+    -ms-transform: scale(1.25) rotate(144deg);
+    transform: scale(1.25) rotate(144deg);
+  }
+}
+
+@-moz-keyframes scaleLeaf2-3 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(144deg);
+    -moz-transform: scale(1.25) rotate(144deg);
+    -o-transform: scale(1.25) rotate(144deg);
+    -ms-transform: scale(1.25) rotate(144deg);
+    transform: scale(1.25) rotate(144deg);
+  }
+}
+
+@keyframes scaleLeaf2-3 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(144deg);
+    -moz-transform: scale(1.25) rotate(144deg);
+    -o-transform: scale(1.25) rotate(144deg);
+    -ms-transform: scale(1.25) rotate(144deg);
+    transform: scale(1.25) rotate(144deg);
+  }
+}
+
+@-webkit-keyframes scaleLeaf2-4 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(216deg);
+    -moz-transform: scale(1.25) rotate(216deg);
+    -o-transform: scale(1.25) rotate(216deg);
+    -ms-transform: scale(1.25) rotate(216deg);
+    transform: scale(1.25) rotate(216deg);
+  }
+}
+
+@-moz-keyframes scaleLeaf2-4 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(216deg);
+    -moz-transform: scale(1.25) rotate(216deg);
+    -o-transform: scale(1.25) rotate(216deg);
+    -ms-transform: scale(1.25) rotate(216deg);
+    transform: scale(1.25) rotate(216deg);
+  }
+}
+
+@keyframes scaleLeaf2-4 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(216deg);
+    -moz-transform: scale(1.25) rotate(216deg);
+    -o-transform: scale(1.25) rotate(216deg);
+    -ms-transform: scale(1.25) rotate(216deg);
+    transform: scale(1.25) rotate(216deg);
+  }
+}
+
+@-webkit-keyframes scaleLeaf2-5 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(288deg);
+    -moz-transform: scale(1.25) rotate(288deg);
+    -o-transform: scale(1.25) rotate(288deg);
+    -ms-transform: scale(1.25) rotate(288deg);
+    transform: scale(1.25) rotate(288deg);
+  }
+}
+
+@-moz-keyframes scaleLeaf2-5 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(288deg);
+    -moz-transform: scale(1.25) rotate(288deg);
+    -o-transform: scale(1.25) rotate(288deg);
+    -ms-transform: scale(1.25) rotate(288deg);
+    transform: scale(1.25) rotate(288deg);
+  }
+}
+
+@keyframes scaleLeaf2-5 {
+  100% {
+    -webkit-transform: scale(1.25) rotate(288deg);
+    -moz-transform: scale(1.25) rotate(288deg);
+    -o-transform: scale(1.25) rotate(288deg);
+    -ms-transform: scale(1.25) rotate(288deg);
+    transform: scale(1.25) rotate(288deg);
+  }
+}

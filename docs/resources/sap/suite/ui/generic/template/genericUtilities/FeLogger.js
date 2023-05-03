@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/base/Object","sap/base/Log","sap/base/util/extend"],function(e,t,i){"use strict";var n="FioriElements: ";var r=-1;function s(e,t){var i=n+e;return{Level:t.Level,addLogListener:function(e){t.addLogListener(e)},getLogger:function(){var e=t.getLogger(i);if(r>=0){e.setLevel(r)}return e}}}return e.extend("sap.suite.ui.generic.template.genericUtilities.FeLogger",{constructor:function(e){i(this,s(e,t))}})});
+//# sourceMappingURL=FeLogger.js.map
