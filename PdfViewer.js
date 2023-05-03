@@ -138,7 +138,7 @@ sap.ui.define(["sap/ui/core/Control",
 			var viewport = page.getViewport({ scale: me.scale });
 
 			// Prepare canvas using PDF page dimensions
-			var canvas = jQuery.sap.domById(me.getId() + "-canvas");
+			var canvas = window.document.getElementById(me.getId() + "-canvas");
 			if (!canvas) {
 				me.isRendering = false;
 				return;
