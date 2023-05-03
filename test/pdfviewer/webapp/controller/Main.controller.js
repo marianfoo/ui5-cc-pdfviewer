@@ -29,6 +29,9 @@ sap.ui.define([
                 }
                 this._oDialog.open();
             },
+            showPDFFromURL:function(oEvent){
+            },
+
             onClose:function(oEvent){
                 if(this._oDialog){
                     this._oDialog.close();

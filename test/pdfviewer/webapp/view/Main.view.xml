@@ -5,6 +5,10 @@
         <content>
             <u:FileUploader id="upload" fileType="pdf" name="upload" tooltip="Upload your image" change="onFileChange" maximumFileSize="10" sameFilenameAllowed="true"></u:FileUploader>
             <Button text="Open PDF in dialog" press="onOpenPDFViewer"/>
+            <HBox>
+            <Text text="URL: "/>
+            <Input id="pdfsource" value="{/pdfsource}" />
+            </HBox>
             <pdf:PdfViewer id="pdfViewer" pdfSource="{/pdfsource}" height="700px"/>
         </content>
     </Page>

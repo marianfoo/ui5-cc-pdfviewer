@@ -87,26 +87,29 @@ sap.ui.define(["sap/ui/core/Control",
 			this.displayPDF(this.pageNumber);
 		},
 		updatePDF: function() {
-			// if (!this.firstTime && this.count !== 2) {
-			// 	this.count = 0;
-			// }
 			var me = this;
 			me.isRendering = true;
-			if (this.getPdfSource()) { // && this.count < 2) { // && this.old !== this.getPdfSource()) {
+			if (this.getPdfSource()) {
 				this.old = this.getPdfSource();
 				this.count = this.count + 1;
 				this.firstTime = false;
-				var pdfData = atob(this.getPdfSource().split(",")[1]);
-
+		
 				pdfjsLib.GlobalWorkerOptions.workerSrc = sap.ui.require.toUrl("pdfjs-dist") + "/pdf.worker.js";
-				//PDFJS.workerSrc = me.getWorker();
-				var loadingTask = pdfjsLib.getDocument({
-					data: pdfData
-				});
-
+		
+				var loadingTask;
+		
+				var isUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(this.getPdfSource());
+		
+				if (isUrl) {
+					loadingTask = pdfjsLib.getDocument(this.getPdfSource());
+				} else {
+					var pdfData = atob(this.getPdfSource().split(",")[1]);
+					loadingTask = pdfjsLib.getDocument({
+						data: pdfData
+					});
+				}
+		
 				loadingTask.promise.then(function(pdf) {
-
-					// Fetch the first page
 					me.pageNumber = 1;
 					me.scale = 1;
 					me.pdf = pdf;
@@ -114,14 +117,12 @@ sap.ui.define(["sap/ui/core/Control",
 					me.displayPDF(me.pageNumber);
 					me.rerender()
 				}, function(reason) {
-					// PDF loading error
 					console.error(reason);
 				});
-				// } else {
-				// 	this.old = "";
-				// 	this.count = 1;
 			}
 		},
+		
+		
 		displayPDF: function(num) {
 			var me = this;
 			if (this.pdf) {
