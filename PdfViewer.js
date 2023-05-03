@@ -72,19 +72,21 @@ sap.ui.define(["sap/ui/core/Control",
 			this.scale = this.scale - 0.25;
 			this.displayPDF(this.pageNumber);
 		},
-		nextPage: function() {
+		nextPage: async function() {
 			if (this.pageNumber >= this.pdf.numPages) {
 				return;
 			}
 			this.pageNumber++;
-			this.displayPDF(this.pageNumber);
+			await this.displayPDF(this.pageNumber);
+			this._toolbar.rerender()
 		},
-		prevPage: function() {
+		prevPage: async function() {
 			if (this.pageNumber <= 1) {
 				return;
 			}
 			this.pageNumber--;
-			this.displayPDF(this.pageNumber);
+			await this.displayPDF(this.pageNumber);
+			this._toolbar.rerender()
 		},
 		updatePDF: function() {
 			var me = this;
@@ -115,7 +117,7 @@ sap.ui.define(["sap/ui/core/Control",
 					me.pdf = pdf;
 					me._toolbar.getModel("pdf").setProperty("/pages",me.pdf.numPages);
 					me.displayPDF(me.pageNumber);
-					me.rerender()
+					me._toolbar.rerender()
 				}, function(reason) {
 					console.error(reason);
 				});
@@ -123,16 +125,15 @@ sap.ui.define(["sap/ui/core/Control",
 		},
 		
 		
-		displayPDF: function(num) {
+		displayPDF: async function(num) {
 			var me = this;
 			if (this.pdf) {
 				me._toolbar.getModel("pdf").setProperty("/currentpage",num);
-				this.pdf.getPage(num).then(function(page) {
-					me.renderPDF(page);
-				});
+				const page = await this.pdf.getPage(num);
+				await me.renderPDF(page);
 			}
 		},
-		renderPDF: function(page) {
+		renderPDF: async function(page) {
 			var me = this;
 			var viewport = page.getViewport({ scale: me.scale });
 
@@ -152,10 +153,8 @@ sap.ui.define(["sap/ui/core/Control",
 				viewport: viewport
 			};
 			var renderTask = page.render(renderContext);
-			renderTask.promise.then(function() {
-				me.isRendering = false;
-				// console.log('Page rendered');
-			});
+			await renderTask.promise
+			me.isRendering = false;
 		}
 	});
 });
