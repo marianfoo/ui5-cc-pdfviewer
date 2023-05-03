@@ -1,6 +1,6 @@
 {
   "name": "ui5-cc-pdfviewer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A library with a PDF control that will show a PDF based on a base64 data uri",
   "repository" : {
       "type" : "git",

@@ -7,7 +7,7 @@
             <Button text="Open PDF in dialog" press="onOpenPDFViewer"/>
             <HBox>
             <Text text="URL: "/>
-            <Input id="pdfsource" value="{/pdfsource}" />
+            <Input id="pdfsource" value="{/pdfsource}" width="750px" />
             </HBox>
             <pdf:PdfViewer id="pdfViewer" pdfSource="{/pdfsource}" height="700px"/>
         </content>
