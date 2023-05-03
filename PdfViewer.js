@@ -100,10 +100,10 @@ sap.ui.define(["sap/ui/core/Control",
 		
 				var loadingTask;
 		
-				var isUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(this.getPdfSource());
+				var isUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(this.getPdfSource().trim());
 		
 				if (isUrl) {
-					loadingTask = pdfjsLib.getDocument(this.getPdfSource());
+					loadingTask = pdfjsLib.getDocument(this.getPdfSource().trim());
 				} else {
 					var pdfData = atob(this.getPdfSource().split(",")[1]);
 					loadingTask = pdfjsLib.getDocument({
